@@ -40,6 +40,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+# Internal apps
+INSTALLED_APPS += [
+    'resources.apps.ResourcesConfig',
+]
+
+# External apps
+INSTALLED_APPS += [
+    'rest_framework',
+    'drf_yasg',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
