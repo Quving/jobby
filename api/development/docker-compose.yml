@@ -11,4 +11,4 @@ services:
       TYPE: server
       POSTGRES_DB: jobby
       POSTGRES_USER: jobby
-      POSTGRES_PASSWORD: MYSzQr7fUxa8rSag
+      POSTGRES_PASSWORD: ${JOBBY_DB_PASS}
