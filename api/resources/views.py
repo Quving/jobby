@@ -3,8 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import generics, permissions
 
-from resources.models import Job, Group, Host
-from resources.serializers import JobSerializer, GroupSerializer, HostSerializer
+from resources.models import Job, Host, JobGroup, HostGroup
+from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSerializer, HostSerializer
 
 
 class JobList(generics.ListCreateAPIView):
@@ -19,16 +19,28 @@ class JobDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobSerializer
 
 
-class GroupList(generics.ListCreateAPIView):
+class JobGroupList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = JobGroup.objects.all()
+    serializer_class = JobGroupSerializer
 
 
-class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
+class JobGroupDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = JobGroup.objects.all()
+    serializer_class = JobGroupSerializer
+
+
+class HostGroupList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = HostGroup.objects.all()
+    serializer_class = HostGroupSerializer
+
+
+class HostGroupDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = HostGroup.objects.all()
+    serializer_class = HostGroupSerializer
 
 
 class HostList(generics.ListCreateAPIView):
