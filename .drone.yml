@@ -1,0 +1,76 @@
+---
+kind: pipeline
+type: docker
+name: api
+steps:
+- name: publish api
+  image: plugins/docker
+  settings:
+    repo:
+      from_secret: docker_repository
+    context: api
+    tags:
+      - api-${DRONE_BRANCH}
+    dockerfile: api/Dockerfile
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    status: [ success ]
+    branch: [ master ]
+
+- name: deploy api
+  image: quving/drone-rancher-cicd:latest
+  settings:
+    stamp: ${DRONE_COMMIT}
+    kubernetes_deployment: jobby-api-master,jobby-api-worker
+    kubernetes_namespace: apps
+    rancher_url:
+      from_secret: rancher_url
+    rancher_token:
+      from_secret: rancher_token
+    rancher_context:
+      from_secret: rancher_context
+  when:
+    status: [ success ]
+    branch: [ master ]
+
+
+---
+kind: pipeline
+type: docker
+name: web
+steps:
+- name: publish web
+  image: plugins/docker
+  settings:
+    repo:
+      from_secret: docker_repository
+    context: web
+    tags:
+      - web-${DRONE_BRANCH}
+    dockerfile: web/Dockerfile
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    status: [ success ]
+    branch: [ master ]
+
+- name: deploy web
+  image: quving/drone-rancher-cicd:latest
+  settings:
+    stamp: ${DRONE_COMMIT}
+    kubernetes_deployment: jobby-web
+    kubernetes_namespace: apps
+    rancher_url:
+      from_secret: rancher_url
+    rancher_token:
+      from_secret: rancher_token
+    rancher_context:
+      from_secret: rancher_context
+  when:
+    status: [ success ]
+    branch: [ master ]
