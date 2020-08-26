@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-appname='turfrobcloud'
+appname='jobby'
 
 echo "Migrate files..."
 python manage.py migrate
