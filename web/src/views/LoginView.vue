@@ -62,27 +62,24 @@
         methods: {
             submit: function () {
                 AuthService.login(this.username, this.password)
-                    .then(response => {
-                        response;
-
-                        this.$store.dispatch('login', {
-                            credentials: {
-                                username: this.username,
-                                password: this.password
+                        .then(response => {
+                            this.$store.dispatch('login', {
+                                credentials: {
+                                    jwt_token: response.data['access']
+                                }
+                            });
+                            this.$router.push('/');
+                            this.alert_type = 'success';
+                            this.status = 'Login successful.';
+                        })
+                        .catch(error => {
+                            this.alert_type = 'error';
+                            if (error.response.status === 401) {
+                                this.status = 'User cannot be found.';
+                            } else {
+                                this.status = 'Error occured. Please try it later again.';
                             }
                         });
-                        this.$router.push('/');
-                        this.alert_type = 'success';
-                        this.status = 'Login successful.';
-                    })
-                    .catch(error => {
-                        this.alert_type = 'error';
-                        if (error.response.status === 401) {
-                            this.status = 'User cannot be found.';
-                        } else {
-                            this.status = 'Error occured. Please try it later again.';
-                        }
-                    });
             }
         }
     };
