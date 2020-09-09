@@ -1,86 +1,99 @@
 <template>
-    <v-app>
-        <v-container fluid>
-            <v-layout row wrap>
-                <v-flex xs12 class="text-center" mt-5>
-                    <h1>Login</h1>
-                </v-flex>
-                <v-flex xs12 sm6 offset-sm3 mt-3>
-                    <form @submit.prevent="submit" autocomplete="on">
-                        <v-layout column>
-                            <v-flex>
-                                <v-text-field
-                                        name="username"
-                                        label="Username"
-                                        id="username"
-                                        autocomplete="username"
-                                        v-model="username"
-                                        required>
-                                </v-text-field>
-                            </v-flex>
-                            <v-flex>
-                                <v-text-field
-                                        name="password"
-                                        label="Password"
-                                        value="your-password"
-                                        id="password"
-                                        type="password"
-                                        autocomplete="password"
-                                        v-model="password"
-                                        required>
-                                </v-text-field>
-                            </v-flex>
-                            <v-flex class="text-center" mt-5>
-                                <v-btn color="primary"
-                                       type="submit"
-                                >Sign In
-                                </v-btn>
-                            </v-flex>
-                            <v-flex class="text-center" mt-5>
-                                <v-alert dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
-                            </v-flex>
-                        </v-layout>
-                    </form>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-app>
+  <v-container>
+    <v-row class="ma-10">
+      <v-col>
+        <h1 class="mb-7">What is Jobby?</h1>
+        <p>
+          Some people probably know the problem: You are a developer or a server administrator and you have several
+          servers or applications that you have to maintain. Now one and the other application or server has jobs that
+          are regularly executed autonomously. For example a backup script, or a task that cleans up the database of
+          an application. Usually these jobs run silently in the background and the Developer/Admin is not informed
+          whether the job was executed successfully or failed.
+        </p>
+        <p>
+          Jobby is a self-host platform that can be considered as
+          a report centre. The idea is that when a cronjob has finished, it forwards its status to Jobby. The user
+          then gets an overview of all his distributed jobs in the jobby dashboard.
+        </p>
+      </v-col>
+      <v-col class="text-center">
+        <h1 class="mb-7">Login</h1>
+        <form @submit.prevent="submit" autocomplete="on">
+          <v-layout column>
+            <v-flex>
+              <v-text-field
+                  outlined
+                  name="email"
+                  label="Email"
+                  id="email"
+                  autocomplete="email"
+                  v-model="email"
+                  required>
+              </v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-text-field
+                  outlined
+                  name="password"
+                  label="Password"
+                  value="your-password"
+                  id="password"
+                  type="password"
+                  autocomplete="password"
+                  v-model="password"
+                  required>
+              </v-text-field>
+            </v-flex>
+            <v-flex class="text-center" mt-5>
+              <v-btn color="primary"
+                     type="submit"
+              >Sign In
+              </v-btn>
+            </v-flex>
+            <v-flex class="text-center" mt-5>
+              <v-alert dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
+            </v-flex>
+          </v-layout>
+        </form>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-    import AuthService from "../services/AuthService";
+import AuthService from "../services/AuthService";
 
-    export default {
-        data: function () {
-            return {
-                username: '',
-                password: '',
-                alert_type: '',
-                status: ''
-            };
-        },
-        methods: {
-            submit: function () {
-                AuthService.login(this.username, this.password)
-                        .then(response => {
-                            this.$store.dispatch('login', {
-                                credentials: {
-                                    jwt_token: response.data['access']
-                                }
-                            });
-                            this.$router.push('/');
-                            this.alert_type = 'success';
-                            this.status = 'Login successful.';
-                        })
-                        .catch(error => {
-                            this.alert_type = 'error';
-                            if (error.response.status === 401) {
-                                this.status = 'User cannot be found.';
-                            } else {
-                                this.status = 'Error occured. Please try it later again.';
-                            }
-                        });
-            }
-        }
+export default {
+  data: function () {
+    return {
+      email: '',
+      password: '',
+      alert_type: '',
+      status: ''
     };
+  },
+  methods: {
+    submit: function () {
+      AuthService.login(this.email, this.password)
+          .then(response => {
+            this.$store.dispatch('login', {
+              credentials: {
+                jwt_token: response.data['access']
+              }
+            });
+            this.$router.push('/');
+            this.alert_type = 'success';
+            this.status = 'Login successful.';
+          })
+          .catch(error => {
+            this.alert_type = 'error';
+            if (error.response.status === 401) {
+              this.status = 'User cannot be found.';
+            } else {
+              this.status = 'Error occured. Please try it later again.';
+            }
+          });
+    }
+  }
+};
 </script>
