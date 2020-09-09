@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row class="ma-10">
-      <v-col>
+    <v-row class="ma-10" justify="center">
+      <v-col cols="6">
         <h1 class="mb-7">What is Jobby?</h1>
         <p>
           Some people probably know the problem: You are a developer or a server administrator and you have several
@@ -16,7 +16,7 @@
           then gets an overview of all his distributed jobs in the jobby dashboard.
         </p>
       </v-col>
-      <v-col class="text-center">
+      <v-col cols="4" class="text-center">
         <h1 class="mb-7">Login</h1>
         <form @submit.prevent="submit" autocomplete="on">
           <v-layout column>
@@ -44,15 +44,13 @@
                   required>
               </v-text-field>
             </v-flex>
-            <v-flex class="text-center" mt-5>
-              <v-btn color="primary"
-                     type="submit"
-              >Sign In
-              </v-btn>
-            </v-flex>
-            <v-flex class="text-center" mt-5>
-              <v-alert dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
-            </v-flex>
+            <v-btn
+                color="primary"
+                :loading="submitBtnLoading"
+                type="submit">
+              Sign In
+            </v-btn>
+            <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
           </v-layout>
         </form>
       </v-col>
@@ -66,6 +64,7 @@ import AuthService from "../services/AuthService";
 export default {
   data: function () {
     return {
+      submitBtnLoading: false,
       email: '',
       password: '',
       alert_type: '',
@@ -74,6 +73,7 @@ export default {
   },
   methods: {
     submit: function () {
+      this.submitBtnLoading = true;
       AuthService.login(this.email, this.password)
           .then(response => {
             this.$store.dispatch('login', {
@@ -81,11 +81,13 @@ export default {
                 jwt_token: response.data['access']
               }
             });
+            this.submitBtnLoading = false;
             this.$router.push('/');
             this.alert_type = 'success';
             this.status = 'Login successful.';
           })
           .catch(error => {
+            this.submitBtnLoading = false;
             this.alert_type = 'error';
             if (error.response.status === 401) {
               this.status = 'User cannot be found.';
