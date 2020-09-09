@@ -1,10 +1,10 @@
 <template>
     <v-app>
-        <v-content>
+        <v-main>
             <Header></Header>
             <router-view></router-view>
             <Footer></Footer>
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 
@@ -20,8 +20,6 @@
             Footer
         },
 
-        data: () => ({
-            //
-        }),
+        data: () => ({}),
     };
 </script>
