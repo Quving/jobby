@@ -1,6 +1,7 @@
 <template>
   <v-container style="color: white">
     <v-navigation-drawer
+        v-model="enableDrawer"
         expand-on-hover
         absolute>
       <v-list
@@ -48,7 +49,7 @@ export default {
   name: 'App',
   components: {},
   data: () => ({
-    drawer: true,
+    enableDrawer: true,
     navbarOptions: [
       {title: 'Dashboard', icon: 'mdi-view-dashboard'},
       {title: 'Jobs', icon: 'mdi-image'},
@@ -61,9 +62,18 @@ export default {
     hostName: "",
     hostDescription: "",
   }),
+  watch: {
+    "$store.getters.isAuthenticated": function (isAuthenticated) {
+      this.enableDrawer = isAuthenticated;
+      if (isAuthenticated) {
+        console.log("Enable drawer");
+      } else {
+        console.log("Disable drawer");
+      }
+    }
+  },
   methods: {
     addHost: function () {
-
     }
   }
 };

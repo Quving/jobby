@@ -85,8 +85,10 @@ export default {
             this.$router.push('/');
             this.alert_type = 'success';
             this.status = 'Login successful.';
+            this.$parent.loggedIn = true;
           })
           .catch(error => {
+            this.$parent.loggedIn = false;
             this.submitBtnLoading = false;
             this.alert_type = 'error';
             if (error.response.status === 401) {
