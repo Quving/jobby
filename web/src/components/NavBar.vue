@@ -29,7 +29,7 @@
     <template v-slot:append>
       <v-list-item link>
         <v-list-item-icon>
-          <v-icon> mdi-view-dashboard</v-icon>
+          <v-icon> mdi-exit-run</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Logout</v-list-item-title>
@@ -47,8 +47,8 @@ export default {
       enableDrawer: this.$store.getters.isAuthenticated,
       navbarOptions: [
         {title: 'Dashboard', icon: 'mdi-view-dashboard'},
-        {title: 'Jobs', icon: 'mdi-image'},
-        {title: 'Hosts', icon: 'mdi-image'},
+        {title: 'Jobs', icon: 'mdi-calendar-clock'},
+        {title: 'Hosts', icon: 'mdi-laptop'},
         {title: 'About', icon: 'mdi-help-box'},
       ],
       username: "vinh-ngu@hotmail.com",
