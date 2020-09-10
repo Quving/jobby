@@ -59,15 +59,15 @@
 </template>
 
 <script>
-import AuthService from "../services/AuthService";
+import AuthService from "@/services/AuthService";
 
 export default {
   data: function () {
     return {
-      submitBtnLoading: false,
+      alert_type: '',
       email: '',
       password: '',
-      alert_type: '',
+      submitBtnLoading: false,
       status: ''
     };
   },
