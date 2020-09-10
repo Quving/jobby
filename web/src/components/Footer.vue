@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed dense dark hidden>
+  <v-footer app fixed dense dark hidden>
     <v-row justify="center">
       <div>
         <div>Programmed by Quving. This Project is open-source and can be found at <a target="_blank"

@@ -1,13 +1,11 @@
 <template>
   <v-app>
+    <Header></Header>
+    <NavBar></NavBar>
     <v-main>
-      <Header></Header>
-      <NavBar></NavBar>
-      <v-content>
-        <router-view></router-view>
-      </v-content>
-      <Footer></Footer>
+      <router-view></router-view>
     </v-main>
+    <Footer></Footer>
   </v-app>
 </template>
 
