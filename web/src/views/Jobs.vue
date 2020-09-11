@@ -11,14 +11,18 @@
               <tr>
                 <th class="text-left">Job</th>
                 <th class="text-left">Description</th>
+                <th class="text-left">Created At</th>
                 <th class="text-left">Host</th>
+                <th class="text-left">Job Group</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="item in jobs" :key="item.name">
                 <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
+                <td>{{ new Date(item.created_at).toLocaleString() }}</td>
                 <td>{{ item.host }}</td>
+                <td>{{ item.jobgroup }}</td>
               </tr>
               </tbody>
             </template>
@@ -26,38 +30,33 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-container>
+        <v-btn color="success">Register New Job</v-btn>
+      </v-container>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import JobbyApi from "@/services/JobbyApi";
 
 export default {
   name: 'Home',
   data() {
     return {
-      jobs: [
-        {
-          name: 'Borgbackup Quving-production-server',
-          description: 'A borgbackup will be created.',
-          host: 'Quving-Production-server'
-        },
-        {
-          name: 'Gitlab Pruning Script',
-          description: 'At this task, the gitlab-registry will be pruned.',
-          host: 'git.hoou.tech'
-        },
-        {
-          name: 'Apt Update, apt upgrade',
-          description: 'Autoupdate all package to latest.',
-          host: 'Quving.Rancher-Master'
-        },
-      ],
+      jobs: [],
     }
   },
-  components: {},
-  watch: {},
   created() {
+    this.fetchData();
   },
-  methods: {},
+  methods: {
+    fetchData: function () {
+      JobbyApi.listJobs(this.$store.getters.credentials.jwt_token).then((data) => {
+        this.jobs = data;
+      })
+    }
+  },
 }
 </script>

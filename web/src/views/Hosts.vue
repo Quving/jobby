@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="text-center">Host</h1>
+    <h1 class="text-center">HOSTS</h1>
     <v-row>
       <v-col>
         <v-card>
@@ -11,12 +11,14 @@
               <tr>
                 <th class="text-left">Host</th>
                 <th class="text-left">Description</th>
+                <th class="text-left">OS</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="item in hosts" :key="item.name">
                 <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
+                <td>{{ item.os }}</td>
               </tr>
               </tbody>
             </template>
@@ -24,35 +26,34 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-container>
+        <v-btn color="success">Register New Host</v-btn>
+      </v-container>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 
+import JobbyApi from "@/services/JobbyApi";
+
 export default {
   name: 'Home',
   data() {
     return {
-      hosts: [
-        {
-          name: 'Quving Production 0',
-          description: 'Single K8s that has every task of Quving. :)',
-        },
-        {
-          name: 'Quving Rancher Master',
-          description: 'Rancher Master',
-        },
-        {
-          name: 'Quving Storage',
-          description: 'Backup Server',
-        },
-      ],
+      hosts: [],
     }
   },
-  components: {},
-  watch: {},
   created() {
+    this.fetchData();
   },
-  methods: {},
+  methods: {
+    fetchData: function () {
+      JobbyApi.listHosts(this.$store.getters.credentials.jwt_token).then((data) => {
+        this.hosts = data;
+      })
+    }
+  },
 }
 </script>

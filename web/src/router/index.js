@@ -33,7 +33,7 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home,
+        component: Dashboard,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')
