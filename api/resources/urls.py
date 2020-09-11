@@ -5,6 +5,8 @@ from resources import views
 urlpatterns = [
     path('job/', views.JobList.as_view()),
     path('job/<int:pk>/', views.JobDetail.as_view()),
+    path('report/', views.JobList.as_view()),
+    path('report/<int:pk>/', views.JobDetail.as_view()),
     path('host/', views.HostList.as_view()),
     path('host/<int:pk>/', views.HostDetail.as_view()),
     path('jobgroup/', views.JobGroupList.as_view()),

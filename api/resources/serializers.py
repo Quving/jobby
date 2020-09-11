@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from resources.models import Job, Host, JobGroup, HostGroup
+from resources.models import Job, Host, JobGroup, HostGroup, Report
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -8,6 +8,14 @@ class JobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Job
+        fields = "__all__"
+
+
+class ReportSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Report
         fields = "__all__"
 
 

@@ -1,10 +1,21 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework import generics, permissions
 
-from resources.models import Job, Host, JobGroup, HostGroup
-from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSerializer, HostSerializer
+from resources.models import Job, Host, JobGroup, HostGroup, Report
+from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSerializer, HostSerializer, \
+    ReportSerializer
+
+
+class ReportList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
+
+
+class ReportDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
 
 
 class JobList(generics.ListCreateAPIView):

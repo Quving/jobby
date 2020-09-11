@@ -30,4 +30,11 @@ class Job(models.Model):
     host = models.OneToOneField(Host, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     registered_by = models.OneToOneField(User, on_delete=models.PROTECT)
+
+
+class Report(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    logs = models.CharField(max_length=512)
+    name = models.CharField(max_length=128)
     status = models.CharField(max_length=24)
