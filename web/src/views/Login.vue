@@ -82,7 +82,7 @@ export default {
               }
             });
             this.submitBtnLoading = false;
-            this.$router.push('/');
+            this.$router.push('/dashboard');
             this.alert_type = 'success';
             this.status = 'Login successful.';
             this.$parent.loggedIn = true;

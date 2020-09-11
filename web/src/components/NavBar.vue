@@ -17,6 +17,7 @@
       <v-list-item
           v-for="item in navbarOptions"
           :key="item.title"
+          :href="item.href"
           link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -46,10 +47,10 @@ export default {
     return {
       enableDrawer: this.$store.getters.isAuthenticated,
       navbarOptions: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard'},
-        {title: 'Jobs', icon: 'mdi-calendar-clock'},
-        {title: 'Hosts', icon: 'mdi-laptop'},
-        {title: 'About', icon: 'mdi-help-box'},
+        {title: 'Dashboard', icon: 'mdi-view-dashboard', href: '/dashboard'},
+        {title: 'Jobs', icon: 'mdi-calendar-clock', href: '/jobs'},
+        {title: 'Hosts', icon: 'mdi-laptop', href: '/hosts'},
+        {title: 'About', icon: 'mdi-help-box', href: '/about'},
       ],
       username: "vinh-ngu@hotmail.com",
       role: "admin",

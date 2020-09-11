@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
 import store from '../store/index'
+import Dashboard from "@/views/Dashboard";
+import Hosts from "@/views/Hosts";
+import Jobs from "@/views/Jobs";
 
 Vue.use(VueRouter)
 
@@ -10,12 +13,27 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: LoginView
+        component: Login,
+    },
+    {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: Dashboard,
+    },
+    {
+        path: '/jobs',
+        name: 'Jobs',
+        component: Jobs,
+    },
+    {
+        path: '/hosts',
+        name: 'Hosts',
+        component: Hosts,
     },
     {
         path: '/',
         name: 'Home',
-        component: HomeView,
+        component: Home,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')
