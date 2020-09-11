@@ -8,11 +8,17 @@ class JobGroup(models.Model):
     description = models.CharField(max_length=512)
     name = models.CharField(max_length=128)
 
+    def __str__(self):
+        return self.name
+
 
 class HostGroup(models.Model):
     created_by = models.OneToOneField(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
     name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
 
 
 class Host(models.Model):
@@ -21,6 +27,9 @@ class Host(models.Model):
     hostgroup = models.ForeignKey(HostGroup, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     os = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
 
 
 class Job(models.Model):
@@ -31,6 +40,9 @@ class Job(models.Model):
     name = models.CharField(max_length=128)
     registered_by = models.OneToOneField(User, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.name
+
 
 class Report(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
@@ -38,3 +50,6 @@ class Report(models.Model):
     logs = models.CharField(max_length=512)
     name = models.CharField(max_length=128)
     status = models.CharField(max_length=24)
+
+    def __str__(self):
+        return self.name
