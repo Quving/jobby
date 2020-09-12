@@ -17,7 +17,7 @@
       <v-list-item
           v-for="item in navbarOptions"
           :key="item.title"
-          :href="item.href"
+          @click="$router.push(item.href)"
           link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -57,8 +57,6 @@ export default {
       username: "vinh-ngu@hotmail.com",
       role: "admin",
       addBtnLoading: false,
-      hostName: "",
-      hostDescription: "",
     }
   },
   mounted() {
