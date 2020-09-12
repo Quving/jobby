@@ -28,7 +28,8 @@
     </v-row>
     <v-row>
       <v-container>
-        <v-btn color="success">Register New Host</v-btn>
+        <v-btn class="mr-5" color="success" @click="$router.push('/hosts/create')">Create Host</v-btn>
+        <v-btn class="mr-5" color="success" @click="$router.push('/hostgroups/create')">Create HostGroup</v-btn>
       </v-container>
     </v-row>
   </v-container>

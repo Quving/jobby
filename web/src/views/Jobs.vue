@@ -32,7 +32,8 @@
     </v-row>
     <v-row>
       <v-container>
-        <v-btn color="success">Register New Job</v-btn>
+        <v-btn class="mr-5" color="success" @click="$router.push('/jobs/create')">Create Job</v-btn>
+        <v-btn class="mr-5" color="success" @click="$router.push('/jobgroups/create')">Create JobGroup</v-btn>
       </v-container>
     </v-row>
   </v-container>

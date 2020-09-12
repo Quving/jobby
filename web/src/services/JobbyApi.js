@@ -42,5 +42,43 @@ export default {
                     reject(error.response.data);
                 })
         });
+    },
+    listHostGroups() {
+        const jwtToken = store.getters.credentials.jwt_token;
+        const headers = {
+            "Content-type": "application/json",
+            "accept": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        };
+        return new Promise((resolve, reject) => {
+            axios.get(`${config.envs.apiHostUrl}/resources/hostgroup/`, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
+        });
+    },
+    listJobGroups() {
+        const jwtToken = store.getters.credentials.jwt_token;
+        const headers = {
+            "Content-type": "application/json",
+            "accept": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        };
+        return new Promise((resolve, reject) => {
+            axios.get(`${config.envs.apiHostUrl}/resources/jobgroup/`, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
+        });
     }
 }

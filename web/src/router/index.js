@@ -5,6 +5,10 @@ import store from '../store/index'
 import Dashboard from "@/views/Dashboard";
 import Hosts from "@/views/Hosts";
 import Jobs from "@/views/Jobs";
+import AddJob from "@/components/AddJob";
+import AddHost from "@/components/AddHost";
+import AddJobGroup from "@/components/AddJobGroup";
+import AddHostGroup from "@/components/AddHostGroup";
 
 Vue.use(VueRouter)
 
@@ -13,21 +17,73 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
     },
     {
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
     },
     {
         path: '/jobs',
         name: 'Jobs',
         component: Jobs,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
+    },
+    {
+        path: '/jobgroups/create',
+        name: 'AddJobgroup',
+        component: AddJobGroup,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
+    },
+    {
+        path: '/jobs/create',
+        name: 'AddJob',
+        component: AddJob,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
     },
     {
         path: '/hosts',
         name: 'Hosts',
         component: Hosts,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
+    },
+    {
+        path: '/hostgroups/create',
+        name: 'AddHostGroups',
+        component: AddHostGroup,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
+    },
+    {
+        path: '/hosts/create',
+        name: 'Hosts',
+        component: AddHost,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
     },
     {
         path: '/',
@@ -41,10 +97,11 @@ const routes = [
     {
         path: '/about',
         name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
     }
 ]
 
