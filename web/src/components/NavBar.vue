@@ -28,7 +28,7 @@
       </v-list-item>
     </v-list>
     <template v-slot:append>
-      <v-list-item link>
+      <v-list-item link @click="logout">
         <v-list-item-icon>
           <v-icon> mdi-exit-run</v-icon>
         </v-list-item-icon>
@@ -40,6 +40,8 @@
   </v-navigation-drawer>
 </template>
 <script>
+import AuthService from "@/services/AuthService";
+
 export default {
   name: 'App',
   components: {},
@@ -73,6 +75,9 @@ export default {
   },
   methods: {
     addHost: function () {
+    },
+    logout: function () {
+      AuthService.logout();
     }
   }
 };
