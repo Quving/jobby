@@ -5,10 +5,10 @@ import store from '../store/index'
 import Dashboard from "@/views/Dashboard";
 import Hosts from "@/views/Hosts";
 import Jobs from "@/views/Jobs";
-import AddJob from "@/components/AddJob";
-import AddHost from "@/components/AddHost";
-import AddJobGroup from "@/components/AddJobGroup";
-import AddHostGroup from "@/components/AddHostGroup";
+import AddJob from "@/views/AddJob";
+import AddHost from "@/views/AddHost";
+import AddJobGroup from "@/views/AddJobGroup";
+import AddHostGroup from "@/views/AddHostGroup";
 
 Vue.use(VueRouter)
 

@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import AddHost from '../components/AddHost';
-import AddJob from '../components/AddJob';
-import AddHostGroup from '../components/AddHostGroup';
-import AddJobGroup from '../components/AddJobGroup';
+import AddHost from './AddHost';
+import AddJob from './AddJob';
+import AddHostGroup from './AddHostGroup';
+import AddJobGroup from './AddJobGroup';
 
 export default {
   name: 'Home',
