@@ -1,9 +1,11 @@
 import axios from 'axios';
+import store from '@/store/index';
 
 const config = require('@/config');
 
 export default {
-    listJobs(jwtToken) {
+    listJobs() {
+        const jwtToken = store.getters.credentials.jwt_token;
         const headers = {
             "Content-type": "application/json",
             "accept": "application/json",
@@ -19,7 +21,8 @@ export default {
             })
         });
     },
-    listHosts(jwtToken) {
+    listHosts() {
+        const jwtToken = store.getters.credentials.jwt_token;
         const headers = {
             "Content-type": "application/json",
             "accept": "application/json",
@@ -31,6 +34,9 @@ export default {
             }).then((response) => {
                 resolve(response.data);
             }, (error) => {
+                if (error.response.status === 401) {
+                    // ToDo: Logout
+                }
                 reject(error.response.data);
             })
         });

@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     fetchData: function () {
-      JobbyApi.listHosts(this.$store.getters.credentials.jwt_token).then((data) => {
+      JobbyApi.listHosts().then((data) => {
         this.hosts = data;
       })
     }

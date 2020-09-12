@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     fetchData: function () {
-      JobbyApi.listJobs(this.$store.getters.credentials.jwt_token).then((data) => {
+      JobbyApi.listJobs().then((data) => {
         this.jobs = data;
       })
     }
