@@ -1,9 +1,10 @@
 # Create your views here.
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 
 from resources.models import Job, Host, JobGroup, HostGroup, Report
 from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSerializer, HostSerializer, \
-    ReportSerializer
+    ReportSerializer, UserSerializer
 
 
 class ReportList(generics.ListCreateAPIView):
@@ -64,3 +65,19 @@ class HostDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Host.objects.all()
     serializer_class = HostSerializer
+
+
+class WhoAmI(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        """
+        Retrieve information about the current user.
+        :param request:
+        :return:
+        """
+
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

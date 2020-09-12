@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from resources.models import Job, Host, JobGroup, HostGroup, Report
@@ -41,3 +42,13 @@ class HostGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = HostGroup
         fields = "__all__"
+
+
+class UserSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = User
+        fields = [
+            'first_name', 'last_name', 'email', 'last_login', 'id'
+        ]
