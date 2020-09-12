@@ -18,8 +18,11 @@
     </v-row>
   </v-container>
 </template>
+
 <script>
+
 import store from '../store/index';
+import AuthService from "@/services/AuthService";
 
 export default {
   computed: {
@@ -39,8 +42,7 @@ export default {
   },
   methods: {
     logout: function () {
-      this.$store.dispatch('logout');
-      this.$router.push('/login');
+      AuthService.logout();
     }
   }
 }

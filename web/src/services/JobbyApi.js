@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '@/store/index';
+import AuthService from "@/services/AuthService";
 
 const config = require('@/config');
 
@@ -12,13 +13,15 @@ export default {
             "Authorization": `Bearer ${jwtToken}`
         };
         return new Promise((resolve, reject) => {
-            axios.get(`${config.envs.apiHostUrl}/resources/job/`, {
-                headers: headers,
-            }).then((response) => {
-                resolve(response.data);
-            }, (error) => {
-                reject(error.response.data);
-            })
+            axios.get(`${config.envs.apiHostUrl}/resources/job/`, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
         });
     },
     listHosts() {
@@ -29,16 +32,15 @@ export default {
             "Authorization": `Bearer ${jwtToken}`
         };
         return new Promise((resolve, reject) => {
-            axios.get(`${config.envs.apiHostUrl}/resources/host/`, {
-                headers: headers,
-            }).then((response) => {
-                resolve(response.data);
-            }, (error) => {
-                if (error.response.status === 401) {
-                    // ToDo: Logout
-                }
-                reject(error.response.data);
-            })
+            axios.get(`${config.envs.apiHostUrl}/resources/host/`, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
         });
     }
 }
