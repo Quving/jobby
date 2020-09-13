@@ -17,10 +17,6 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
-        beforeEnter(to, from, next) {
-            if (store.getters.isAuthenticated) next()
-            else next('/login')
-        }
     },
     {
         path: '/dashboard',
