@@ -67,7 +67,7 @@ class HostDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = HostSerializer
 
 
-class WhoAmI(generics.ListAPIView):
+class WhoAmIView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = UserSerializer
 

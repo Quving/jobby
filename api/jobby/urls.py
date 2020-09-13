@@ -24,6 +24,8 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
+from resources.views import WhoAmIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
@@ -57,4 +59,9 @@ urlpatterns += [
 # Apps
 urlpatterns += [
     path('resources/', include('resources.urls')),
+]
+
+# Custom
+urlpatterns += [
+    path('whoami/', WhoAmIView.as_view())
 ]
