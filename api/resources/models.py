@@ -47,7 +47,7 @@ class Job(models.Model):
 class Report(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    logs = models.CharField(max_length=512)
+    logs = models.CharField(max_length=10000)
     name = models.CharField(max_length=128)
     status = models.CharField(max_length=24)
 
