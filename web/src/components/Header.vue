@@ -6,7 +6,7 @@
       <v-toolbar-title
           style="width: 500px; font-size: 28px"
           class="ml-0 pl-4">
-        <span class="hidden-sm-and-down">Jobby</span>
+        <a @click="$router.push('/dashboard')" class="hidden-sm-and-down" style="color:white">Jobby</a>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-if="isAuthenticated" @click="logout">
