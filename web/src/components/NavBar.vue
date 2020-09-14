@@ -6,7 +6,7 @@
         class="py-0">
       <v-list-item two-line>
         <v-list-item-avatar>
-          <img alt="Text" src="https://randomuser.me/api/portraits/men/81.jpg">
+          <img alt="Text" :src="gravatarUrl">
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>{{ username }}</v-list-item-title>
@@ -42,6 +42,8 @@
 <script>
 import AuthService from "@/services/AuthService";
 
+const md5 = require('md5');
+
 export default {
   name: 'App',
   components: {},
@@ -54,10 +56,14 @@ export default {
         {title: 'Hosts', icon: 'mdi-laptop', href: '/hosts'},
         {title: 'About', icon: 'mdi-help-box', href: '/about'},
       ],
-      username: "vinh-ngu@hotmail.com",
-      role: "admin",
+      username: "",
+      role: "",
       addBtnLoading: false,
+      gravatarUrl: '',
     }
+  },
+  created() {
+    this.fetchUserdata();
   },
   mounted() {
     this.$root.$on('menu_drawer_clicked', (val) => {
@@ -72,6 +78,15 @@ export default {
     },
   },
   methods: {
+    fetchUserdata: function () {
+      AuthService.fetchUserdata().then((userdata) => {
+        this.username = userdata.email;
+        this.role = new Date(userdata.last_login).toLocaleString();
+        this.gravatarUrl = `https://www.gravatar.com/avatar/${md5(userdata.email)}`;
+      }, (error) => {
+        console.log(error);
+      });
+    },
     addHost: function () {
     },
     logout: function () {

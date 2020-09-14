@@ -19,6 +19,26 @@ export default {
     logout: function () {
         store.dispatch('logout');
         router.push('/login');
+    },
+
+    fetchUserdata: function () {
+        const jwtToken = store.getters.credentials.jwt_token;
+        const headers = {
+            "Content-type": "application/json",
+            "accept": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        };
+        return new Promise((resolve, reject) => {
+            axios.get(`${config.envs.apiHostUrl}/whoami`, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        this.logout();
+                    }
+                    reject(error.response.data);
+                })
+        });
     }
 
 };
