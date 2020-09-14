@@ -1,43 +1,42 @@
 <template>
-  <v-navigation-drawer app v-model="enableDrawer" clipped expand-on-hover>
-    <v-list
-        dense
-        nav
-        class="py-0">
-      <v-list-item two-line>
-        <v-list-item-avatar>
-          <img alt="Text" :src="gravatarUrl">
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title>{{ username }}</v-list-item-title>
-          <v-list-item-subtitle> {{ role }}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider></v-divider>
-      <v-list-item
-          v-for="item in navbarOptions"
-          :key="item.title"
-          @click="$router.push(item.href)"
-          link>
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-    <template v-slot:append>
-      <v-list-item link @click="logout">
-        <v-list-item-icon>
-          <v-icon> mdi-exit-run</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>Logout</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
-  </v-navigation-drawer>
+  <v-container>
+    <v-navigation-drawer app v-model="enableDrawer" clipped expand-on-hover mini-variant>
+      <v-list dense nav>
+        <v-list-item two-line class="px-0">
+          <v-list-item-avatar>
+            <img alt="Text" :src="gravatarUrl">
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ username }}</v-list-item-title>
+            <v-list-item-subtitle> {{ role }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item
+            v-for="item in navbarOptions"
+            :key="item.title"
+            @click="$router.push(item.href)"
+            link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <template v-slot:append>
+        <v-list-item link @click="logout">
+          <v-list-item-icon>
+            <v-icon> mdi-exit-run</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </v-navigation-drawer>
+  </v-container>
 </template>
 <script>
 import AuthService from "@/services/AuthService";
