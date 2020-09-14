@@ -6,7 +6,7 @@ from django.db import models
 class JobGroup(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
         return self.name
@@ -15,7 +15,7 @@ class JobGroup(models.Model):
 class HostGroup(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class Host(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
     hostgroup = models.ForeignKey(HostGroup, on_delete=models.CASCADE)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     os = models.CharField(max_length=128)
 
     def __str__(self):
@@ -37,7 +37,7 @@ class Job(models.Model):
     description = models.CharField(max_length=512)
     jobgroup = models.ForeignKey(JobGroup, on_delete=models.CASCADE)
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
