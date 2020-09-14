@@ -5,7 +5,7 @@ import AuthService from "@/services/AuthService";
 const config = require('@/config');
 
 export default {
-    listJobs() {
+    makeAuthenticatedGetRequest(urlPath) {
         const jwtToken = store.getters.credentials.jwt_token;
         const headers = {
             "Content-type": "application/json",
@@ -13,7 +13,7 @@ export default {
             "Authorization": `Bearer ${jwtToken}`
         };
         return new Promise((resolve, reject) => {
-            axios.get(`${config.envs.apiHostUrl}/resources/job/`, {headers: headers})
+            axios.get(`${config.envs.apiHostUrl}${urlPath}`, {headers: headers})
                 .then((response) => {
                     resolve(response.data);
                 }, (error) => {
@@ -23,62 +23,17 @@ export default {
                     reject(error.response.data);
                 })
         });
+    },
+    listJobs() {
+        return this.makeAuthenticatedGetRequest('/resources/job/');
     },
     listHosts() {
-        const jwtToken = store.getters.credentials.jwt_token;
-        const headers = {
-            "Content-type": "application/json",
-            "accept": "application/json",
-            "Authorization": `Bearer ${jwtToken}`
-        };
-        return new Promise((resolve, reject) => {
-            axios.get(`${config.envs.apiHostUrl}/resources/host/`, {headers: headers})
-                .then((response) => {
-                    resolve(response.data);
-                }, (error) => {
-                    if (error.response.status === 401) {
-                        AuthService.logout();
-                    }
-                    reject(error.response.data);
-                })
-        });
+        return this.makeAuthenticatedGetRequest('/resources/hosts/');
     },
     listHostGroups() {
-        const jwtToken = store.getters.credentials.jwt_token;
-        const headers = {
-            "Content-type": "application/json",
-            "accept": "application/json",
-            "Authorization": `Bearer ${jwtToken}`
-        };
-        return new Promise((resolve, reject) => {
-            axios.get(`${config.envs.apiHostUrl}/resources/hostgroup/`, {headers: headers})
-                .then((response) => {
-                    resolve(response.data);
-                }, (error) => {
-                    if (error.response.status === 401) {
-                        AuthService.logout();
-                    }
-                    reject(error.response.data);
-                })
-        });
+        return this.makeAuthenticatedGetRequest('/resources/hostgroup/');
     },
     listJobGroups() {
-        const jwtToken = store.getters.credentials.jwt_token;
-        const headers = {
-            "Content-type": "application/json",
-            "accept": "application/json",
-            "Authorization": `Bearer ${jwtToken}`
-        };
-        return new Promise((resolve, reject) => {
-            axios.get(`${config.envs.apiHostUrl}/resources/jobgroup/`, {headers: headers})
-                .then((response) => {
-                    resolve(response.data);
-                }, (error) => {
-                    if (error.response.status === 401) {
-                        AuthService.logout();
-                    }
-                    reject(error.response.data);
-                })
-        });
+        return this.makeAuthenticatedGetRequest('/resources/jobgroup');
     }
 }
