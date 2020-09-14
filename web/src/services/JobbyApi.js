@@ -24,16 +24,49 @@ export default {
                 })
         });
     },
+    makeAuthenticatedPostRequest(urlPath, data) {
+        const jwtToken = store.getters.credentials.jwt_token;
+        const url = `${config.envs.apiHostUrl}${urlPath}`;
+        const headers = {
+            "Content-type": "application/json",
+            "accept": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        };
+
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
+        });
+    },
+    createJob(data) {
+        return this.makeAuthenticatedPostRequest('/resources/job/', data);
+    },
+    createHost(data,) {
+        return this.makeAuthenticatedPostRequest('/resources/host/', data);
+    },
+    createHostGroup(data) {
+        return this.makeAuthenticatedPostRequest('/resources/hostgroup/', data);
+    },
+    createJobGroup(data) {
+        return this.makeAuthenticatedPostRequest('/resources/jobgroup/', data);
+    },
     listJobs() {
         return this.makeAuthenticatedGetRequest('/resources/job/');
     },
     listHosts() {
-        return this.makeAuthenticatedGetRequest('/resources/hosts/');
+        return this.makeAuthenticatedGetRequest('/resources/host/');
     },
     listHostGroups() {
         return this.makeAuthenticatedGetRequest('/resources/hostgroup/');
     },
     listJobGroups() {
-        return this.makeAuthenticatedGetRequest('/resources/jobgroup');
+        return this.makeAuthenticatedGetRequest('/resources/jobgroup/');
     }
 }

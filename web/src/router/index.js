@@ -74,7 +74,7 @@ const routes = [
     },
     {
         path: '/hosts/create',
-        name: 'Hosts',
+        name: 'AddHosts',
         component: AddHost,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
