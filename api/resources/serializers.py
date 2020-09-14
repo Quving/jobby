@@ -5,6 +5,7 @@ from resources.models import Job, Host, JobGroup, HostGroup, Report
 
 
 class JobSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.username')
     id = serializers.ReadOnlyField()
 
     class Meta:
@@ -21,6 +22,7 @@ class ReportSerializer(serializers.ModelSerializer):
 
 
 class HostSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.username')
     id = serializers.ReadOnlyField()
 
     class Meta:
@@ -29,6 +31,7 @@ class HostSerializer(serializers.ModelSerializer):
 
 
 class JobGroupSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.username')
     id = serializers.ReadOnlyField()
 
     class Meta:
@@ -37,6 +40,7 @@ class JobGroupSerializer(serializers.ModelSerializer):
 
 
 class HostGroupSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.username')
     id = serializers.ReadOnlyField()
 
     class Meta:
