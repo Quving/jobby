@@ -38,7 +38,7 @@ class Job(models.Model):
     jobgroup = models.ForeignKey(JobGroup, on_delete=models.CASCADE)
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
-    registered_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    created_by = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name

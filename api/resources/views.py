@@ -24,6 +24,9 @@ class JobList(generics.ListCreateAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class JobDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -35,6 +38,9 @@ class JobGroupList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = JobGroup.objects.all()
     serializer_class = JobGroupSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class JobGroupDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -48,6 +54,9 @@ class HostGroupList(generics.ListCreateAPIView):
     queryset = HostGroup.objects.all()
     serializer_class = HostGroupSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class HostGroupDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -59,6 +68,9 @@ class HostList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Host.objects.all()
     serializer_class = HostSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class HostDetail(generics.RetrieveUpdateDestroyAPIView):
