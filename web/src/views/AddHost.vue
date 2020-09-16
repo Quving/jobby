@@ -1,49 +1,57 @@
 <template>
   <v-container>
     <h1 class="text-center">CREATE HOST</h1>
-    <v-col>
-      <v-text-field
-          outlined
-          counter=25
-          hint="Select a good host name!"
-          autofocus
-          v-model="hostName"
-          label="Host name">
-      </v-text-field>
-      <v-textarea
-          outlined
-          counter=100
-          v-model="hostDescription"
-          label="Host Description"
-          hint="Your later self will be happy about a good description.">
-      </v-textarea>
-      <v-text-field
-          outlined
-          counter=25
-          hint="E.g. 'Ubuntu 20.04 LTS'"
-          v-model="hostOS"
-          label="Host OS">
-      </v-text-field>
-      <v-select
-          outlined
-          v-model="selectedHostGroupId"
-          :items="hostGroups"
-          item-text="name"
-          item-value="id"
-          :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-          label="HostGroup"
-          hint="Select HostGroup"
-          persistent-hint
-      ></v-select>
-      <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
-      <v-btn
-          :loading="addBtnLoading"
-          :disabled="false"
-          color="success"
-          @click="addHost">
-        Add Host
-      </v-btn>
-    </v-col>
+    <form @submit.prevent="submit" autocomplete="on">
+      <v-col>
+        <v-text-field
+            required
+            outlined
+            :rules="nameRule"
+            counter=100
+            hint="Select a good host name!"
+            autofocus
+            v-model="hostName"
+            label="Host name">
+        </v-text-field>
+        <v-textarea
+            required
+            outlined
+            :rules="descriptionRule"
+            counter=500
+            v-model="hostDescription"
+            label="Host Description"
+            hint="Your later self will be happy about a good description.">
+        </v-textarea>
+        <v-text-field
+            required
+            outlined
+            :rules="osRule"
+            counter=25
+            hint="E.g. 'Ubuntu 20.04 LTS'"
+            v-model="hostOS"
+            label="Host OS">
+        </v-text-field>
+        <v-select
+            required
+            outlined
+            v-model="selectedHostGroupId"
+            :items="hostGroups"
+            item-text="name"
+            item-value="id"
+            :menu-props="{ maxHeight: '400', maxWidth:'200' }"
+            label="HostGroup"
+            hint="Select HostGroup"
+            persistent-hint
+        ></v-select>
+        <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
+        <v-btn
+            :loading="addBtnLoading"
+            color="success"
+            @click="submit">
+          Create Host
+        </v-btn>
+      </v-col>
+    </form>
   </v-container>
 </template>
 
@@ -54,7 +62,22 @@ export default {
   name: 'App',
   components: {},
   data: () => ({
+    // Form rules
+    nameRule: [
+      v => !!v || 'Setting a name is required.',
+      v => v.length <= 100 || 'Must be less than 100 characters.'
+    ],
+    descriptionRule: [
+      v => !!v || 'Providing a description is required.',
+      v => v.length <= 500 || 'Must be less than 500 characters.'
+    ],
+    osRule: [
+      v => !!v || 'Providing a OS is required.',
+      v => v.length <= 25 || 'Must be less than 25 characters.'
+    ],
+
     addBtnLoading: false,
+    formIsValid: false,
     hostName: "",
     hostOS: "",
     hostGroups: [],
@@ -74,7 +97,9 @@ export default {
         console.log(error);
       });
     },
-    addHost: function () {
+    submit: function () {
+      this.addBtnLoading = true;
+
       const data = {
         name: this.hostName,
         os: this.hostOS,
@@ -93,6 +118,7 @@ export default {
           this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
         }
       });
+      this.addBtnLoading = false;
     }
   }
 };
