@@ -25,6 +25,7 @@
                   outlined
                   name="email"
                   label="Email"
+                  :rules="emailRule"
                   id="email"
                   autocomplete="email"
                   v-model="email"
@@ -47,7 +48,8 @@
             <v-btn
                 color="primary"
                 :loading="submitBtnLoading"
-                type="submit">
+                type="submit"
+                @click="submit">
               Sign In
             </v-btn>
             <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
@@ -67,8 +69,12 @@ export default {
       alert_type: '',
       email: '',
       password: '',
+      status: '',
       submitBtnLoading: false,
-      status: ''
+      emailRule: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
     };
   },
   methods: {
@@ -82,7 +88,7 @@ export default {
               }
             });
             this.submitBtnLoading = false;
-            this.$router.push('/dashboard');
+            this.$router.push('/');
             this.alert_type = 'success';
             this.status = 'Login successful.';
             this.$parent.loggedIn = true;
