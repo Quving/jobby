@@ -73,6 +73,7 @@ export default {
   },
   watch: {
     "$store.getters.isAuthenticated": function (isAuthenticated) {
+      this.fetchUserdata();
       this.enableDrawer = isAuthenticated;
     },
   },

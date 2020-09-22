@@ -22,13 +22,19 @@ export default {
     },
 
     fetchUserdata: function () {
-        const jwtToken = store.getters.credentials.jwt_token;
-        const headers = {
-            "Content-type": "application/json",
-            "accept": "application/json",
-            "Authorization": `Bearer ${jwtToken}`
-        };
         return new Promise((resolve, reject) => {
+
+            // Reject, if credentials are not available.
+            if (!store.getters.credentials) {
+                reject("Credentials are not available to fetch userdata.");
+            }
+
+            const jwtToken = store.getters.credentials.jwt_token;
+            const headers = {
+                "Content-type": "application/json",
+                "accept": "application/json",
+                "Authorization": `Bearer ${jwtToken}`
+            };
             axios.get(`${config.envs.apiHostUrl}/whoami`, {headers: headers})
                 .then((response) => {
                     resolve(response.data);
