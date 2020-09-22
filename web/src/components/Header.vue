@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-app-bar fixed clipped-left dense app dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-if="isAuthenticated" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-icon large> mdi-home</v-icon>
       <v-toolbar-title
           style="width: 500px; font-size: 28px"
