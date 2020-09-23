@@ -87,9 +87,5 @@ export default {
     }
   },
   components: {ViewHeader},
-  watch: {},
-  created() {
-  },
-  methods: {},
 }
 </script>

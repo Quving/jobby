@@ -88,10 +88,12 @@ export default {
               }
             });
             this.submitBtnLoading = false;
-            this.$router.push('/');
             this.alert_type = 'success';
             this.status = 'Login successful.';
             this.$parent.loggedIn = true;
+            if (this.$router.currentRoute.fullPath !== '/dashboard') {
+              this.$router.push('/dashboard');
+            }
           })
           .catch(error => {
             this.$parent.loggedIn = false;
