@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-navigation-drawer app v-model="enableDrawer" clipped expand-on-hover>
-      <v-list dense nav>
+      <v-list nav>
         <v-list-item two-line class="px-0">
           <v-list-item-avatar>
             <img alt="Text" :src="gravatarUrl">

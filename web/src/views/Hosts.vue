@@ -12,10 +12,10 @@
           <template v-slot:default>
             <thead>
             <tr>
-              <th class="text-left">Host</th>
-              <th class="text-left">Description</th>
-              <th class="text-left">OS</th>
-              <th class="text-left">Actions</th>
+              <th class="text-left" style="font-size: 16px">Host</th>
+              <th class="text-left" style="font-size: 16px">Description</th>
+              <th class="text-left" style="font-size: 16px">OS</th>
+              <th class="text-left" style="font-size: 16px">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -68,3 +68,9 @@ export default {
   },
 }
 </script>
+<style>
+th {
+  font-weight: bold;
+  text-decoration: underline;
+}
+</style>

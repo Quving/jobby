@@ -12,12 +12,12 @@
           <template v-slot:default>
             <thead>
             <tr>
-              <th class="text-left">Job</th>
-              <th class="text-left">Description</th>
-              <th class="text-left">Created At</th>
-              <th class="text-left">Host</th>
-              <th class="text-left">Job Group</th>
-              <th class="text-left">Actions</th>
+              <th class="text-left" style="font-size: 16px">Job</th>
+              <th class="text-left" style="font-size: 16px">Description</th>
+              <th class="text-left" style="font-size: 16px">Created At</th>
+              <th class="text-left" style="font-size: 16px">Host</th>
+              <th class="text-left" style="font-size: 16px">Job Group</th>
+              <th class="text-left" style="font-size: 16px">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -71,3 +71,9 @@ export default {
   },
 }
 </script>
+<style>
+th {
+  font-weight: bold;
+  text-decoration: underline;
+}
+</style>
