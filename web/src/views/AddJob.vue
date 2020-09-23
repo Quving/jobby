@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="text-center">CREATE JOB</h1>
+    <view-headers header="Create Job"></view-headers>
     <form @submit.prevent="submit" autocomplete="on">
       <v-col>
         <v-text-field
@@ -57,10 +57,11 @@
 </template>
 <script>
 import JobbyApi from "@/services/jobbyApi";
+import ViewHeaders from "@/components/ViewHeader";
 
 export default {
   name: 'App',
-  components: {},
+  components: {ViewHeaders},
   data: () => ({
     // Status bar
     alert_type: "",

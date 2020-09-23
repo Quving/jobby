@@ -1,7 +1,7 @@
 <template>
   <v-container>
+    <view-headers header="Create Jobgroup"></view-headers>
     <form @submit.prevent="submit" autocomplete="on">
-      <h1 class="text-center">CREATE JOBGROUP</h1>
       <v-col>
         <v-text-field
             required
@@ -35,10 +35,11 @@
 </template>
 <script>
 import JobbyApi from "@/services/jobbyApi";
+import ViewHeaders from "@/components/ViewHeader";
 
 export default {
   name: 'App',
-  components: {},
+  components: {ViewHeaders},
   data: () => ({
     nameRule: [
       v => !!v || 'Setting a name is required.',

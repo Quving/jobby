@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="text-center">DASHBOARD</h1>
+    <view-header header="Dashboard"></view-header>
     <v-row>
       <v-col>
         <v-card>
@@ -50,6 +50,8 @@
 
 <script>
 
+import ViewHeader from "@/components/ViewHeader";
+
 export default {
   name: 'Home',
   data() {
@@ -84,7 +86,7 @@ export default {
       ]
     }
   },
-  components: {},
+  components: {ViewHeader},
   watch: {},
   created() {
   },

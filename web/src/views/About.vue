@@ -1,6 +1,12 @@
 <template>
   <v-container>
-    <h1 class="text-center">ABOUT</h1>
-
+    <view-header header="About"></view-header>
   </v-container>
 </template>
+<script>
+import ViewHeader from "@/components/ViewHeader";
+
+export default {
+  components: {ViewHeader}
+}
+</script>

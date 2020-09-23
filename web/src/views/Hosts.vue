@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <h1 class="text-center">HOSTS</h1>
+    <view-headers header="Hosts"></view-headers>
     <v-row justify="center">
-      <v-btn class="mt-10 mb-5 mr-5" color="success" @click="$router.push('/hosts/create')">Create Host</v-btn>
-      <v-btn class="mt-10 mb-5" color="success" @click="$router.push('/hostgroups/create')">Create HostGroup</v-btn>
+      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/hosts/create')">Create Host</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/hostgroups/create')">Create HostGroup</v-btn>
     </v-row>
     <v-row justify="center">
       <v-card min-width="800">
@@ -34,9 +34,11 @@
 <script>
 
 import JobbyApi from "@/services/jobbyApi";
+import ViewHeaders from "@/components/ViewHeader";
 
 export default {
   name: 'Home',
+  components: {ViewHeaders},
   data() {
     return {
       hosts: [],

@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <h1 class="text-center">JOBS</h1>
+    <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
-      <v-btn class="mt-10 mb-5 mr-5" color="success" @click="$router.push('/jobs/create')">Create Job</v-btn>
-      <v-btn class="mt-10 mb-5" color="success" @click="$router.push('/jobgroups/create')">Create JobGroup</v-btn>
+      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/jobs/create')">Create Job</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroups/create')">Create JobGroup</v-btn>
     </v-row>
     <v-row justify="center">
       <v-card min-width="800">
@@ -37,9 +37,11 @@
 
 <script>
 import JobbyApi from "@/services/jobbyApi";
+import ViewHeaders from "@/components/ViewHeader";
 
 export default {
   name: 'Home',
+  components: {ViewHeaders},
   data() {
     return {
       jobs: [],
