@@ -37,7 +37,7 @@ const routes = [
         }
     },
     {
-        path: '/jobgroups/create',
+        path: '/jobgroup/create',
         name: 'AddJobgroup',
         component: AddJobGroup,
         beforeEnter(to, from, next) {
@@ -46,7 +46,7 @@ const routes = [
         }
     },
     {
-        path: '/jobs/create',
+        path: '/job/create',
         name: 'AddJob',
         component: AddJob,
         beforeEnter(to, from, next) {
@@ -64,7 +64,7 @@ const routes = [
         }
     },
     {
-        path: '/hostgroups/create',
+        path: '/hostgroup/create',
         name: 'AddHostGroups',
         component: AddHostGroup,
         beforeEnter(to, from, next) {
@@ -73,7 +73,7 @@ const routes = [
         }
     },
     {
-        path: '/hosts/create',
+        path: '/host/create',
         name: 'AddHosts',
         component: AddHost,
         beforeEnter(to, from, next) {

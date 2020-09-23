@@ -2,8 +2,8 @@
   <v-container>
     <view-headers header="Hosts"></view-headers>
     <v-row justify="center">
-      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/hosts/create')">Create Host</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/hostgroups/create')">Create HostGroup</v-btn>
+      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/host/create')">Create Host</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/hostgroup/create')">Create HostGroup</v-btn>
     </v-row>
     <v-row justify="center">
       <v-card min-width="800">
@@ -15,6 +15,7 @@
               <th class="text-left">Host</th>
               <th class="text-left">Description</th>
               <th class="text-left">OS</th>
+              <th class="text-left">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +23,17 @@
               <td>{{ item.name }}</td>
               <td>{{ item.description }}</td>
               <td>{{ item.os }}</td>
+              <td>
+                <v-btn icon color="green">
+                  <v-icon>mdi-magnify</v-icon>
+                </v-btn>
+                <v-btn icon color="orange">
+                  <v-icon>mdi-lead-pencil</v-icon>
+                </v-btn>
+                <v-btn icon color="red">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </td>
             </tr>
             </tbody>
           </template>

@@ -2,8 +2,8 @@
   <v-container>
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
-      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/jobs/create')">Create Job</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroups/create')">Create JobGroup</v-btn>
+      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/job/create')">Create Job</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroup/create')">Create JobGroup</v-btn>
     </v-row>
     <v-row justify="center">
       <v-card min-width="800">
