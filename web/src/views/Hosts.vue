@@ -1,6 +1,10 @@
 <template>
   <v-container>
     <h1 class="text-center">HOSTS</h1>
+    <v-row justify="end">
+        <v-btn class="mr-5" color="success" @click="$router.push('/hosts/create')">Create Host</v-btn>
+        <v-btn class="mr-5" color="success" @click="$router.push('/hostgroups/create')">Create HostGroup</v-btn>
+    </v-row>
     <v-row>
       <v-col>
         <v-card>
@@ -25,12 +29,6 @@
           </v-simple-table>
         </v-card>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-container>
-        <v-btn class="mr-5" color="success" @click="$router.push('/hosts/create')">Create Host</v-btn>
-        <v-btn class="mr-5" color="success" @click="$router.push('/hostgroups/create')">Create HostGroup</v-btn>
-      </v-container>
     </v-row>
   </v-container>
 </template>

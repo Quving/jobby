@@ -1,6 +1,10 @@
 <template>
   <v-container>
     <h1 class="text-center">JOBS</h1>
+    <v-row justify="end">
+        <v-btn class="mr-5" color="success" @click="$router.push('/jobs/create')">Create Job</v-btn>
+        <v-btn class="mr-5" color="success" @click="$router.push('/jobgroups/create')">Create JobGroup</v-btn>
+    </v-row>
     <v-row>
       <v-col>
         <v-card>
@@ -29,12 +33,6 @@
           </v-simple-table>
         </v-card>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-container>
-        <v-btn class="mr-5" color="success" @click="$router.push('/jobs/create')">Create Job</v-btn>
-        <v-btn class="mr-5" color="success" @click="$router.push('/jobgroups/create')">Create JobGroup</v-btn>
-      </v-container>
     </v-row>
   </v-container>
 </template>
