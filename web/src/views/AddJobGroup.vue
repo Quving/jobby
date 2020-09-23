@@ -7,7 +7,6 @@
             required
             outlined
             counter=25
-            :rules="nameRule"
             hint="Select a good jobGroup name!"
             autofocus
             v-model="jobGroupName"
@@ -17,7 +16,6 @@
             required
             outlined
             counter=100
-            :rules="descriptionRule"
             v-model="jobGroupDescription"
             label="JobGroup Description"
             hint="Your later self will be happy about a good description.">
@@ -41,14 +39,6 @@ export default {
   name: 'App',
   components: {ViewHeaders},
   data: () => ({
-    nameRule: [
-      v => !!v || 'Setting a name is required.',
-      v => v.length <= 100 || 'Must be less than 100 characters.'
-    ],
-    descriptionRule: [
-      v => !!v || 'Providing a description is required.',
-      v => v.length <= 500 || 'Must be less than 500 characters.'
-    ],
     addBtnLoading: false,
     jobGroupName: "",
     jobGroupDescription: "",

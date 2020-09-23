@@ -17,6 +17,7 @@
               <th class="text-left">Created At</th>
               <th class="text-left">Host</th>
               <th class="text-left">Job Group</th>
+              <th class="text-left">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +27,17 @@
               <td>{{ new Date(item.created_at).toLocaleString() }}</td>
               <td>{{ item.host }}</td>
               <td>{{ item.jobgroup }}</td>
+              <td>
+                <v-btn icon color="green">
+                  <v-icon>mdi-magnify</v-icon>
+                </v-btn>
+                <v-btn icon color="orange">
+                  <v-icon>mdi-lead-pencil</v-icon>
+                </v-btn>
+                <v-btn icon color="red">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </td>
             </tr>
             </tbody>
           </template>

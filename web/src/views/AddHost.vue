@@ -6,7 +6,6 @@
         <v-text-field
             required
             outlined
-            :rules="nameRule"
             counter=100
             hint="Select a good host name!"
             autofocus
@@ -16,7 +15,6 @@
         <v-textarea
             required
             outlined
-            :rules="descriptionRule"
             counter=500
             v-model="hostDescription"
             label="Host Description"
@@ -25,7 +23,6 @@
         <v-text-field
             required
             outlined
-            :rules="osRule"
             counter=25
             hint="E.g. 'Ubuntu 20.04 LTS'"
             v-model="hostOS"
@@ -47,7 +44,7 @@
         <v-btn
             :loading="addBtnLoading"
             color="success"
-            @click="submit">
+            type="submit">
           Create Host
         </v-btn>
       </v-col>
@@ -63,20 +60,6 @@ export default {
   name: 'App',
   components: {ViewHeaders},
   data: () => ({
-    // Form rules
-    nameRule: [
-      v => !!v || 'Setting a name is required.',
-      v => v.length <= 100 || 'Must be less than 100 characters.'
-    ],
-    descriptionRule: [
-      v => !!v || 'Providing a description is required.',
-      v => v.length <= 500 || 'Must be less than 500 characters.'
-    ],
-    osRule: [
-      v => !!v || 'Providing a OS is required.',
-      v => v.length <= 25 || 'Must be less than 25 characters.'
-    ],
-
     addBtnLoading: false,
     formIsValid: false,
     hostName: "",

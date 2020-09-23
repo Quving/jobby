@@ -66,20 +66,6 @@ export default {
     // Status bar
     alert_type: "",
     status: "",
-
-    // Form variables
-    nameRule: [
-      v => !!v || 'Setting a name is required.',
-      v => v.length <= 100 || 'Must be less than 100 characters.'
-    ],
-    descriptionRule: [
-      v => !!v || 'Providing a description is required.',
-      v => v.length <= 500 || 'Must be less than 500 characters.'
-    ],
-    osRule: [
-      v => !!v || 'Providing a OS is required.',
-      v => v.length <= 25 || 'Must be less than 25 characters.'
-    ],
     jobName: "",
     jobDescription: "",
     selectedJobGroup: 0,
