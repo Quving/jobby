@@ -15,7 +15,7 @@
         <v-list-item
             v-for="item in navbarOptions"
             :key="item.title"
-            @click="$router.push(item.href)"
+            @click="navigateTo(item.href)"
             link>
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -78,6 +78,11 @@ export default {
     },
   },
   methods: {
+    navigateTo: function (path) {
+      if (this.$router.currentRoute.fullPath !== path) {
+        this.$router.push(path);
+      }
+    },
     fetchUserdata: function () {
       AuthService.fetchUserdata().then((userdata) => {
         this.username = userdata.email;
