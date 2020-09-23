@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 class JobGroup(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
     name = models.CharField(max_length=128, unique=True)
@@ -13,6 +14,7 @@ class JobGroup(models.Model):
 
 
 class HostGroup(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
     name = models.CharField(max_length=128, unique=True)
@@ -22,6 +24,7 @@ class HostGroup(models.Model):
 
 
 class Host(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
     hostgroup = models.ForeignKey(HostGroup, on_delete=models.CASCADE)
@@ -45,8 +48,8 @@ class Job(models.Model):
 
 
 class Report(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     logs = models.CharField(max_length=10000)
     name = models.CharField(max_length=128)
     status = models.CharField(max_length=24)
