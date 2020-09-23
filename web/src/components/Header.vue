@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      drawer: false
+      drawer: store.getters.isAuthenticated
     }
   },
   watch: {
