@@ -8,7 +8,6 @@
             outlined
             counter=25
             hint="Select a good hostGroup name!"
-            autofocus
             v-model="hostGroupName"
             label="HostGroup name">
         </v-text-field>

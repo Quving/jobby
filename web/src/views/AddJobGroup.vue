@@ -8,7 +8,6 @@
             outlined
             counter=25
             hint="Select a good jobGroup name!"
-            autofocus
             v-model="jobGroupName"
             label="JobGroup name">
         </v-text-field>

@@ -2,13 +2,12 @@
   <v-container>
     <view-headers header="ADD HOST"></view-headers>
     <form @submit.prevent="submit" autocomplete="on">
-      <v-col>
+      <v-col >
         <v-text-field
             required
             outlined
             counter=100
             hint="Select a good host name!"
-            autofocus
             v-model="hostName"
             label="Host name">
         </v-text-field>
