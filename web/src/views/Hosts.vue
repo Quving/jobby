@@ -14,6 +14,7 @@
             <tr>
               <th class="text-left" style="font-size: 16px">Host</th>
               <th class="text-left" style="font-size: 16px">Description</th>
+              <th class="text-left" style="font-size: 16px">Created At</th>
               <th class="text-left" style="font-size: 16px">OS</th>
               <th class="text-left" style="font-size: 16px">Actions</th>
             </tr>
@@ -22,6 +23,7 @@
             <tr v-for="item in hosts" :key="item.name">
               <td>{{ item.name }}</td>
               <td>{{ item.description }}</td>
+              <td>{{ item.created_at }}</td>
               <td>{{ item.os }}</td>
               <td>
                 <v-btn icon color="green">
