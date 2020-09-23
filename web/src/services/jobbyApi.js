@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '@/store/index';
-import AuthService from "@/services/AuthService";
+import AuthService from "@/services/authService";
 
 const config = require('@/config');
 

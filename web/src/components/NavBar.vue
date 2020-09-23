@@ -39,7 +39,7 @@
   </v-container>
 </template>
 <script>
-import AuthService from "@/services/AuthService";
+import AuthService from "@/services/authService";
 
 const md5 = require('md5');
 

@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import JobbyApi from "@/services/JobbyApi";
+import JobbyApi from "@/services/jobbyApi";
 
 export default {
   name: 'App',

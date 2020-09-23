@@ -22,7 +22,7 @@
 <script>
 
 import store from '../store/index';
-import AuthService from "@/services/AuthService";
+import AuthService from "@/services/authService";
 
 export default {
   computed: {

@@ -1,4 +1,4 @@
-// src/services/AuthService.js
+// src/services/authService.js
 import axios from 'axios';
 import store from '@/store/index';
 import router from '@/router/index';
