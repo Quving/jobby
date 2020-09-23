@@ -6,7 +6,7 @@
       <v-toolbar-title
           style="width: 500px; font-size: 28px"
           class="ml-0 pl-4">
-        <a @click="$router.push('/dashboard')" class="hidden-sm-and-down" style="color:white">Jobby</a>
+        <a @click="navigateTo('/dashboard')" class="hidden-sm-and-down" style="color:white">Jobby</a>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-if="isAuthenticated" @click="logout">
@@ -41,6 +41,11 @@ export default {
     }
   },
   methods: {
+    navigateTo: function (path) {
+      if (this.$router.currentRoute.fullPath !== path) {
+        this.$router.push(path);
+      }
+    },
     logout: function () {
       AuthService.logout();
     }
