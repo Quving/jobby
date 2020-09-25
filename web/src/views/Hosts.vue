@@ -23,7 +23,7 @@
             <tr v-for="item in hosts" :key="item.name">
               <td>{{ item.name }}</td>
               <td>{{ item.description }}</td>
-              <td>{{ item.created_at }}</td>
+              <td>{{ new Date(item.created_at).toLocaleString() }}</td>
               <td>{{ item.os }}</td>
               <td>
                 <v-btn icon color="green">
