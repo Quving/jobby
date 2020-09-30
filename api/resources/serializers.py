@@ -4,9 +4,19 @@ from rest_framework import serializers
 from resources.models import Job, Host, JobGroup, HostGroup, Report
 
 
+class JobGroupSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.username')
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = JobGroup
+        fields = "__all__"
+
+
 class JobSerializer(serializers.ModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.username')
     id = serializers.ReadOnlyField()
+    jobgroup_detailed = JobGroupSerializer(read_only=True, source='jobgroup')
 
     class Meta:
         model = Job
@@ -21,30 +31,22 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class HostSerializer(serializers.ModelSerializer):
-    created_by = serializers.ReadOnlyField(source='created_by.username')
-    id = serializers.ReadOnlyField()
-
-    class Meta:
-        model = Host
-        fields = "__all__"
-
-
-class JobGroupSerializer(serializers.ModelSerializer):
-    created_by = serializers.ReadOnlyField(source='created_by.username')
-    id = serializers.ReadOnlyField()
-
-    class Meta:
-        model = JobGroup
-        fields = "__all__"
-
-
 class HostGroupSerializer(serializers.ModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.username')
-    id = serializers.ReadOnlyField()
+    id = serializers.ReadOnlyField(read_only=True)
 
     class Meta:
         model = HostGroup
+        fields = "__all__"
+
+
+class HostSerializer(serializers.ModelSerializer):
+    created_by = serializers.ReadOnlyField(source='created_by.username')
+    id = serializers.ReadOnlyField()
+    hostgroup_detailed = HostGroupSerializer(read_only=True, source='hostgroup')
+
+    class Meta:
+        model = Host
         fields = "__all__"
 
 
