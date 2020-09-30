@@ -43,7 +43,7 @@
             persistent-hint
         ></v-select>
         <v-text-field
-            v-if="formReadOnly"
+            v-else
             :readonly="formReadOnly"
             required
             outlined
