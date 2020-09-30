@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-navigation-drawer app v-model="enableDrawer" clipped expand-on-hover>
+    <v-navigation-drawer app v-model="enableDrawer" clipped :mini-variant="expandOnHover">
       <v-list nav>
         <v-list-item two-line class="px-0">
           <v-list-item-avatar>
@@ -26,6 +26,15 @@
         </v-list-item>
       </v-list>
       <template v-slot:append>
+        <v-list-item link @click="() => {expandOnHover=!expandOnHover}">
+          <v-list-item-icon>
+            <v-icon v-if="expandOnHover"> mdi-chevron-right</v-icon>
+            <v-icon v-else> mdi-chevron-left</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Collapse Sidebar</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item link @click="logout">
           <v-list-item-icon>
             <v-icon> mdi-exit-run</v-icon>
@@ -48,6 +57,7 @@ export default {
   components: {},
   data() {
     return {
+      expandOnHover: true,
       enableDrawer: this.$store.getters.isAuthenticated,
       navbarOptions: [
         {title: 'Dashboard', icon: 'mdi-view-dashboard', href: '/dashboard'},
