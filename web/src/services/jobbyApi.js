@@ -24,6 +24,27 @@ export default {
                 })
         });
     },
+    makeAuthenticatedPatchRequest(urlPath, data) {
+        const jwtToken = store.getters.credentials.jwt_token;
+        const url = `${config.envs.apiHostUrl}${urlPath}`;
+        const headers = {
+            "Content-type": "application/json",
+            "accept": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        };
+
+        return new Promise((resolve, reject) => {
+            axios.patch(url, data, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
+        });
+    },
     makeAuthenticatedPostRequest(urlPath, data) {
         const jwtToken = store.getters.credentials.jwt_token;
         const url = `${config.envs.apiHostUrl}${urlPath}`;
@@ -78,17 +99,29 @@ export default {
     createJobGroup(data) {
         return this.makeAuthenticatedPostRequest('/resources/jobgroup/', data);
     },
+    getJob(id) {
+        return this.makeAuthenticatedGetRequest(`/resources/job/${id}/`);
+    },
+    getJobGroup(id) {
+        return this.makeAuthenticatedGetRequest(`/resources/jobgroup/${id}/`);
+    },
+    getHost(id) {
+        return this.makeAuthenticatedGetRequest(`/resources/host/${id}/`);
+    },
+    getHostGroup(id) {
+        return this.makeAuthenticatedGetRequest(`/resources/hostgroup/${id}/`);
+    },
     deleteJob(id) {
-        return this.makeAuthenticatedPostRequest(`/resources/job/${id}/`);
+        return this.makeAuthenticatedDeleteRequest(`/resources/job/${id}/`);
     },
     deleteJobGroup(id) {
-        return this.makeAuthenticatedPostRequest(`/resources/jobgroup/${id}/`);
+        return this.makeAuthenticatedDeleteRequest(`/resources/jobgroup/${id}/`);
     },
     deleteHost(id) {
-        return this.makeAuthenticatedPostRequest(`/resources/host/${id}/`);
+        return this.makeAuthenticatedDeleteRequest(`/resources/host/${id}/`);
     },
     deleteHostGroup(id) {
-        return this.makeAuthenticatedPostRequest(`/resources/hostgroup/${id}/`);
+        return this.makeAuthenticatedDeleteRequest(`/resources/hostgroup/${id}/`);
     },
     listJobs() {
         return this.makeAuthenticatedGetRequest('/resources/job/');
@@ -101,5 +134,17 @@ export default {
     },
     listJobGroups() {
         return this.makeAuthenticatedGetRequest('/resources/jobgroup/');
-    }
+    },
+    updateJob(id, data) {
+        return this.makeAuthenticatedPatchRequest(`/resources/job/${id}/`, data);
+    },
+    updateHost(id, data) {
+        return this.makeAuthenticatedPatchRequest(`/resources/host/${id}/`, data);
+    },
+    updateHostGroup(id, data) {
+        return this.makeAuthenticatedPatchRequest(`/resources/hostgroup/${id}/`, data);
+    },
+    updateJobGroup(id, data) {
+        return this.makeAuthenticatedPatchRequest(`/resources/jobgroup/${id}/`, data);
+    },
 }

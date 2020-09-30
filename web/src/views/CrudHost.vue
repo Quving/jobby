@@ -4,6 +4,7 @@
     <form @submit.prevent="submit" autocomplete="on">
       <v-col>
         <v-text-field
+            :readonly="formReadOnly"
             required
             outlined
             counter=100
@@ -12,6 +13,7 @@
             label="Host name">
         </v-text-field>
         <v-textarea
+            :readonly="formReadOnly"
             required
             outlined
             counter=500
@@ -20,6 +22,7 @@
             hint="Your later self will be happy about a good description.">
         </v-textarea>
         <v-text-field
+            :readonly="formReadOnly"
             required
             outlined
             counter=25
@@ -28,6 +31,20 @@
             label="Host OS">
         </v-text-field>
         <v-select
+            v-if="!formReadOnly"
+            outlined
+            :items="hostGroups"
+            v-model="selectedHostGroupId"
+            item-text="name"
+            item-value="id"
+            :menu-props="{ maxHeight: '400', maxWidth:'200' }"
+            label="HostGroup"
+            hint="Select HostGroup"
+            persistent-hint
+        ></v-select>
+        <v-text-field
+            v-if="formReadOnly"
+            :readonly="formReadOnly"
             required
             outlined
             v-model="selectedHostGroupId"
@@ -38,11 +55,12 @@
             label="HostGroup"
             hint="Select HostGroup"
             persistent-hint
-        ></v-select>
+        ></v-text-field>
         <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
         <v-btn
             :loading="submitBtnLoading"
             :color="submitBtnColor"
+            v-if="action !== 'read'"
             type="submit">
           {{ submitBtnText }}
         </v-btn>
@@ -71,6 +89,7 @@ export default {
       // Form
       submitBtnLoading: false,
       formIsValid: false,
+      formReadOnly: false,
       hostName: "",
       hostDescription: "",
       hostOS: "",
@@ -92,25 +111,50 @@ export default {
     initState: function () {
       const dynamicActionVars = {
         create: {
+          fetchData: false,
+          formReadOnly: false,
           submitBtnColor: "success",
           headerText: "Add Host",
           submitBtnText: "Add Host"
         },
-        edit: {
+        read: {
+          fetchData: true,
+          formReadOnly: true,
+          submitBtnColor: "warning",
+          headerText: "View Host",
+          submitBtnText: "Update"
+        },
+        update: {
+          fetchData: true,
+          formReadOnly: false,
           submitBtnColor: "warning",
           headerText: "Update Host",
           submitBtnText: "Update"
         },
         delete: {
+          fetchData: true,
+          formReadOnly: true,
           submitBtnColor: "error",
           headerText: "Delete Host",
           submitBtnText: "Delete"
         },
       };
-      const actionVar = dynamicActionVars[this.action];
-      this.submitBtnText = actionVar.submitBtnText;
-      this.headerText = actionVar.headerText;
-      this.submitBtnColor = actionVar.submitBtnColor;
+      const dynamicVariables = dynamicActionVars[this.action];
+      this.formReadOnly = dynamicVariables.formReadOnly;
+      this.submitBtnText = dynamicVariables.submitBtnText;
+      this.headerText = dynamicVariables.headerText;
+      this.submitBtnColor = dynamicVariables.submitBtnColor;
+
+      if (dynamicVariables.fetchData) {
+        JobbyApi.getHost(this.id).then(data => {
+          this.hostName = data.name;
+          this.hostDescription = data.description;
+          this.hostOS = data.os;
+
+          // Fill v-textfield or v-select depending on field formReadOnly
+          this.selectedHostGroupId = (dynamicVariables.formReadOnly) ? data.hostgroup_detailed.name : data.hostgroup_detailed.id;
+        });
+      }
 
     },
     fetchHostGroups: function () {
@@ -121,6 +165,7 @@ export default {
       });
     },
     createHost: function () {
+      this.submitBtnLoading = true;
       const data = {
         name: this.hostName,
         os: this.hostOS,
@@ -131,7 +176,8 @@ export default {
       // eslint-disable-next-line no-unused-vars
       JobbyApi.createHost(data).then((response) => {
         this.alert_type = 'success';
-        this.status = 'Host created.';
+        this.status = 'Host has been created.';
+        this.submitBtnLoading = false;
       }, (error) => {
         this.alert_type = 'error';
         this.status = 'Host could not be created.';
@@ -141,23 +187,59 @@ export default {
       });
 
     },
-    editHost: function () {
+    updateHost: function () {
+      this.submitBtnLoading = true;
+      const data = {
+        name: this.hostName,
+        os: this.hostOS,
+        hostgroup: this.selectedHostGroupId,
+        description: this.hostDescription
+      };
 
+      // eslint-disable-next-line no-unused-vars
+      JobbyApi.updateHost(this.id, data).then((response) => {
+        this.alert_type = 'success';
+        this.status = 'Host updated.';
+        this.submitBtnLoading = false;
+      }, (error) => {
+        console.log(error);
+        this.alert_type = 'error';
+        this.status = 'Host could not be updated.';
+        for (const [key, value] of Object.entries(error)) {
+          this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
+        }
+        this.submitBtnLoading = false;
+      });
     },
     deleteHost: function () {
-
-    },
-    submit: function () {
       this.submitBtnLoading = true;
 
+      // eslint-disable-next-line no-unused-vars
+      JobbyApi.deleteHost(this.id).then((response) => {
+        this.alert_type = 'success';
+        this.status = 'Host deleted. You will be redirected back in a few seconds.';
+        this.submitBtnLoading = false;
+
+      }, (error) => {
+        console.log(error);
+        this.alert_type = 'error';
+        this.status = 'Host could not be deleted.';
+        for (const [key, value] of Object.entries(error)) {
+          this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
+        }
+        this.submitBtnLoading = false;
+      });
+    },
+    submit: function () {
       const funcs = {
         create: this.createHost,
-        edit: this.editHost,
+        update: this.updateHost,
         delete: this.deleteHost,
       };
       funcs[this.action]();
-
-      this.submitBtnLoading = false;
+      setTimeout(() => {
+        this.$router.push("/hosts");
+      }, 1000);
     }
   }
 };

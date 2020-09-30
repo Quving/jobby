@@ -26,13 +26,16 @@
               <td>{{ new Date(item.created_at).toLocaleString() }}</td>
               <td>{{ item.os }}</td>
               <td>
-                <v-btn icon color="green">
+                <v-btn icon color="green"
+                       @click="$router.push(`/host/${item.id}/read`)">
                   <v-icon>mdi-magnify</v-icon>
                 </v-btn>
-                <v-btn icon color="orange">
+                <v-btn icon color="orange"
+                       @click="$router.push(`/host/${item.id}/update`)">
                   <v-icon>mdi-lead-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="red">
+                <v-btn icon color="red"
+                       @click="$router.push(`/host/${item.id}/delete`)">
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </td>
