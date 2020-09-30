@@ -45,6 +45,27 @@ export default {
                 })
         });
     },
+    makeAuthenticatedDeleteRequest(urlPath) {
+        const jwtToken = store.getters.credentials.jwt_token;
+        const url = `${config.envs.apiHostUrl}${urlPath}`;
+        const headers = {
+            "Content-type": "application/json",
+            "accept": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        };
+
+        return new Promise((resolve, reject) => {
+            axios.delete(url, {headers: headers})
+                .then((response) => {
+                    resolve(response.data);
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        AuthService.logout();
+                    }
+                    reject(error.response.data);
+                })
+        });
+    },
     createJob(data) {
         return this.makeAuthenticatedPostRequest('/resources/job/', data);
     },
@@ -56,6 +77,18 @@ export default {
     },
     createJobGroup(data) {
         return this.makeAuthenticatedPostRequest('/resources/jobgroup/', data);
+    },
+    deleteJob(id) {
+        return this.makeAuthenticatedPostRequest(`/resources/job/${id}/`);
+    },
+    deleteJobGroup(id) {
+        return this.makeAuthenticatedPostRequest(`/resources/jobgroup/${id}/`);
+    },
+    deleteHost(id) {
+        return this.makeAuthenticatedPostRequest(`/resources/host/${id}/`);
+    },
+    deleteHostGroup(id) {
+        return this.makeAuthenticatedPostRequest(`/resources/hostgroup/${id}/`);
     },
     listJobs() {
         return this.makeAuthenticatedGetRequest('/resources/job/');

@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <view-headers header="ADD HOST"></view-headers>
+    <view-headers :header="headerText"></view-headers>
     <form @submit.prevent="submit" autocomplete="on">
-      <v-col >
+      <v-col>
         <v-text-field
             required
             outlined
@@ -41,10 +41,10 @@
         ></v-select>
         <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
         <v-btn
-            :loading="addBtnLoading"
-            color="success"
+            :loading="submitBtnLoading"
+            :color="submitBtnColor"
             type="submit">
-          Create Host
+          {{ submitBtnText }}
         </v-btn>
       </v-col>
     </form>
@@ -58,21 +58,61 @@ import ViewHeaders from "@/components/ViewHeader";
 export default {
   name: 'App',
   components: {ViewHeaders},
-  data: () => ({
-    addBtnLoading: false,
-    formIsValid: false,
-    hostName: "",
-    hostOS: "",
-    hostGroups: [],
-    hostDescription: "",
-    selectedHostGroupId: undefined,
-    alert_type: "",
-    status: "",
-  }),
+  data() {
+
+    return {
+      // Url Params
+      id: this.$route.params.id,
+      action: this.$route.params.action,
+
+      // Site
+      headerText: "",
+
+      // Form
+      submitBtnLoading: false,
+      formIsValid: false,
+      hostName: "",
+      hostDescription: "",
+      hostOS: "",
+      hostGroups: [],
+      selectedHostGroupId: undefined,
+      submitBtnColor: "",
+      submitBtnText: "",
+
+      // Status
+      alert_type: "",
+      status: "",
+    }
+  },
   created() {
+    this.initState();
     this.fetchHostGroups();
   },
   methods: {
+    initState: function () {
+      const dynamicActionVars = {
+        create: {
+          submitBtnColor: "success",
+          headerText: "Add Host",
+          submitBtnText: "Add Host"
+        },
+        edit: {
+          submitBtnColor: "warning",
+          headerText: "Update Host",
+          submitBtnText: "Update"
+        },
+        delete: {
+          submitBtnColor: "error",
+          headerText: "Delete Host",
+          submitBtnText: "Delete"
+        },
+      };
+      const actionVar = dynamicActionVars[this.action];
+      this.submitBtnText = actionVar.submitBtnText;
+      this.headerText = actionVar.headerText;
+      this.submitBtnColor = actionVar.submitBtnColor;
+
+    },
     fetchHostGroups: function () {
       JobbyApi.listHostGroups().then(data => {
         this.hostGroups = data;
@@ -80,9 +120,7 @@ export default {
         console.log(error);
       });
     },
-    submit: function () {
-      this.addBtnLoading = true;
-
+    createHost: function () {
       const data = {
         name: this.hostName,
         os: this.hostOS,
@@ -90,8 +128,8 @@ export default {
         description: this.hostDescription
       };
 
+      // eslint-disable-next-line no-unused-vars
       JobbyApi.createHost(data).then((response) => {
-        console.log(response);
         this.alert_type = 'success';
         this.status = 'Host created.';
       }, (error) => {
@@ -101,7 +139,25 @@ export default {
           this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
         }
       });
-      this.addBtnLoading = false;
+
+    },
+    editHost: function () {
+
+    },
+    deleteHost: function () {
+
+    },
+    submit: function () {
+      this.submitBtnLoading = true;
+
+      const funcs = {
+        create: this.createHost,
+        edit: this.editHost,
+        delete: this.deleteHost,
+      };
+      funcs[this.action]();
+
+      this.submitBtnLoading = false;
     }
   }
 };

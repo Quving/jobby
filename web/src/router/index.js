@@ -6,7 +6,7 @@ import Dashboard from "@/views/Dashboard";
 import Hosts from "@/views/Hosts";
 import Jobs from "@/views/Jobs";
 import AddJob from "@/views/AddJob";
-import AddHost from "@/views/AddHost";
+import CrudHost from "@/views/CrudHost";
 import AddJobGroup from "@/views/AddJobGroup";
 import AddHostGroup from "@/views/AddHostGroup";
 
@@ -73,9 +73,9 @@ const routes = [
         }
     },
     {
-        path: '/host/create',
+        path: '/host/:id/:action',
         name: 'AddHosts',
-        component: AddHost,
+        component: CrudHost,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')

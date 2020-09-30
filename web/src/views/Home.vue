@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import AddHost from './AddHost';
+import AddHost from './CrudHost';
 import AddJob from './AddJob';
 import AddHostGroup from './AddHostGroup';
 import AddJobGroup from './AddJobGroup';
