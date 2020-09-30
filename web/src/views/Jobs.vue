@@ -25,8 +25,8 @@
               <td>{{ item.name }}</td>
               <td>{{ item.description }}</td>
               <td>{{ new Date(item.created_at).toLocaleString() }}</td>
-              <td>{{ item.host }}</td>
-              <td>{{ item.jobgroup }}</td>
+              <td>{{ item.host_detailed.name }}</td>
+              <td>{{ item.jobgroup_detailed.name }}</td>
               <td>
                 <v-btn icon color="green">
                   <v-icon>mdi-magnify</v-icon>
