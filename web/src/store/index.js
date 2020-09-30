@@ -9,6 +9,7 @@ export default new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
         credentials: null,
+        preferences: null,
     },
     getters: {
         isAuthenticated(state) {
@@ -17,8 +18,8 @@ export default new Vuex.Store({
         credentials(state) {
             return state.credentials;
         },
-        userHomePreferences(state) {
-            return state.homePreferences;
+        preferences(state) {
+            return state.preferences;
         }
     },
     mutations: {
@@ -27,10 +28,18 @@ export default new Vuex.Store({
         },
         clearUserData(state) {
             state.credentials = null;
+        },
+        preferences(state, data) {
+            state.preferences = data.preferences;
         }
 
     },
     actions: {
+        preferences: ({commit}, data) => {
+            commit('preferences', {
+                preferences: data.preferences,
+            });
+        },
         login: ({commit}, data) => {
             commit('authUser', {
                 credentials: data.credentials,

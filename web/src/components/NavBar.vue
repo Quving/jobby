@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-navigation-drawer app v-model="enableDrawer" clipped :mini-variant="expandOnHover">
+    <v-navigation-drawer app v-model="enableDrawer" clipped :mini-variant="navbarMiniVariant">
       <v-list nav>
         <v-list-item two-line class="px-0">
           <v-list-item-avatar>
@@ -26,9 +26,9 @@
         </v-list-item>
       </v-list>
       <template v-slot:append>
-        <v-list-item link @click="() => {expandOnHover=!expandOnHover}">
+        <v-list-item link @click="() => {navbarMiniVariant=!navbarMiniVariant}">
           <v-list-item-icon>
-            <v-icon v-if="expandOnHover"> mdi-chevron-right</v-icon>
+            <v-icon v-if="navbarMiniVariant"> mdi-chevron-right</v-icon>
             <v-icon v-else> mdi-chevron-left</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
@@ -57,7 +57,7 @@ export default {
   components: {},
   data() {
     return {
-      expandOnHover: true,
+      navbarMiniVariant: (this.$store.getters.preferences) ? this.$store.getters.preferences.navbarMiniVariant : true,
       enableDrawer: this.$store.getters.isAuthenticated,
       navbarOptions: [
         {title: 'Dashboard', icon: 'mdi-view-dashboard', href: '/dashboard'},
@@ -86,8 +86,23 @@ export default {
       this.fetchUserdata();
       this.enableDrawer = isAuthenticated;
     },
+    enableDrawer() {
+      this.saveCurrentUserPreferences();
+    },
+    navbarMiniVariant() {
+      this.saveCurrentUserPreferences();
+    }
   },
   methods: {
+    saveCurrentUserPreferences() {
+      this.$store.dispatch('preferences', {
+        preferences: {
+          enableDrawer: this.enableDrawer,
+          navbarMiniVariant: this.navbarMiniVariant,
+        }
+      });
+
+    },
     navigateTo: function (path) {
       if (this.$router.currentRoute.fullPath !== path) {
         this.$router.push(path);
