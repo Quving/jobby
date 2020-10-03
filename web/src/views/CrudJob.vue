@@ -238,7 +238,6 @@ export default {
       });
     },
     submit: function () {
-      console.log("Hallo")
       const funcs = {
         create: this.createJob,
         update: this.updateJob,
