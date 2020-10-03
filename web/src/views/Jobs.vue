@@ -2,8 +2,9 @@
   <v-container>
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
-      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/job/create')">Create Job</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroup/create')">Create JobGroup</v-btn>
+      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/job/new/create')">Create Job</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
+
     </v-row>
     <v-row justify="center">
       <v-card min-width="800">
@@ -28,13 +29,16 @@
               <td>{{ item.host_detailed.name }}</td>
               <td>{{ item.jobgroup_detailed.name }}</td>
               <td>
-                <v-btn icon color="green">
+                <v-btn icon color="green"
+                       @click="$router.push(`/job/${item.id}/read`)">
                   <v-icon>mdi-magnify</v-icon>
                 </v-btn>
-                <v-btn icon color="orange">
+                <v-btn icon color="orange"
+                       @click="$router.push(`/job/${item.id}/update`)">
                   <v-icon>mdi-lead-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="red">
+                <v-btn icon color="red"
+                       @click="$router.push(`/job/${item.id}/delete`)">
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </td>

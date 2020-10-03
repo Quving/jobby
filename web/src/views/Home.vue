@@ -30,9 +30,9 @@
 
 <script>
 import AddHost from './CrudHost';
-import AddJob from './AddJob';
-import AddHostGroup from './AddHostGroup';
-import AddJobGroup from './AddJobGroup';
+import AddJob from './CrudJob';
+import AddHostGroup from './CrudHostGroup';
+import AddJobGroup from './CrudJobGroup';
 
 export default {
   name: 'Home',

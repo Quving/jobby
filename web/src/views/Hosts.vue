@@ -3,7 +3,7 @@
     <view-headers header="Hosts"></view-headers>
     <v-row justify="center">
       <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/host/new/create')">Create Host</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/hostgroup/create')">Create HostGroup</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/hostgroup/new/create')">Create HostGroup</v-btn>
     </v-row>
     <v-row justify="center">
       <v-card min-width="800">
