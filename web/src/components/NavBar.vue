@@ -57,7 +57,7 @@ export default {
   components: {},
   data() {
     return {
-      navbarMiniVariant: this.$store.getters.preferences.navbarMiniVariant,
+      navbarMiniVariant: (this.$store.getters.preferences) ? this.$store.getters.preferences.navbarMiniVariant : true,
       enableDrawer: this.$store.getters.isAuthenticated,
       navbarOptions: [
         {title: 'Dashboard', icon: 'mdi-view-dashboard', href: '/dashboard'},

@@ -5,10 +5,10 @@ import store from '../store/index'
 import Dashboard from "@/views/Dashboard";
 import Hosts from "@/views/Hosts";
 import Jobs from "@/views/Jobs";
-import AddJob from "@/views/AddJob";
 import CrudHost from "@/views/CrudHost";
-import AddJobGroup from "@/views/AddJobGroup";
-import AddHostGroup from "@/views/AddHostGroup";
+import CrudJobGroup from "@/views/CrudJobGroup";
+import CrudHostGroup from "@/views/CrudHostGroup";
+import CrudJob from "@/views/CrudJob";
 
 Vue.use(VueRouter)
 
@@ -37,18 +37,18 @@ const routes = [
         }
     },
     {
-        path: '/jobgroup/create',
-        name: 'AddJobgroup',
-        component: AddJobGroup,
+        path: '/jobgroup/:id/:action',
+        name: 'CrudJobgroup',
+        component: CrudJobGroup,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')
         }
     },
     {
-        path: '/job/create',
-        name: 'AddJob',
-        component: AddJob,
+        path: '/job/:id/:action',
+        name: 'CrudJob',
+        component: CrudJob,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')
@@ -64,9 +64,9 @@ const routes = [
         }
     },
     {
-        path: '/hostgroup/create',
-        name: 'AddHostGroups',
-        component: AddHostGroup,
+        path: '/hostgroup/:id/:action',
+        name: 'CrudHostGroups',
+        component: CrudHostGroup,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')
@@ -74,7 +74,7 @@ const routes = [
     },
     {
         path: '/host/:id/:action',
-        name: 'AddHosts',
+        name: 'CrudHosts',
         component: CrudHost,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()

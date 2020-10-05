@@ -2,47 +2,98 @@
   <v-container>
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
-      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/job/create')">Create Job</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroup/create')">Create JobGroup</v-btn>
+      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/job/new/create')">Create Job</v-btn>
+      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
     </v-row>
     <v-row justify="center">
-      <v-card min-width="800">
-        <v-card-title>My Jobs</v-card-title>
-        <v-simple-table fixed-header>
-          <template v-slot:default>
-            <thead>
-            <tr>
-              <th class="text-left" style="font-size: 16px">Job</th>
-              <th class="text-left" style="font-size: 16px">Description</th>
-              <th class="text-left" style="font-size: 16px">Created At</th>
-              <th class="text-left" style="font-size: 16px">Host</th>
-              <th class="text-left" style="font-size: 16px">Job Group</th>
-              <th class="text-left" style="font-size: 16px">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in jobs" :key="item.name">
-              <td>{{ item.name }}</td>
-              <td>{{ item.description }}</td>
-              <td>{{ new Date(item.created_at).toLocaleString() }}</td>
-              <td>{{ item.host_detailed.name }}</td>
-              <td>{{ item.jobgroup_detailed.name }}</td>
-              <td>
-                <v-btn icon color="green">
-                  <v-icon>mdi-magnify</v-icon>
-                </v-btn>
-                <v-btn icon color="orange">
-                  <v-icon>mdi-lead-pencil</v-icon>
-                </v-btn>
-                <v-btn icon color="red">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </td>
-            </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
+      <v-card>
+        <v-tabs background-color="white" color="deep-purple accent-4" left>
+          <v-tab>Jobs</v-tab>
+          <v-tab>JobGroups</v-tab>
+          <v-tab-item>
+            <v-card min-width="1000">
+              <v-card-title>My Jobs</v-card-title>
+              <v-simple-table fixed-header>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th class="text-left" style="font-size: 16px">Job</th>
+                    <th class="text-left" style="font-size: 16px">Description</th>
+                    <th class="text-left" style="font-size: 16px">Created At</th>
+                    <th class="text-left" style="font-size: 16px">Host</th>
+                    <th class="text-left" style="font-size: 16px">Job Group</th>
+                    <th class="text-left" style="font-size: 16px">Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="item in jobs" :key="item.name">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+                    <td>{{ item.host_detailed.name }}</td>
+                    <td>{{ item.jobgroup_detailed.name }}</td>
+                    <td>
+                      <v-btn icon color="green"
+                             @click="$router.push(`/job/${item.id}/read`)">
+                        <v-icon>mdi-magnify</v-icon>
+                      </v-btn>
+                      <v-btn icon color="orange"
+                             @click="$router.push(`/job/${item.id}/update`)">
+                        <v-icon>mdi-lead-pencil</v-icon>
+                      </v-btn>
+                      <v-btn icon color="red"
+                             @click="$router.push(`/job/${item.id}/delete`)">
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card min-width="1000">
+              <v-card-title>My Jobgroups</v-card-title>
+              <v-simple-table fixed-header>
+                <template v-slot:default>
+                  <thead>
+                  <tr>
+                    <th class="text-left" style="font-size: 16px">Name</th>
+                    <th class="text-left" style="font-size: 16px">Description</th>
+                    <th class="text-left" style="font-size: 16px">Created At</th>
+                    <th class="text-left" style="font-size: 16px">Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr v-for="item in jobgroups" :key="item.name">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+                    <td>
+                      <v-btn icon color="green"
+                             @click="$router.push(`/jobgroup/${item.id}/read`)">
+                        <v-icon>mdi-magnify</v-icon>
+                      </v-btn>
+                      <v-btn icon color="orange"
+                             @click="$router.push(`/jobgroup/${item.id}/update`)">
+                        <v-icon>mdi-lead-pencil</v-icon>
+                      </v-btn>
+                      <v-btn icon color="red"
+                             @click="$router.push(`/jobgroup/${item.id}/delete`)">
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </td>
+                  </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
       </v-card>
+    </v-row>
+    <v-row justify="center">
     </v-row>
   </v-container>
 </template>
@@ -57,6 +108,7 @@ export default {
   data() {
     return {
       jobs: [],
+      jobgroups: [],
     }
   },
   created() {
@@ -66,6 +118,9 @@ export default {
     fetchData: function () {
       JobbyApi.listJobs().then((data) => {
         this.jobs = data;
+      });
+      JobbyApi.listJobGroups().then((data) => {
+        this.jobgroups = data;
       })
     }
   },
