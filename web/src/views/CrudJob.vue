@@ -116,28 +116,28 @@ export default {
     initState: function () {
       const dynamicActionVars = {
         create: {
-          fetchData: false,
+          fetchObjectOfInterest: false,
           formReadOnly: false,
           submitBtnColor: "success",
           headerText: "Add Job",
           submitBtnText: "Add Job"
         },
         read: {
-          fetchData: true,
+          fetchObjectOfInterest: true,
           formReadOnly: true,
           submitBtnColor: "warning",
           headerText: "View Job",
           submitBtnText: "Update"
         },
         update: {
-          fetchData: true,
+          fetchObjectOfInterest: true,
           formReadOnly: false,
           submitBtnColor: "warning",
           headerText: "Update Job",
           submitBtnText: "Update"
         },
         delete: {
-          fetchData: true,
+          fetchObjectOfInterest: true,
           formReadOnly: true,
           submitBtnColor: "error",
           headerText: "Delete Job",
@@ -150,7 +150,8 @@ export default {
       this.headerText = dynamicVariables.headerText;
       this.submitBtnColor = dynamicVariables.submitBtnColor;
 
-      if (dynamicVariables.fetchData) {
+      // Fetch the object of interest specified by the url-params.
+      if (dynamicVariables.fetchObjectOfInterest) {
         JobbyApi.getJob(this.id).then(data => {
           this.jobName = data.name;
           this.jobDescription = data.description;
@@ -159,6 +160,10 @@ export default {
           this.selectedJobGroup = (dynamicVariables.formReadOnly) ? data.jobgroup_detailed.name : data.jobgroup_detailed.id;
           this.selectedHost = (dynamicVariables.formReadOnly) ? data.host_detailed.name : data.host_detailed.id;
         });
+
+        // Fetch the host-list and also the jobgroups. They're required for the action 'create'.
+        // Thus the special treatment.
+      } else if (dynamicVariables.fetchObjectOfInterest || this.action === 'create') {
         JobbyApi.listHosts().then(response => {
           this.hosts = response;
         }, (error => {
