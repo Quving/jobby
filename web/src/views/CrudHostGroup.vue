@@ -34,6 +34,7 @@
     </form>
   </v-container>
 </template>
+
 <script>
 import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
@@ -73,28 +74,28 @@ export default {
           fetchObjectOfInterest: false,
           formReadOnly: false,
           submitBtnColor: "success",
-          headerText: "Add Hostgroup",
-          submitBtnText: "Add Hostgroup"
+          headerText: "Add HostGroup",
+          submitBtnText: "Add HostGroup"
         },
         read: {
           fetchObjectOfInterest: true,
           formReadOnly: true,
           submitBtnColor: "warning",
-          headerText: "View Hostgroup",
+          headerText: "View HostGroup",
           submitBtnText: "Update"
         },
         update: {
           fetchObjectOfInterest: true,
           formReadOnly: false,
           submitBtnColor: "warning",
-          headerText: "Update Hostgroup",
+          headerText: "Update HostGroup",
           submitBtnText: "Update"
         },
         delete: {
           fetchObjectOfInterest: true,
           formReadOnly: true,
           submitBtnColor: "error",
-          headerText: "Delete Hostgroup",
+          headerText: "Delete HostGroup",
           submitBtnText: "Delete"
         },
       };
@@ -111,7 +112,7 @@ export default {
         });
       }
     },
-    createHostgroup: function () {
+    createHostGroup: function () {
       this.submitBtnLoading = true;
       const data = {
         name: this.hostGroupName,
@@ -121,18 +122,18 @@ export default {
       // eslint-disable-next-line no-unused-vars
       JobbyApi.createHostGroup(data).then((response) => {
         this.alert_type = 'success';
-        this.status = 'Hostgroup created.';
+        this.status = 'HostGroup created.';
         this.submitBtnLoading = false;
       }, (error) => {
         this.alert_type = 'error';
-        this.status = 'Hostgroup could not be created.';
+        this.status = 'HostGroup could not be created.';
         for (const [key, value] of Object.entries(error)) {
           this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
         }
         this.submitBtnLoading = false;
       });
     },
-    updateHostgroup: function () {
+    updateHostGroup: function () {
       this.submitBtnLoading = true;
       const data = {
         name: this.hostGroupName,
@@ -142,28 +143,28 @@ export default {
       // eslint-disable-next-line no-unused-vars
       JobbyApi.updateHostGroup(this.id, data).then((response) => {
         this.alert_type = 'success';
-        this.status = 'Hostgroup updated.';
+        this.status = 'HostGroup updated.';
         this.submitBtnLoading = false;
       }, (error) => {
         this.alert_type = 'error';
-        this.status = 'Hostgroup could not be updated.';
+        this.status = 'HostGroup could not be updated.';
         for (const [key, value] of Object.entries(error)) {
           this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
         }
         this.submitBtnLoading = false;
       });
     },
-    deleteHostgroup: function () {
+    deleteHostGroup: function () {
       this.submitBtnLoading = true;
       // eslint-disable-next-line no-unused-vars
       JobbyApi.deleteHostGroup(this.id).then((response) => {
         this.alert_type = 'success';
-        this.status = 'Hostgroup deleted. You will be redirected back in a few seconds.';
+        this.status = 'HostGroup deleted. You will be redirected back in a few seconds.';
         this.submitBtnLoading = false;
       }, (error) => {
         console.log(error);
         this.alert_type = 'error';
-        this.status = 'Hostgroup could not be deleted.';
+        this.status = 'HostGroup could not be deleted.';
         for (const [key, value] of Object.entries(error)) {
           this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
         }
@@ -172,9 +173,9 @@ export default {
     },
     submit: function () {
       const actionFunctions = {
-        create: this.createHostgroup,
-        update: this.updateHostgroup,
-        delete: this.deleteHostgroup,
+        create: this.createHostGroup,
+        update: this.updateHostGroup,
+        delete: this.deleteHostGroup,
       };
       actionFunctions[this.action]();
       setTimeout(() => {
