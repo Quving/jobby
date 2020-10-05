@@ -48,9 +48,6 @@
             required
             outlined
             v-model="selectedHostGroupId"
-            :items="hostGroups"
-            item-text="name"
-            item-value="id"
             :menu-props="{ maxHeight: '400', maxWidth:'200' }"
             label="HostGroup"
             hint="Select HostGroup"
@@ -105,34 +102,33 @@ export default {
   },
   created() {
     this.initState();
-    this.fetchHostGroups();
   },
   methods: {
     initState: function () {
       const dynamicActionVars = {
         create: {
-          fetchData: false,
+          fetchObjectOfInterest: false,
           formReadOnly: false,
           submitBtnColor: "success",
           headerText: "Add Host",
           submitBtnText: "Add Host"
         },
         read: {
-          fetchData: true,
+          fetchObjectOfInterest: true,
           formReadOnly: true,
           submitBtnColor: "warning",
           headerText: "View Host",
           submitBtnText: "Update"
         },
         update: {
-          fetchData: true,
+          fetchObjectOfInterest: true,
           formReadOnly: false,
           submitBtnColor: "warning",
           headerText: "Update Host",
           submitBtnText: "Update"
         },
         delete: {
-          fetchData: true,
+          fetchObjectOfInterest: true,
           formReadOnly: true,
           submitBtnColor: "error",
           headerText: "Delete Host",
@@ -145,24 +141,21 @@ export default {
       this.headerText = dynamicVariables.headerText;
       this.submitBtnColor = dynamicVariables.submitBtnColor;
 
-      if (dynamicVariables.fetchData) {
-        JobbyApi.getHost(this.id).then(data => {
-          this.hostName = data.name;
-          this.hostDescription = data.description;
-          this.hostOS = data.os;
-
-          // Fill v-textfield or v-select depending on field formReadOnly
-          this.selectedHostGroupId = (dynamicVariables.formReadOnly) ? data.hostgroup_detailed.name : data.hostgroup_detailed.id;
-        });
-      }
-
-    },
-    fetchHostGroups: function () {
+      // Fetch hostgroups. It's required on every action.
       JobbyApi.listHostGroups().then(data => {
         this.hostGroups = data;
       }, error => {
         console.log(error);
       });
+      if (dynamicVariables.fetchObjectOfInterest) {
+        JobbyApi.getHost(this.id).then(data => {
+          this.hostName = data.name;
+          this.hostDescription = data.description;
+          this.hostOS = data.os;
+
+          this.selectedHostGroupId = (dynamicVariables.formReadOnly) ? data.hostgroup_detailed.name : data.hostgroup_detailed.id;
+        });
+      }
     },
     createHost: function () {
       this.submitBtnLoading = true;

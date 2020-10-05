@@ -150,6 +150,18 @@ export default {
       this.headerText = dynamicVariables.headerText;
       this.submitBtnColor = dynamicVariables.submitBtnColor;
 
+      // Fetch the host-list and also the jobgroups. They're required for every action.
+      JobbyApi.listHosts().then(response => {
+        this.hosts = response;
+      }, (error => {
+        console.log(error)
+      }));
+      JobbyApi.listJobGroups().then(response => {
+        this.jobGroups = response;
+      }, (error => {
+        console.log(error)
+      }));
+
       // Fetch the object of interest specified by the url-params.
       if (dynamicVariables.fetchObjectOfInterest) {
         JobbyApi.getJob(this.id).then(data => {
@@ -160,20 +172,6 @@ export default {
           this.selectedJobGroup = (dynamicVariables.formReadOnly) ? data.jobgroup_detailed.name : data.jobgroup_detailed.id;
           this.selectedHost = (dynamicVariables.formReadOnly) ? data.host_detailed.name : data.host_detailed.id;
         });
-
-        // Fetch the host-list and also the jobgroups. They're required for the action 'create'.
-        // Thus the special treatment.
-      } else if (dynamicVariables.fetchObjectOfInterest || this.action === 'create') {
-        JobbyApi.listHosts().then(response => {
-          this.hosts = response;
-        }, (error => {
-          console.log(error)
-        }));
-        JobbyApi.listJobGroups().then(response => {
-          this.jobGroups = response;
-        }, (error => {
-          console.log(error)
-        }));
       }
     },
     createJob: function () {
