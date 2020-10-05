@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <view-headers header="Create Job"></view-headers>
+    <view-headers :header="headerText"></view-headers>
     <form @submit.prevent="submit" autocomplete="on">
       <v-col>
         <v-text-field
@@ -91,6 +91,9 @@ export default {
       // Url Params
       id: this.$route.params.id,
       action: this.$route.params.action,
+
+      // Site
+      headerText: "",
 
       // Form
       jobName: "",
