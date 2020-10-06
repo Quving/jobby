@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 
@@ -25,7 +26,11 @@ class JobList(generics.ListCreateAPIView):
     serializer_class = JobSerializer
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        username = "job.{}".format(self.request.data.get('name', 'job_noname')).lower()
+        user = User.objects.create_user(username=username,
+                                        email='{}@job.com'.format(username),
+                                        password=username)
+        serializer.save(created_by=self.request.user, jobuser=user)
 
 
 class JobDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -41,8 +41,13 @@ class Job(models.Model):
     description = models.CharField(max_length=512)
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
     jobgroup = models.ForeignKey(JobGroup, on_delete=models.CASCADE)
-    jobuser = models.OneToOneField(User, related_name='job_auth', on_delete=models.CASCADE, default=None)
+    jobuser = models.OneToOneField(User, related_name='job_auth', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=128, unique=True)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        if self.jobuser:
+            self.jobuser.delete()
 
     def __str__(self):
         return self.name
