@@ -37,11 +37,12 @@ class Host(models.Model):
 
 class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=512)
-    jobgroup = models.ForeignKey(JobGroup, on_delete=models.CASCADE)
-    host = models.ForeignKey(Host, on_delete=models.CASCADE)
-    name = models.CharField(max_length=128, unique=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
+    description = models.CharField(max_length=512)
+    host = models.ForeignKey(Host, on_delete=models.CASCADE)
+    jobgroup = models.ForeignKey(JobGroup, on_delete=models.CASCADE)
+    jobuser = models.OneToOneField(User, related_name='job_auth', on_delete=models.CASCADE, default=None)
+    name = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
         return self.name
