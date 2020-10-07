@@ -94,6 +94,7 @@
             required
             outlined
             v-model="curlCommand"
+            rows="7"
             label="Snippet"
             hint="Copy this command to your shell-script (e.g. Cronjob) and replace STATUS, LOGS and NAME with your values."
             persistent-hint
@@ -105,7 +106,7 @@
             readonly
             required
             outlined
-            rows="8"
+            rows="10"
             v-model="pythonCommand"
             label="Snippet"
             hint="Copy this command to your python-script and replace STATUS, LOGS and NAME with your values."
