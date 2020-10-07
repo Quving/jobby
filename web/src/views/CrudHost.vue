@@ -194,6 +194,10 @@ export default {
         this.alert_type = 'success';
         this.status = 'Host updated.';
         this.submitBtnLoading = false;
+
+        setTimeout(() => {
+          this.$router.push("/hosts");
+        }, 1000);
       }, (error) => {
         console.log(error);
         this.alert_type = 'error';
@@ -213,6 +217,9 @@ export default {
         this.status = 'Host deleted. You will be redirected back in a few seconds.';
         this.submitBtnLoading = false;
 
+        setTimeout(() => {
+          this.$router.push("/hosts");
+        }, 1000);
       }, (error) => {
         console.log(error);
         this.alert_type = 'error';
@@ -230,9 +237,6 @@ export default {
         delete: this.deleteHost,
       };
       funcs[this.action]();
-      setTimeout(() => {
-        this.$router.push("/hosts");
-      }, 1000);
     }
   }
 };

@@ -214,6 +214,10 @@ export default {
         this.alert_type = 'success';
         this.status = 'Job updated.';
         this.submitBtnLoading = false;
+
+        setTimeout(() => {
+          this.$router.push("/jobs");
+        }, 1000);
       }, (error) => {
         console.log(error);
         this.alert_type = 'error';
@@ -233,6 +237,9 @@ export default {
         this.status = 'Job deleted. You will be redirected back in a few seconds.';
         this.submitBtnLoading = false;
 
+        setTimeout(() => {
+          this.$router.push("/jobs");
+        }, 1000);
       }, (error) => {
         console.log(error);
         this.alert_type = 'error';
@@ -250,9 +257,6 @@ export default {
         delete: this.deleteJob,
       };
       funcs[this.action]();
-      setTimeout(() => {
-        this.$router.push("/jobs");
-      }, 1000);
     }
   }
 }
