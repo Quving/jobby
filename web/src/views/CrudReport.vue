@@ -224,10 +224,10 @@ export default {
         this.alert_type = 'success';
         this.status = 'Report updated.';
         this.submitBtnLoading = false;
-
         setTimeout(() => {
           this.$router.push("/reports");
         }, 1000);
+
       }, (error) => {
         console.log(error);
         this.alert_type = 'error';

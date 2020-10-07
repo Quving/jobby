@@ -261,7 +261,6 @@ export default {
         this.alert_type = 'success';
         this.status = 'Job updated.';
         this.submitBtnLoading = false;
-
         setTimeout(() => {
           this.$router.push("/jobs");
         }, 1000);
