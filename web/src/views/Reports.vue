@@ -12,14 +12,16 @@
                 <th class="text-left" style="font-size: 16px">Name</th>
                 <th class="text-left" style="font-size: 16px">Created At</th>
                 <th class="text-left" style="font-size: 16px">Status</th>
+                <th class="text-left" style="font-size: 16px">Job</th>
                 <th class="text-left" style="font-size: 16px">Actions</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="item in reports" :key="item.name">
                 <td>{{ item.name }}</td>
-                <td>{{ item.host }}</td>
                 <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.job }}</td>
                 <td>
                   <v-btn icon color="green" @click="$router.push(`/report/${item.id}/read`)">
                     <v-icon>mdi-magnify</v-icon>
