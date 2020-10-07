@@ -2,10 +2,12 @@
   <v-container>
     <v-app-bar fixed clipped-left dense app dark>
       <v-app-bar-nav-icon v-if="isAuthenticated" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-icon large> mdi-home</v-icon>
+      <a @click="navigateTo('/dashboard')">
+        <v-img src="../assets/logo.png" max-width="10mm"></v-img>
+      </a>
       <v-toolbar-title
           style="width: 500px; font-size: 28px"
-          class="ml-0 pl-4">
+          class="ml-0 pl-2">
         <a @click="navigateTo('/dashboard')" class="hidden-sm-and-down" style="color:white">Jobby</a>
       </v-toolbar-title>
       <v-spacer></v-spacer>
