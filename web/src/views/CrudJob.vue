@@ -69,12 +69,13 @@
 
         <h3 class="mt-10 mb-5">Generated Snippets</h3>
         <v-textarea
+            style="font-family: monospace"
             readonly
             required
             outlined
             v-model="curlCommand"
             label="Bash"
-            hint="Copy this command to your shell-script (Cronjob) and adapt it."
+            hint="Copy this command to your shell-script (Cronjob) and replace STATUS, LOGS and NAME with your values."
             persistent-hint
         ></v-textarea>
         <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
