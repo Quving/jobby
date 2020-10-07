@@ -14,20 +14,20 @@
                   <thead>
                   <tr>
                     <th class="text-left" style="font-size: 16px">Job</th>
-                    <th class="text-left" style="font-size: 16px">Description</th>
-                    <th class="text-left" style="font-size: 16px">Created At</th>
-                    <th class="text-left" style="font-size: 16px">Host</th>
                     <th class="text-left" style="font-size: 16px">Job Group</th>
+                    <th class="text-left" style="font-size: 16px">Description</th>
+                    <th class="text-left" style="font-size: 16px">Host</th>
+                    <th class="text-left" style="font-size: 16px">Created At</th>
                     <th class="text-left" style="font-size: 16px">Actions</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr v-for="item in jobs" :key="item.name">
                     <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ new Date(item.created_at).toLocaleString() }}</td>
-                    <td>{{ item.host_detailed.name }}</td>
                     <td>{{ item.jobgroup_detailed.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.host_detailed.name }}</td>
+                    <td>{{ new Date(item.created_at).toLocaleString() }}</td>
                     <td>
                       <v-btn icon color="green"
                              @click="$router.push(`/job/${item.id}/read`)">
