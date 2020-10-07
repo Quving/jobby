@@ -1,37 +1,42 @@
 <template>
   <v-container>
     <view-headers :header="headerText"></view-headers>
-    <form @submit.prevent="submit" autocomplete="on">
-      <v-col>
-        <v-text-field
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=25
-            hint="Select a good hostGroup name!"
-            v-model="hostGroupName"
-            label="HostGroup name">
-        </v-text-field>
-        <v-textarea
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=100
-            v-model="hostGroupDescription"
-            label="HostGroup Description"
-            hint="Your later self will be happy about a good description.">
-        </v-textarea>
-        <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
-        <v-btn
-            v-if="action !== 'read'"
-            :loading="submitBtnLoading"
-            :disabled="false"
-            type="submit"
-            :color="submitBtnColor">
-          {{ submitBtnText }}
-        </v-btn>
+    <v-row justify="center">
+      <v-col cols="6">
+        <form @submit.prevent="submit" autocomplete="on">
+          <h2 class="mb-5 text-center">Properties</h2>
+          <h3 class="form-header">Name</h3>
+          <v-text-field
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=25
+              hint="Select a good hostGroup name!"
+              v-model="hostGroupName"
+              label="HostGroup name">
+          </v-text-field>
+          <h3 class="form-header">Description</h3>
+          <v-textarea
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=100
+              v-model="hostGroupDescription"
+              label="HostGroup Description"
+              hint="Your later self will be happy about a good description.">
+          </v-textarea>
+          <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
+          <v-btn
+              v-if="action !== 'read'"
+              :loading="submitBtnLoading"
+              :disabled="false"
+              type="submit"
+              :color="submitBtnColor">
+            {{ submitBtnText }}
+          </v-btn>
+        </form>
       </v-col>
-    </form>
+    </v-row>
   </v-container>
 </template>
 
@@ -186,3 +191,10 @@ export default {
 };
 </script>
 
+<style>
+.form-header {
+  margin-top: 5mm;
+  margin-bottom: 3mm;
+}
+
+</style>

@@ -1,68 +1,78 @@
 <template>
   <v-container>
     <view-headers :header="headerText"></view-headers>
-    <form @submit.prevent="submit" autocomplete="on">
-      <v-col>
-        <v-text-field
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=100
-            hint="Select a good host name!"
-            v-model="hostName"
-            label="Host name">
-        </v-text-field>
-        <v-textarea
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=500
-            v-model="hostDescription"
-            label="Host Description"
-            hint="Your later self will be happy about a good description.">
-        </v-textarea>
-        <v-text-field
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=25
-            hint="E.g. 'Ubuntu 20.04 LTS'"
-            v-model="hostOS"
-            label="Host OS">
-        </v-text-field>
-        <v-select
-            v-if="!formReadOnly"
-            outlined
-            :items="hostGroups"
-            v-model="selectedHostGroupId"
-            item-text="name"
-            item-value="id"
-            :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-            label="HostGroup"
-            hint="Select HostGroup"
-            persistent-hint
-        ></v-select>
-        <v-text-field
-            v-else
-            :readonly="formReadOnly"
-            required
-            outlined
-            v-model="selectedHostGroupId"
-            :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-            label="HostGroup"
-            hint="Select HostGroup"
-            persistent-hint
-        ></v-text-field>
-        <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
-        <v-btn
-            :loading="submitBtnLoading"
-            :color="submitBtnColor"
-            v-if="action !== 'read'"
-            type="submit">
-          {{ submitBtnText }}
-        </v-btn>
+    <v-row justify="center">
+      <v-col cols="6">
+        <form @submit.prevent="submit" autocomplete="on">
+          <h2 class="mb-5 text-center">Properties</h2>
+          <h3 class="form-header">Name</h3>
+          <v-text-field
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=100
+              hint="Select a good host name!"
+              v-model="hostName"
+              persistent-hint
+              label="Host name">
+          </v-text-field>
+          <h3 class="form-header">Description</h3>
+          <v-textarea
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=500
+              v-model="hostDescription"
+              label="Host Description"
+              persistent-hint
+              hint="Your later self will be happy about a good description.">
+          </v-textarea>
+          <h3 class="form-header">Operating System</h3>
+          <v-text-field
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=25
+              hint="E.g. 'Ubuntu 20.04 LTS'"
+              v-model="hostOS"
+              persistent-hint
+              label="Host OS">
+          </v-text-field>
+          <h3 class="form-header">Hostgroup</h3>
+          <v-select
+              v-if="!formReadOnly"
+              outlined
+              :items="hostGroups"
+              v-model="selectedHostGroupId"
+              item-text="name"
+              item-value="id"
+              :menu-props="{ maxHeight: '400', maxWidth:'200' }"
+              label="HostGroup"
+              hint="Select HostGroup"
+              persistent-hint
+          ></v-select>
+          <v-text-field
+              v-else
+              :readonly="formReadOnly"
+              required
+              outlined
+              v-model="selectedHostGroupId"
+              :menu-props="{ maxHeight: '400', maxWidth:'200' }"
+              label="HostGroup"
+              hint="Select HostGroup"
+              persistent-hint
+          ></v-text-field>
+          <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
+          <v-btn
+              :loading="submitBtnLoading"
+              :color="submitBtnColor"
+              v-if="action !== 'read'"
+              type="submit">
+            {{ submitBtnText }}
+          </v-btn>
+        </form>
       </v-col>
-    </form>
+    </v-row>
   </v-container>
 </template>
 
@@ -241,4 +251,10 @@ export default {
   }
 };
 </script>
+<style>
+.form-header {
+  margin-top: 5mm;
+  margin-bottom: 3mm;
+}
 
+</style>

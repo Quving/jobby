@@ -89,6 +89,7 @@
         <h3 class="form-header">Bash (curl)</h3>
         <v-textarea
             style="font-family: monospace"
+            :disabled="action === 'create'"
             readonly
             required
             outlined
@@ -100,6 +101,7 @@
         <h3 class="form-header">Python (requests)</h3>
         <v-textarea
             style="font-family: monospace"
+            :disabled="action === 'create'"
             readonly
             required
             outlined
