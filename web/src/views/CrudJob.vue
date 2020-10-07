@@ -13,7 +13,7 @@
               counter=25
               hint="Select a good job name!"
               v-model="jobName"
-              persistent-hint
+              :persistent-hint="persistentHint"
               label="Job name">
           </v-text-field>
           <h3 class="form-header">Description</h3>
@@ -24,7 +24,7 @@
               counter=100
               v-model="jobDescription"
               label="Job Description"
-              persistent-hint
+              :persistent-hint="persistentHint"
               hint="Your later self will be happy about a good description.">
           </v-textarea>
           <h3 class="form-header">JobGroup</h3>
@@ -38,7 +38,7 @@
               item-value="id"
               label="JobGroup"
               hint="Select JobGroup"
-              persistent-hint
+              :persistent-hint="persistentHint"
           ></v-select>
           <v-text-field
               v-else
@@ -48,7 +48,7 @@
               v-model="selectedJobGroup"
               label="JobGroup"
               hint="Select JobGroup"
-              persistent-hint
+              :persistent-hint="persistentHint"
           ></v-text-field>
           <h3 class="form-header">Host</h3>
           <v-select
@@ -61,7 +61,7 @@
               :menu-props="{ maxHeight: '400', maxWidth:'200' }"
               label="Host"
               hint="Select Host"
-              persistent-hint
+              :persistent-hint="persistentHint"
           ></v-select>
           <v-text-field
               v-else
@@ -71,7 +71,7 @@
               v-model="selectedHost"
               label="Host"
               hint="Select Host"
-              persistent-hint
+              :persistent-hint="persistentHint"
           ></v-text-field>
           <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
           <v-btn
@@ -138,10 +138,11 @@ export default {
       jobName: "",
       jobDescription: "",
       formReadOnly: false,
-      selectedJobGroup: 0,
-      selectedHost: 0,
       jobGroups: [],
       hosts: [],
+      persistentHint: true,
+      selectedJobGroup: 0,
+      selectedHost: 0,
       submitBtnText: "",
       submitBtnLoading: false,
       submitBtnColor: "",

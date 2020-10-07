@@ -13,6 +13,7 @@
               counter=25
               hint="Select a good jobGroup name!"
               v-model="jobGroupName"
+              :persistent-hint="persistentHint"
               label="JobGroup name">
           </v-text-field>
           <h3 class="form-header">Description</h3>
@@ -23,6 +24,7 @@
               counter=100
               v-model="jobGroupDescription"
               label="JobGroup Description"
+              :persistent-hint="persistentHint"
               hint="Your later self will be happy about a good description.">
           </v-textarea>
           <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
@@ -54,12 +56,13 @@ export default {
       action: this.$route.params.action,
 
       // Form
-      submitBtnLoading: false,
       formReadOnly: true,
-      submitBtnColor: "",
-      submitBtnText: "",
       jobGroupName: "",
       jobGroupDescription: "",
+      persistentHint: true,
+      submitBtnColor: "",
+      submitBtnLoading: false,
+      submitBtnText: "",
 
       // Site
       headerText: "",

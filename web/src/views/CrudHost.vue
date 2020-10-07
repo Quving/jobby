@@ -13,7 +13,7 @@
               counter=100
               hint="Select a good host name!"
               v-model="hostName"
-              persistent-hint
+              :persistent-hint="persistentHint"
               label="Host name">
           </v-text-field>
           <h3 class="form-header">Description</h3>
@@ -35,7 +35,7 @@
               counter=25
               hint="E.g. 'Ubuntu 20.04 LTS'"
               v-model="hostOS"
-              persistent-hint
+              :persistent-hint="persistentHint"
               label="Host OS">
           </v-text-field>
           <h3 class="form-header">Hostgroup</h3>
@@ -49,7 +49,7 @@
               :menu-props="{ maxHeight: '400', maxWidth:'200' }"
               label="HostGroup"
               hint="Select HostGroup"
-              persistent-hint
+              :persistent-hint="persistentHint"
           ></v-select>
           <v-text-field
               v-else
@@ -60,7 +60,7 @@
               :menu-props="{ maxHeight: '400', maxWidth:'200' }"
               label="HostGroup"
               hint="Select HostGroup"
-              persistent-hint
+              :persistent-hint="persistentHint"
           ></v-text-field>
           <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
           <v-btn
@@ -101,6 +101,7 @@ export default {
       hostDescription: "",
       hostOS: "",
       hostGroups: [],
+      persistentHint: true,
       selectedHostGroupId: undefined,
       submitBtnColor: "",
       submitBtnText: "",

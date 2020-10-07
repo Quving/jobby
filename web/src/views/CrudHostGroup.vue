@@ -13,6 +13,7 @@
               counter=25
               hint="Select a good hostGroup name!"
               v-model="hostGroupName"
+              :persistent-hint="persistentHint"
               label="HostGroup name">
           </v-text-field>
           <h3 class="form-header">Description</h3>
@@ -23,6 +24,7 @@
               counter=100
               v-model="hostGroupDescription"
               label="HostGroup Description"
+              :persistent-hint="persistentHint"
               hint="Your later self will be happy about a good description.">
           </v-textarea>
           <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
@@ -56,10 +58,11 @@ export default {
       // Form
       submitBtnLoading: false,
       formReadOnly: true,
-      submitBtnColor: "",
-      submitBtnText: "",
       hostGroupName: "",
       hostGroupDescription: "",
+      persistentHint: true,
+      submitBtnColor: "",
+      submitBtnText: "",
 
       // Site
       headerText: "",
