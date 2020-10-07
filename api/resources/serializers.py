@@ -15,8 +15,8 @@ class HostGroupSerializer(serializers.ModelSerializer):
 
 class HostSerializer(serializers.ModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.username')
-    id = serializers.ReadOnlyField()
     hostgroup_detailed = HostGroupSerializer(read_only=True, source='hostgroup')
+    id = serializers.ReadOnlyField()
 
     class Meta:
         model = Host
@@ -34,9 +34,9 @@ class JobGroupSerializer(serializers.ModelSerializer):
 
 class JobSerializer(serializers.ModelSerializer):
     created_by = serializers.ReadOnlyField(source='created_by.username')
+    host_detailed = HostSerializer(read_only=True, source='host')
     id = serializers.ReadOnlyField()
     jobgroup_detailed = JobGroupSerializer(read_only=True, source='jobgroup')
-    host_detailed = HostSerializer(read_only=True, source='host')
 
     class Meta:
         model = Job
@@ -56,6 +56,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = [
-            'first_name', 'last_name', 'email', 'last_login', 'id'
-        ]
+        fields = ['first_name', 'last_name', 'email', 'last_login', 'id']

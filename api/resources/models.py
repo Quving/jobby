@@ -36,12 +36,16 @@ class Host(models.Model):
 
 
 class Job(models.Model):
+    auth_token = models.CharField(max_length=2048, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.PROTECT)
     description = models.CharField(max_length=512)
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
     jobgroup = models.ForeignKey(JobGroup, on_delete=models.CASCADE)
-    jobuser = models.OneToOneField(User, related_name='job_auth', on_delete=models.CASCADE, null=True)
+    jobuser = models.OneToOneField(User,
+                                   related_name='job_auth',
+                                   on_delete=models.CASCADE,
+                                   null=True)
     name = models.CharField(max_length=128, unique=True)
 
     def delete(self, *args, **kwargs):
