@@ -52,8 +52,8 @@
             item-value="id"
             :items="hosts"
             :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-            label="HostGroup"
-            hint="Select HostGroup"
+            label="Host"
+            hint="Select Host"
             persistent-hint
         ></v-select>
         <v-text-field
@@ -66,6 +66,17 @@
             hint="Select Host"
             persistent-hint
         ></v-text-field>
+
+        <h3 class="mt-10 mb-5">Generated Snippets</h3>
+        <v-textarea
+            readonly
+            required
+            outlined
+            v-model="curlCommand"
+            label="Bash"
+            hint="Copy this command to your shell-script (Cronjob) and adapt it."
+            persistent-hint
+        ></v-textarea>
         <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
         <v-btn
             :loading="submitBtnLoading"
@@ -82,6 +93,7 @@
 <script>
 import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
+import util from "@/services/util";
 
 export default {
   name: 'App',
@@ -96,6 +108,7 @@ export default {
       headerText: "",
 
       // Form
+      curlCommand: "",
       jobName: "",
       jobDescription: "",
       formReadOnly: false,
@@ -170,6 +183,7 @@ export default {
         JobbyApi.getJob(this.id).then(data => {
           this.jobName = data.name;
           this.jobDescription = data.description;
+          this.curlCommand = util.createCurlCommandToCreate(data.auth_token, data.id);
 
           // Fill v-textfield or v-select depending on field formReadOnly
           this.selectedJobGroup = (dynamicVariables.formReadOnly) ? data.jobgroup_detailed.name : data.jobgroup_detailed.id;
