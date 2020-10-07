@@ -21,7 +21,7 @@
                 <td>{{ item.name }}</td>
                 <td>{{ new Date(item.created_at).toLocaleString() }}</td>
                 <td>{{ item.status }}</td>
-                <td>{{ item.job }}</td>
+                <td>{{ item.job_detailed.name }}</td>
                 <td>
                   <v-btn icon color="green" @click="$router.push(`/report/${item.id}/read`)">
                     <v-icon>mdi-magnify</v-icon>
