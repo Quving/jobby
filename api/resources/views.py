@@ -1,9 +1,10 @@
 # Create your views here.
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from resources.models import Job, Host, JobGroup, HostGroup, Report
 from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSerializer, HostSerializer, \
@@ -12,7 +13,7 @@ from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSe
 
 class ReportList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication, JWTAuthentication, SessionAuthentication]
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
 
