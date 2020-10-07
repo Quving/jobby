@@ -71,16 +71,13 @@
                     <td>{{ item.description }}</td>
                     <td>{{ new Date(item.created_at).toLocaleString() }}</td>
                     <td>
-                      <v-btn icon color="green"
-                             @click="$router.push(`/jobgroup/${item.id}/read`)">
+                      <v-btn icon color="green" @click="$router.push(`/jobgroup/${item.id}/read`)">
                         <v-icon>mdi-magnify</v-icon>
                       </v-btn>
-                      <v-btn icon color="orange"
-                             @click="$router.push(`/jobgroup/${item.id}/update`)">
+                      <v-btn icon color="orange" @click="$router.push(`/jobgroup/${item.id}/update`)">
                         <v-icon>mdi-lead-pencil</v-icon>
                       </v-btn>
-                      <v-btn icon color="red"
-                             @click="$router.push(`/jobgroup/${item.id}/delete`)">
+                      <v-btn icon color="red" @click="$router.push(`/jobgroup/${item.id}/delete`)">
                         <v-icon>mdi-delete</v-icon>
                       </v-btn>
                     </td>
