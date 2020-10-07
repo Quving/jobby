@@ -1,75 +1,92 @@
 <template>
   <v-container>
     <view-headers :header="headerText"></view-headers>
-    <form @submit.prevent="submit" autocomplete="on">
+    <v-row>
       <v-col>
-        <v-text-field
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=25
-            hint="Select a good job name!"
-            v-model="jobName"
-            label="Job name">
-        </v-text-field>
-        <v-textarea
-            :readonly="formReadOnly"
-            required
-            outlined
-            counter=100
-            v-model="jobDescription"
-            label="Job Description"
-            hint="Your later self will be happy about a good description.">
-        </v-textarea>
-        <v-select
-            v-if="!formReadOnly"
-            outlined
-            v-model="selectedJobGroup"
-            :items="jobGroups"
-            :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-            item-text="name"
-            item-value="id"
-            label="JobGroup"
-            hint="Select JobGroup"
-            persistent-hint
-        ></v-select>
-        <v-text-field
-            v-else
-            :readonly="formReadOnly"
-            required
-            outlined
-            v-model="selectedJobGroup"
-            label="JobGroup"
-            hint="Select JobGroup"
-            persistent-hint
-        ></v-text-field>
-        <v-select
-            v-if="!formReadOnly"
-            outlined
-            class="mt-7 mb-7"
-            v-model="selectedHost"
-            item-text="name"
-            item-value="id"
-            :items="hosts"
-            :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-            label="Host"
-            hint="Select Host"
-            persistent-hint
-        ></v-select>
-        <v-text-field
-            v-else
-            :readonly="formReadOnly"
-            required
-            outlined
-            v-model="selectedHost"
-            label="Host"
-            hint="Select Host"
-            persistent-hint
-        ></v-text-field>
-
-
-        <h2 class="mt-10 mb-5 text-center">Generated Snippets</h2>
-        <h3 class="mt-10 mb-5">Bash (curl)</h3>
+        <form @submit.prevent="submit" autocomplete="on">
+          <h2 class="mb-5 text-center">Properties</h2>
+          <h3 class="form-header">Name</h3>
+          <v-text-field
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=25
+              hint="Select a good job name!"
+              v-model="jobName"
+              persistent-hint
+              label="Job name">
+          </v-text-field>
+          <h3 class="form-header">Description</h3>
+          <v-textarea
+              :readonly="formReadOnly"
+              required
+              outlined
+              counter=100
+              v-model="jobDescription"
+              label="Job Description"
+              persistent-hint
+              hint="Your later self will be happy about a good description.">
+          </v-textarea>
+          <h3 class="form-header">JobGroup</h3>
+          <v-select
+              v-if="!formReadOnly"
+              outlined
+              v-model="selectedJobGroup"
+              :items="jobGroups"
+              :menu-props="{ maxHeight: '400', maxWidth:'200' }"
+              item-text="name"
+              item-value="id"
+              label="JobGroup"
+              hint="Select JobGroup"
+              persistent-hint
+          ></v-select>
+          <v-text-field
+              v-else
+              :readonly="formReadOnly"
+              required
+              outlined
+              v-model="selectedJobGroup"
+              label="JobGroup"
+              hint="Select JobGroup"
+              persistent-hint
+          ></v-text-field>
+          <h3 class="form-header">Host</h3>
+          <v-select
+              v-if="!formReadOnly"
+              outlined
+              v-model="selectedHost"
+              item-text="name"
+              item-value="id"
+              :items="hosts"
+              :menu-props="{ maxHeight: '400', maxWidth:'200' }"
+              label="Host"
+              hint="Select Host"
+              persistent-hint
+          ></v-select>
+          <v-text-field
+              v-else
+              :readonly="formReadOnly"
+              required
+              outlined
+              v-model="selectedHost"
+              label="Host"
+              hint="Select Host"
+              persistent-hint
+          ></v-text-field>
+          <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
+          <v-btn
+              :loading="submitBtnLoading"
+              :disabled="false"
+              :color="submitBtnColor"
+              v-if="action !== 'read'"
+              type="submit">
+            {{ submitBtnText }}
+          </v-btn>
+        </form>
+      </v-col>
+      <v-col>
+        <h2 class="mb-5 text-center">Generated Snippets</h2>
+        <h3 class="form-header">Bash (curl)</h3>
         <v-textarea
             style="font-family: monospace"
             readonly
@@ -80,7 +97,7 @@
             hint="Copy this command to your shell-script (e.g. Cronjob) and replace STATUS, LOGS and NAME with your values."
             persistent-hint
         ></v-textarea>
-        <h3 class="mt-10 mb-5">Python (requests)</h3>
+        <h3 class="form-header">Python (requests)</h3>
         <v-textarea
             style="font-family: monospace"
             readonly
@@ -92,17 +109,8 @@
             hint="Copy this command to your python-script and replace STATUS, LOGS and NAME with your values."
             persistent-hint
         ></v-textarea>
-        <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
-        <v-btn
-            :loading="submitBtnLoading"
-            :disabled="false"
-            :color="submitBtnColor"
-            v-if="action !== 'read'"
-            type="submit">
-          {{ submitBtnText }}
-        </v-btn>
       </v-col>
-    </form>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -293,4 +301,10 @@ export default {
   }
 }
 </script>
+<style>
+.form-header {
+  margin-top: 5mm;
+  margin-bottom: 3mm;
+}
 
+</style>
