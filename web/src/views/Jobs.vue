@@ -2,10 +2,6 @@
   <v-container>
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
-      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/job/new/create')">Create Job</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
-    </v-row>
-    <v-row justify="center">
       <v-card>
         <v-tabs background-color="white" color="deep-purple accent-4" left>
           <v-tab>Jobs</v-tab>
@@ -50,6 +46,9 @@
                   </tbody>
                 </template>
               </v-simple-table>
+              <v-card-actions class="card-actions">
+                <v-btn color="success" @click="$router.push('/job/new/create')">Create Job</v-btn>
+              </v-card-actions>
             </v-card>
           </v-tab-item>
           <v-tab-item>
@@ -85,6 +84,10 @@
                   </tbody>
                 </template>
               </v-simple-table>
+              <v-card-actions class="card-actions">
+                <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-tab-item>
         </v-tabs>
@@ -127,5 +130,10 @@ export default {
 th {
   font-weight: bold;
   text-decoration: underline;
+}
+
+.card-actions {
+  position: absolute;
+  bottom: 0;
 }
 </style>

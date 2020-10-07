@@ -2,10 +2,6 @@
   <v-container>
     <view-headers header="Hosts"></view-headers>
     <v-row justify="center">
-      <v-btn class="mb-5 mr-5" color="success" @click="$router.push('/host/new/create')">Create Host</v-btn>
-      <v-btn class="mb-5" color="success" @click="$router.push('/hostgroup/new/create')">Create HostGroup</v-btn>
-    </v-row>
-    <v-row justify="center">
       <v-card>
         <v-tabs background-color="white" color="deep-purple accent-4" left>
           <v-tab>Hosts</v-tab>
@@ -45,6 +41,9 @@
                   </tbody>
                 </template>
               </v-simple-table>
+              <v-card-actions class="card-actions">
+                <v-btn color="success" @click="$router.push('/host/new/create')">Create Host</v-btn>
+              </v-card-actions>
             </v-card>
           </v-tab-item>
           <v-tab-item>
@@ -80,6 +79,10 @@
                   </tbody>
                 </template>
               </v-simple-table>
+              <v-card-actions class="card-actions">
+                <v-btn color="success" @click="$router.push('/hostgroup/new/create')">Create HostGroup
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-tab-item>
         </v-tabs>
@@ -118,6 +121,11 @@ export default {
 }
 </script>
 <style>
+.card-actions {
+  position: absolute;
+  bottom: 0;
+}
+
 th {
   font-weight: bold;
   text-decoration: underline;

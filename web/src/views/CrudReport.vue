@@ -47,8 +47,8 @@
               item-text="name"
               item-value="id"
               :menu-props="{ maxHeight: '400', maxWidth:'200' }"
-              label="HostGroup"
-              hint="Select HostGroup"
+              label="jobs"
+              hint="The Job this Report belongs to"
               :persistent-hint="persistentHint"
           ></v-select>
           <v-text-field
@@ -170,8 +170,8 @@ export default {
       this.submitBtnColor = dynamicVariables.submitBtnColor;
 
       // Fetch reportgroups. It's required on every action.
-      JobbyApi.listHosts().then(data => {
-        this.hosts = data;
+      JobbyApi.listJobs().then(data => {
+        this.jobs = data;
       }, error => {
         console.log(error);
       });
@@ -214,9 +214,9 @@ export default {
       this.submitBtnLoading = true;
       const data = {
         name: this.reportName,
-        os: this.reportOS,
-        reportgroup: this.selectedReportGroupId,
-        description: this.reportDescription
+        job: this.selectedReportJob,
+        status: this.reportStatus,
+        logs: this.reportLogs,
       };
 
       // eslint-disable-next-line no-unused-vars
@@ -262,6 +262,7 @@ export default {
     },
     submit: function () {
       const funcs = {
+        update: this.updateReport,
         delete: this.deleteReport,
       };
       funcs[this.action]();

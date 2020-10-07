@@ -156,4 +156,7 @@ export default {
     updateJobGroup(id, data) {
         return this.makeAuthenticatedPatchRequest(`/resources/jobgroup/${id}/`, data);
     },
+    updateReport(id, data) {
+        return this.makeAuthenticatedPatchRequest(`/resources/report/${id}/`, data);
+    },
 }
