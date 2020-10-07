@@ -11,7 +11,7 @@
           <v-tab>Jobs</v-tab>
           <v-tab>JobGroups</v-tab>
           <v-tab-item>
-            <v-card min-width="1000">
+            <v-card min-width="1000" min-height="800">
               <v-card-title>My Jobs</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -53,7 +53,7 @@
             </v-card>
           </v-tab-item>
           <v-tab-item>
-            <v-card min-width="1000">
+            <v-card min-width="1000" min-height="800">
               <v-card-title>My Jobgroups</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>

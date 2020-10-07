@@ -11,7 +11,7 @@
           <v-tab>Hosts</v-tab>
           <v-tab>HostGroups</v-tab>
           <v-tab-item>
-            <v-card min-width="1000">
+            <v-card min-width="1000" min-height="800">
               <v-card-title>My Hosts</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -48,7 +48,7 @@
             </v-card>
           </v-tab-item>
           <v-tab-item>
-            <v-card min-width="1000">
+            <v-card min-width="1000" min-height="800">
               <v-card-title>My Hostgroups</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
