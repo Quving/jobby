@@ -67,15 +67,29 @@
             persistent-hint
         ></v-text-field>
 
-        <h3 class="mt-10 mb-5">Generated Snippets</h3>
+
+        <h2 class="mt-10 mb-5 text-center">Generated Snippets</h2>
+        <h3 class="mt-10 mb-5">Bash (curl)</h3>
         <v-textarea
             style="font-family: monospace"
             readonly
             required
             outlined
             v-model="curlCommand"
-            label="Bash"
-            hint="Copy this command to your shell-script (Cronjob) and replace STATUS, LOGS and NAME with your values."
+            label="Snippet"
+            hint="Copy this command to your shell-script (e.g. Cronjob) and replace STATUS, LOGS and NAME with your values."
+            persistent-hint
+        ></v-textarea>
+        <h3 class="mt-10 mb-5">Python (requests)</h3>
+        <v-textarea
+            style="font-family: monospace"
+            readonly
+            required
+            outlined
+            rows="8"
+            v-model="pythonCommand"
+            label="Snippet"
+            hint="Copy this command to your python-script and replace STATUS, LOGS and NAME with your values."
             persistent-hint
         ></v-textarea>
         <v-alert class="mt-5 mb-5" dense v-if='status' v-bind:type="alert_type">{{ status }}</v-alert>
@@ -110,6 +124,7 @@ export default {
 
       // Form
       curlCommand: "",
+      pythonCommand: "",
       jobName: "",
       jobDescription: "",
       formReadOnly: false,
@@ -184,7 +199,9 @@ export default {
         JobbyApi.getJob(this.id).then(data => {
           this.jobName = data.name;
           this.jobDescription = data.description;
-          this.curlCommand = util.createCurlCommandToCreate(data.auth_token, data.id);
+          const token = (data.auth_token === '') ? '<token not available>' : data.auth_token;
+          this.curlCommand = util.createCurlCommand(token, data.id);
+          this.pythonCommand = util.createPythonCommand(token, data.id);
 
           // Fill v-textfield or v-select depending on field formReadOnly
           this.selectedJobGroup = (dynamicVariables.formReadOnly) ? data.jobgroup_detailed.name : data.jobgroup_detailed.id;
