@@ -58,11 +58,17 @@ class Job(models.Model):
 
 
 class Report(models.Model):
+    status_choices = [
+        ('success', 'Success'),
+        ('error', 'Error'),
+        ('warning', 'Warning'),
+        ('undefined', 'Undefined'),
+    ]
     created_at = models.DateTimeField(auto_now_add=True)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     logs = models.CharField(max_length=16384)
     name = models.CharField(max_length=128)
-    status = models.CharField(max_length=24)
+    status = models.CharField(max_length=24, choices=status_choices, default='undefined')
 
     def __str__(self):
         return self.name
