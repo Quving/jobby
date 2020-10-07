@@ -231,18 +231,21 @@ export default {
         description: this.jobDescription
       };
 
-      // eslint-disable-next-line no-unused-vars
-      JobbyApi.createJob(data).then((response) => {
+      JobbyApi.createJob(data).then((data) => {
         this.alert_type = 'success';
         this.status = 'Job created.';
+        const token = (data.auth_token === '') ? '<token not available>' : data.auth_token;
+        this.curlCommand = util.createCurlCommand(token, data.id);
+        this.pythonCommand = util.createPythonCommand(token, data.id);
+        this.submitBtnLoading = false;
       }, (error) => {
         this.alert_type = 'error';
         this.status = 'Job could not be created.';
         for (const [key, value] of Object.entries(error)) {
           this.status += `${status}\n ${key.toUpperCase()}: ${value}`;
         }
+        this.submitBtnLoading = false;
       });
-      this.submitBtnLoading = false;
     },
     updateJob: function () {
       this.submitBtnLoading = true;
