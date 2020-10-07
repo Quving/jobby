@@ -111,6 +111,9 @@ export default {
     getHostGroup(id) {
         return this.makeAuthenticatedGetRequest(`/resources/hostgroup/${id}/`);
     },
+    getReport(id) {
+        return this.makeAuthenticatedGetRequest(`/resources/report/${id}/`);
+    },
     deleteJob(id) {
         return this.makeAuthenticatedDeleteRequest(`/resources/job/${id}/`);
     },
@@ -123,6 +126,9 @@ export default {
     deleteHostGroup(id) {
         return this.makeAuthenticatedDeleteRequest(`/resources/hostgroup/${id}/`);
     },
+    deleteReport(id) {
+        return this.makeAuthenticatedDeleteRequest(`/resources/report/${id}/`);
+    },
     listJobs() {
         return this.makeAuthenticatedGetRequest('/resources/job/');
     },
@@ -134,6 +140,9 @@ export default {
     },
     listJobGroups() {
         return this.makeAuthenticatedGetRequest('/resources/jobgroup/');
+    },
+    listReports() {
+        return this.makeAuthenticatedGetRequest('/resources/report/');
     },
     updateJob(id, data) {
         return this.makeAuthenticatedPatchRequest(`/resources/job/${id}/`, data);

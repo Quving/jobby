@@ -9,6 +9,7 @@ import CrudHost from "@/views/CrudHost";
 import CrudJobGroup from "@/views/CrudJobGroup";
 import CrudHostGroup from "@/views/CrudHostGroup";
 import CrudJob from "@/views/CrudJob";
+import Reports from "@/views/Reports";
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,15 @@ const routes = [
         path: '/job/:id/:action',
         name: 'CrudJob',
         component: CrudJob,
+        beforeEnter(to, from, next) {
+            if (store.getters.isAuthenticated) next()
+            else next('/login')
+        }
+    },
+    {
+        path: '/reports',
+        name: 'Reports',
+        component: Reports,
         beforeEnter(to, from, next) {
             if (store.getters.isAuthenticated) next()
             else next('/login')
