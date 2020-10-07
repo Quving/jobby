@@ -45,6 +45,7 @@ class JobSerializer(serializers.ModelSerializer):
 
 class ReportSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
+    job_detailed = JobSerializer(read_only=True, source='job')
 
     class Meta:
         model = Report
