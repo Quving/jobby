@@ -1,4 +1,7 @@
 # Create your views here.
+import random
+import string
+
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
@@ -29,8 +32,14 @@ class JobList(generics.ListCreateAPIView):
     queryset = Job.objects.all().order_by('-created_at')
     serializer_class = JobSerializer
 
+    def __get_random_string(self, len):
+        letters = string.ascii_lowercase
+        result_str = ''.join(random.choice(letters) for i in range(len))
+        return result_str
+
     def perform_create(self, serializer):
-        username = "job.{}".format(self.request.data.get('name', 'job_noname'))
+        default_name = 'noname' + self.__get_random_string(8)
+        username = "job.{}".format(self.request.data.get('name', default_name))
         # Lowercase and using underscore.
         username = username.lower().replace(" ", "_")
 
