@@ -30,7 +30,10 @@ class JobList(generics.ListCreateAPIView):
     serializer_class = JobSerializer
 
     def perform_create(self, serializer):
-        username = "job.{}".format(self.request.data.get('name', 'job_noname')).lower()
+        username = "job.{}".format(self.request.data.get('name', 'job_noname'))
+        # Lowercase and using underscore.
+        username = username.lower().replace(" ", "_")
+
         user = User.objects.create_user(username=username,
                                         email='{}@job.com'.format(username),
                                         password=username)
