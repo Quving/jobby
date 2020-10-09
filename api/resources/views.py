@@ -14,7 +14,7 @@ from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSe
 class ReportList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = [TokenAuthentication, JWTAuthentication, SessionAuthentication]
-    queryset = Report.objects.all()
+    queryset = Report.objects.all().order_by('-created_at')
     serializer_class = ReportSerializer
 
 
@@ -26,7 +26,7 @@ class ReportDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class JobList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = Job.objects.all()
+    queryset = Job.objects.all().order_by('-created_at')
     serializer_class = JobSerializer
 
     def perform_create(self, serializer):
@@ -47,7 +47,7 @@ class JobDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class JobGroupList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = JobGroup.objects.all()
+    queryset = JobGroup.objects.all().order_by('-created_at')
     serializer_class = JobGroupSerializer
 
     def perform_create(self, serializer):
@@ -62,7 +62,7 @@ class JobGroupDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class HostGroupList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = HostGroup.objects.all()
+    queryset = HostGroup.objects.all().order_by('-created_at')
     serializer_class = HostGroupSerializer
 
     def perform_create(self, serializer):
@@ -77,7 +77,7 @@ class HostGroupDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class HostList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = Host.objects.all()
+    queryset = Host.objects.all().order_by('-created_at')
     serializer_class = HostSerializer
 
     def perform_create(self, serializer):
