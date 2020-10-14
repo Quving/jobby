@@ -62,7 +62,7 @@ export default {
   methods: {
     fetchData: function () {
       JobbyApi.listReports().then((data) => {
-        this.reports = data;
+        this.reports = data.results;
       })
     }
   },

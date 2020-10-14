@@ -154,7 +154,7 @@ export default {
 
       // Fetch hostgroups. It's required on every action.
       JobbyApi.listHostGroups().then(data => {
-        this.hostGroups = data;
+        this.hostGroups = data.results;
       }, error => {
         console.log(error);
       });

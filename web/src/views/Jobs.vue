@@ -117,10 +117,10 @@ export default {
   methods: {
     fetchData: function () {
       JobbyApi.listJobs().then((data) => {
-        this.jobs = data;
+        this.jobs = data.results;
       });
       JobbyApi.listJobGroups().then((data) => {
-        this.jobgroups = data;
+        this.jobgroups = data.results;
       })
     }
   },
