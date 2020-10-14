@@ -2,7 +2,6 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card>
         <v-card min-width="1000" min-height="800">
           <v-card-title>Reports</v-card-title>
           <v-simple-table fixed-header>
@@ -17,7 +16,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="item in reports" :key="item.name">
+              <tr v-for="item in reports" :key="item.id">
                 <td>{{ item.name }}</td>
                 <td>{{ item.job_detailed.name }}</td>
                 <td>{{ item.status }}</td>
@@ -38,7 +37,6 @@
             </template>
           </v-simple-table>
         </v-card>
-      </v-card>
     </v-row>
   </v-container>
 </template>
