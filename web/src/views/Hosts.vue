@@ -113,7 +113,7 @@ export default {
   methods: {
     fetchData: function () {
       JobbyApi.listHosts().then((data) => {
-        this.hosts = data;
+        this.hosts = data.results;
       })
       JobbyApi.listHostGroups().then((data) => {
         this.hostgroups = data;

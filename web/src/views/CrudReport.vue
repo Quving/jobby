@@ -171,7 +171,7 @@ export default {
 
       // Fetch reportgroups. It's required on every action.
       JobbyApi.listJobs().then(data => {
-        this.jobs = data;
+        this.jobs = data.results;
       }, error => {
         console.log(error);
       });
