@@ -37,12 +37,12 @@
           </template>
         </v-simple-table>
         <v-card-actions>
-          <Pagination
+          <Paginator
               @next-page="nextPage"
               @previous-page="previousPage"
               :has-next="hasNext"
               :has-previous="hasPrevious">
-          </Pagination>
+          </Paginator>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -53,11 +53,11 @@
 
 import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
-import Pagination from "@/components/Pagination";
+import Paginator from "@/components/Paginator";
 
 export default {
   name: 'Home',
-  components: {Pagination, ViewHeaders},
+  components: {Paginator, ViewHeaders},
   data() {
     return {
       hasNext: true,
