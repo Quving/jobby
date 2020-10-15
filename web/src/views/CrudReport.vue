@@ -170,7 +170,7 @@ export default {
       this.submitBtnColor = dynamicVariables.submitBtnColor;
 
       // Fetch reportgroups. It's required on every action.
-      JobbyApi.listJobs().then(data => {
+      JobbyApi.listJobs("?limit=250").then(data => {
         this.jobs = data.results;
       }, error => {
         console.log(error);

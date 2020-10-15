@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card min-width="1000" min-height="800">
+      <v-card min-width="1100" min-height="900">
         <v-card-title>Reports</v-card-title>
         <v-simple-table fixed-header>
           <template v-slot:default>
@@ -37,7 +37,7 @@
           </template>
         </v-simple-table>
         <v-card-actions>
-          <Paginator
+          <Paginator class="card-actions"
               @next-page="nextPage"
               @previous-page="previousPage"
               :has-next="hasNext"
@@ -45,6 +45,8 @@
           </Paginator>
         </v-card-actions>
       </v-card>
+    </v-row>
+    <v-row>
     </v-row>
   </v-container>
 </template>
@@ -60,8 +62,13 @@ export default {
   components: {Paginator, ViewHeaders},
   data() {
     return {
-      hasNext: true,
-      hasPrevious: true,
+
+      // Paginator
+      currentPage: 1,
+      hasNext: false,
+      hasPrevious: false,
+      pageSize: 15,
+
       reports: [],
     }
   },
@@ -70,14 +77,21 @@ export default {
   },
   methods: {
     nextPage: function () {
-      console.log("Next")
+      this.currentPage += 1;
+      this.fetchData();
     },
     previousPage: function () {
-      console.log("Prev")
+      this.currentPage -= 1;
+      this.fetchData();
     },
     fetchData: function () {
-      JobbyApi.listReports().then((data) => {
+      this.hasNext = false;
+      this.hasPrevious = false;
+      const urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPage - 1)}`;
+      JobbyApi.listReports(urlParams).then((data) => {
         this.reports = data.results;
+        this.hasNext = data.next != null;
+        this.hasPrevious = data.previous != null;
       })
     }
   },

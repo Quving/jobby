@@ -195,12 +195,12 @@ export default {
       this.submitBtnColor = dynamicVariables.submitBtnColor;
 
       // Fetch the host-list and also the jobgroups. They're required for every action.
-      JobbyApi.listHosts().then(data => {
+      JobbyApi.listHosts("?limit=250").then(data => {
         this.hosts = data.results;
       }, (error => {
         console.log(error)
       }));
-      JobbyApi.listJobGroups().then(data => {
+      JobbyApi.listJobGroups("?limit=250").then(data => {
         this.jobGroups = data.results;
       }, (error => {
         console.log(error)

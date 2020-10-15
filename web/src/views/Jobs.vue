@@ -3,11 +3,11 @@
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
       <v-card>
-        <v-tabs background-color="white" color="deep-purple accent-4" left>
+        <v-tabs v-model="selectedTab" background-color="white" color="deep-purple accent-4" left>
           <v-tab>Jobs</v-tab>
           <v-tab>JobGroups</v-tab>
           <v-tab-item>
-            <v-card min-width="1000" min-height="800">
+            <v-card min-width="1100" min-height="850">
               <v-card-title>My Jobs</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -49,10 +49,17 @@
               <v-card-actions class="card-actions">
                 <v-btn color="success" @click="$router.push('/job/new/create')">Create Job</v-btn>
               </v-card-actions>
+              <Paginator
+                  class="card-actions"
+                  @next-page="nextPage"
+                  @previous-page="previousPage"
+                  :has-next="hasNextJob"
+                  :has-previous="hasPreviousJob">
+              </Paginator>
             </v-card>
           </v-tab-item>
           <v-tab-item>
-            <v-card min-width="1000" min-height="800">
+            <v-card min-width="1100" min-height="850">
               <v-card-title>My Jobgroups</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -85,15 +92,19 @@
                 </template>
               </v-simple-table>
               <v-card-actions class="card-actions">
-                <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup
-                </v-btn>
+                <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
               </v-card-actions>
+              <Paginator
+                  class="card-actions"
+                  @next-page="nextPage"
+                  @previous-page="previousPage"
+                  :has-next="hasNextJobGroup"
+                  :has-previous="hasPreviousJobGroup">
+              </Paginator>
             </v-card>
           </v-tab-item>
         </v-tabs>
       </v-card>
-    </v-row>
-    <v-row justify="center">
     </v-row>
   </v-container>
 </template>
@@ -101,26 +112,58 @@
 <script>
 import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
+import Paginator from "@/components/Paginator";
 
 export default {
   name: 'Home',
-  components: {ViewHeaders},
+  components: {ViewHeaders, Paginator},
   data() {
     return {
       jobs: [],
       jobgroups: [],
+      selectedTab: 0,
+
+      // Paginator
+      currentPageJob: 1,
+      hasNextJob: false,
+      hasPreviousJob: false,
+      pageSize: 15,
+      currentPageJobGroup: 1,
+      hasNextJobGroup: false,
+      hasPreviousJobGroup: false,
     }
   },
   created() {
     this.fetchData();
   },
   methods: {
+    nextPage: function () {
+      if (this.selectedTab === 0) this.currentPageJob += 1;
+      if (this.selectedTab === 1) this.currentPageJobGroup += 1;
+      this.fetchData();
+    },
+    previousPage: function () {
+      if (this.selectedTab === 0) this.currentPageJob -= 1;
+      if (this.selectedTab === 1) this.currentPageJobGroup -= 1;
+      this.fetchData();
+    },
     fetchData: function () {
-      JobbyApi.listJobs().then((data) => {
+      this.hasNextJob = false;
+      this.hasPreviousJob = false;
+      this.hasNextJobGroup = false;
+      this.hasPreviousJobGroup = false;
+
+      const urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageJob - 1)}`;
+      JobbyApi.listJobs(urlParams).then((data) => {
         this.jobs = data.results;
+        this.hasNextJob = data.next != null;
+        this.hasPreviousJob = data.previous != null;
       });
-      JobbyApi.listJobGroups().then((data) => {
+      const urlParams2 = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageJobGroup - 1)}`;
+      JobbyApi.listJobGroups(urlParams2).then((data) => {
         this.jobgroups = data.results;
+        this.hasNextJobGroup = data.next != null;
+        this.hasPreviousJobGroup = data.previous != null;
       })
     }
   },
