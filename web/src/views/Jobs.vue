@@ -50,7 +50,7 @@
                 <v-btn color="success" @click="$router.push('/job/new/create')">Create Job</v-btn>
               </v-card-actions>
               <Paginator
-                  class="card-actions"
+                  class="card-actions mb-10"
                   @next-page="nextPage"
                   @previous-page="previousPage"
                   :has-next="hasNextJob"
@@ -95,7 +95,7 @@
                 <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
               </v-card-actions>
               <Paginator
-                  class="card-actions"
+                  class="card-actions mb-10"
                   @next-page="nextPage"
                   @previous-page="previousPage"
                   :has-next="hasNextJobGroup"
