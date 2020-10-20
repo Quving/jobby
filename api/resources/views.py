@@ -9,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from resources.filters import ReportFilter
 from resources.models import Job, Host, JobGroup, HostGroup, Report
 from resources.serializers import JobSerializer, HostGroupSerializer, JobGroupSerializer, HostSerializer, \
     ReportSerializer, UserSerializer
@@ -19,6 +20,7 @@ class ReportList(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication, JWTAuthentication, SessionAuthentication]
     queryset = Report.objects.all().order_by('-created_at')
     serializer_class = ReportSerializer
+    filterset_class = ReportFilter
 
 
 class ReportDetail(generics.RetrieveUpdateDestroyAPIView):
