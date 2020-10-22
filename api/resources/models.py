@@ -61,6 +61,7 @@ class Report(models.Model):
     status_choices = [
         ('success', 'Success'),
         ('error', 'Error'),
+        ('failure', 'Failure'),
         ('warning', 'Warning'),
         ('undefined', 'Undefined'),
     ]
