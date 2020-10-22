@@ -124,7 +124,6 @@ export default {
     fetchReportStatistics() {
       jobbyApi.listReports('?status=success').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_success', 'amount', data.count)
-        console.log(data.count);
       });
       jobbyApi.listReports('?status=failure').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_failure', 'amount', data.count)
@@ -135,21 +134,21 @@ export default {
       jobbyApi.listReports('?status=error').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_error', 'amount', data.count)
       });
-      jobbyApi.listReports('').then((data) => {
-        this.updateListElementById(this.entitySummary, 'total_reports', 'amount', data.count)
+      jobbyApi.listReports().then((data) => {
+        this.updateListElementById(this.reportsSummary, 'total_reports', 'amount', data.count)
       });
     },
     fetchEntityStatistics() {
-      jobbyApi.listJobs('').then((data) => {
+      jobbyApi.listJobs().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_jobs', 'amount', data.count)
       });
-      jobbyApi.listJobGroups('').then((data) => {
+      jobbyApi.listJobGroups().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_jobgroups', 'amount', data.count)
       });
-      jobbyApi.listHosts('').then((data) => {
+      jobbyApi.listHosts().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_hosts', 'amount', data.count)
       });
-      jobbyApi.listHostGroups('').then((data) => {
+      jobbyApi.listHostGroups().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_hostgroups', 'amount', data.count)
       });
     }
