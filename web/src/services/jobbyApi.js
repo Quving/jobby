@@ -130,19 +130,19 @@ export default {
         return this.makeAuthenticatedDeleteRequest(`/resources/report/${id}/`);
     },
     listJobs(urlParams) {
-        return this.makeAuthenticatedGetRequest(`/resources/job/${urlParams}`);
+        return this.makeAuthenticatedGetRequest(`/resources/job/${urlParams ?? ''}`);
     },
     listHosts(urlParams) {
-        return this.makeAuthenticatedGetRequest(`/resources/host/${urlParams}`);
+        return this.makeAuthenticatedGetRequest(`/resources/host/${urlParams ?? ''}`);
     },
     listHostGroups(urlParams) {
-        return this.makeAuthenticatedGetRequest(`/resources/hostgroup/${urlParams}`);
+        return this.makeAuthenticatedGetRequest(`/resources/hostgroup/${urlParams ?? ''}`);
     },
     listJobGroups(urlParams) {
-        return this.makeAuthenticatedGetRequest(`/resources/jobgroup/${urlParams}`);
+        return this.makeAuthenticatedGetRequest(`/resources/jobgroup/${urlParams ?? ''}`);
     },
     listReports(urlParams) {
-        return this.makeAuthenticatedGetRequest(`/resources/report/${urlParams}`);
+        return this.makeAuthenticatedGetRequest(`/resources/report/${urlParams ?? ''}`);
     },
     updateJob(id, data) {
         return this.makeAuthenticatedPatchRequest(`/resources/job/${id}/`, data);

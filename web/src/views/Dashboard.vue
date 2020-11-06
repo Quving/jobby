@@ -51,41 +51,107 @@
 <script>
 
 import ViewHeader from "@/components/ViewHeader";
+import jobbyApi from "@/services/jobbyApi";
 
 export default {
   name: 'Home',
+  created() {
+    this.fetchReportStatistics();
+    this.fetchEntityStatistics();
+  },
   data() {
     return {
       reportsSummary: [
         {
-          name: 'Successful Reports',
-          amount: 237,
+          id: 'reports_count_success',
+          name: 'Successful',
+          amount: 0,
         },
         {
-          name: 'Failed Reports',
-          amount: 15,
+          id: 'reports_count_failure',
+          name: 'Failure',
+          amount: 0,
         },
         {
-          name: 'Missing Reports',
-          amount: 2,
+          id: 'reports_count_warning',
+          name: 'Warning',
+          amount: 0,
+        },
+        {
+          id: 'reports_count_error',
+          name: 'Error',
+          amount: 0,
+        },
+        {
+          id: 'total_reports',
+          name: 'Total Reports',
+          amount: 0,
         },
       ],
       entitySummary: [
         {
+          id: 'total_jobs',
           name: 'Total Jobs',
-          amount: 25,
+          amount: 0,
         },
         {
+          id: 'total_jobgroups',
+          name: 'Total Jobgroups',
+          amount: 0,
+        },
+        {
+          id: 'total_hosts',
           name: 'Total Hosts',
-          amount: 9,
+          amount: 0,
         },
         {
-          name: 'Missing Reports',
-          amount: 2,
+          id: 'total_hostgroups',
+          name: 'Total Hostgroups',
+          amount: 0,
         },
       ]
     }
   },
   components: {ViewHeader},
+  methods: {
+    updateListElementById(list, selectorValue, newKey, newValue) {
+      list.forEach(element => {
+        if (element.id === selectorValue) {
+          element[newKey] = newValue;
+        }
+      })
+    },
+    fetchReportStatistics() {
+      jobbyApi.listReports('?status=success').then((data) => {
+        this.updateListElementById(this.reportsSummary, 'reports_count_success', 'amount', data.count)
+      });
+      jobbyApi.listReports('?status=failure').then((data) => {
+        this.updateListElementById(this.reportsSummary, 'reports_count_failure', 'amount', data.count)
+      });
+      jobbyApi.listReports('?status=warning').then((data) => {
+        this.updateListElementById(this.reportsSummary, 'reports_count_warning', 'amount', data.count)
+      });
+      jobbyApi.listReports('?status=error').then((data) => {
+        this.updateListElementById(this.reportsSummary, 'reports_count_error', 'amount', data.count)
+      });
+      jobbyApi.listReports().then((data) => {
+        this.updateListElementById(this.reportsSummary, 'total_reports', 'amount', data.count)
+      });
+    },
+    fetchEntityStatistics() {
+      jobbyApi.listJobs().then((data) => {
+        this.updateListElementById(this.entitySummary, 'total_jobs', 'amount', data.count)
+      });
+      jobbyApi.listJobGroups().then((data) => {
+        this.updateListElementById(this.entitySummary, 'total_jobgroups', 'amount', data.count)
+      });
+      jobbyApi.listHosts().then((data) => {
+        this.updateListElementById(this.entitySummary, 'total_hosts', 'amount', data.count)
+      });
+      jobbyApi.listHostGroups().then((data) => {
+        this.updateListElementById(this.entitySummary, 'total_hostgroups', 'amount', data.count)
+      });
+    }
+  }
 }
 </script>
