@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card min-width="1100" min-height="900">
+      <v-card min-width="1100" max-width="1100" min-height="900" max-height="900">
         <v-card-title>Reports</v-card-title>
         <v-simple-table fixed-header>
           <template v-slot:default>
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
             <tr v-for="item in reports" :key="item.id">
-              <td>{{ item.name }}</td>
+              <td>{{ item.name_formatted }}</td>
               <td>{{ item.job_detailed.name }}</td>
               <td>{{ item.status }}</td>
               <td>{{ new Date(item.created_at).toLocaleString() }}</td>
@@ -38,10 +38,10 @@
         </v-simple-table>
         <v-card-actions>
           <Paginator class="card-actions"
-              @next-page="nextPage"
-              @previous-page="previousPage"
-              :has-next="hasNext"
-              :has-previous="hasPrevious">
+                     @next-page="nextPage"
+                     @previous-page="previousPage"
+                     :has-next="hasNext"
+                     :has-previous="hasPrevious">
           </Paginator>
         </v-card-actions>
       </v-card>
@@ -56,6 +56,7 @@
 import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
 import Paginator from "@/components/Paginator";
+import util from "@/services/util";
 
 export default {
   name: 'Home',
@@ -63,6 +64,7 @@ export default {
   data() {
     return {
 
+      maxTextLen: 30,
       // Paginator
       currentPage: 1,
       hasNext: false,
@@ -89,7 +91,7 @@ export default {
       this.hasPrevious = false;
       const urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPage - 1)}`;
       JobbyApi.listReports(urlParams).then((data) => {
-        this.reports = data.results;
+        this.reports = util.formatObjectTexts(data.results, this.maxTextLen);
         this.hasNext = data.next != null;
         this.hasPrevious = data.previous != null;
       })

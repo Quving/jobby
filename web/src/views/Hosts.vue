@@ -7,7 +7,7 @@
           <v-tab>Hosts</v-tab>
           <v-tab>HostGroups</v-tab>
           <v-tab-item>
-            <v-card min-width="1100" min-height="850">
+            <v-card min-width="1100" max-width="1100" min-height="900" max-height="900">
               <v-card-title>My Hosts</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -23,10 +23,10 @@
                   </thead>
                   <tbody>
                   <tr v-for="item in hosts" :key="item.name">
-                    <td>{{ item.name }}</td>
+                    <td>{{ item.name_formatted }}</td>
                     <td>{{ item.hostgroup_detailed.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.os }}</td>
+                    <td>{{ item.description_formatted }}</td>
+                    <td>{{ item.os_formatted }}</td>
                     <td>{{ new Date(item.created_at).toLocaleString() }}</td>
                     <td>
                       <v-btn icon color="green" @click="$router.push(`/host/${item.id}/read`)">
@@ -56,7 +56,7 @@
             </v-card>
           </v-tab-item>
           <v-tab-item>
-            <v-card min-width="1100" min-height="850">
+            <v-card min-width="1100" max-width="1100" min-height="900" max-height="900">
               <v-card-title>My Hostgroups</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -70,8 +70,8 @@
                   </thead>
                   <tbody>
                   <tr v-for="item in hostgroups" :key="item.name">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
+                    <td>{{ item.name_formatted }}</td>
+                    <td>{{ item.description_formatted }}</td>
                     <td>{{ new Date(item.created_at).toLocaleString() }}</td>
                     <td>
                       <v-btn icon color="green" @click="$router.push(`/hostgroup/${item.id}/read`)">
@@ -112,6 +112,7 @@
 import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
 import Paginator from "@/components/Paginator";
+import util from "@/services/util";
 
 export default {
   name: 'Home',
@@ -121,6 +122,8 @@ export default {
       hosts: [],
       hostgroups: [],
       selectedTab: 0,
+
+      maxTextLen: 30,
 
       // Paginator
       currentPageHost: 1,
@@ -152,13 +155,13 @@ export default {
 
       const urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageHost - 1)}`;
       JobbyApi.listHosts(urlParams).then((data) => {
-        this.hosts = data.results;
+        this.hosts = util.formatObjectTexts(data.results, this.maxTextLen);
         this.hasNextJob = data.next != null;
         this.hasPreviousJob = data.previous != null;
       });
       const urlParams2 = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageHostGroup - 1)}`;
       JobbyApi.listHostGroups(urlParams2).then((data) => {
-        this.hostgroups = data.results;
+        this.hostgroups = util.formatObjectTexts(data.results, this.maxTextLen);
         this.hasNextJobGroup = data.next != null;
         this.hasPreviousJobGroup = data.previous != null;
       });

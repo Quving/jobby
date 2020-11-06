@@ -14,5 +14,25 @@ export default {
             `data = '{"job": ${jobId}, "status": "success", "logs": "LOGS", "name": "report_${jobId}"}'`,
             `response = requests.post('http://localhost:8000/resources/report/', headers=headers, data=data)`];
         return cmd.join('\n');
+    },
+
+    /**
+     * Shorten all string attributes accordingly to textMaxLen and add postfix '_formatted' to object orignal key value.
+     * Example: "a-too-long-string" will be formatted "a-too-lo...".
+     * @param objects
+     * @param textMaxLen
+     */
+    formatObjectTexts: function (objects, textMaxLen) {
+        objects.forEach(job => {
+            for (const [key, value] of Object.entries(job)) {
+                if (typeof value == 'string') {
+                    if (value.length > textMaxLen)
+                        job[key + '_formatted'] = value.substr(0, textMaxLen) + '...';
+                    else
+                        job[key + '_formatted'] = value
+                }
+            }
+        })
+        return objects;
     }
 }
