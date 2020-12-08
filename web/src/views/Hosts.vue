@@ -3,7 +3,7 @@
     <view-headers header="Hosts"></view-headers>
     <v-row justify="center">
       <v-card>
-        <v-tabs v-model="selectedTab" background-color="white" color="deep-purple accent-4" left>
+        <v-tabs v-model="selectedTab" background-color="white" color="black accent-4" left>
           <v-tab>Hosts</v-tab>
           <v-tab>HostGroups</v-tab>
           <v-tab-item>
