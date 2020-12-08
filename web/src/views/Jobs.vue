@@ -3,12 +3,49 @@
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
       <v-card>
-        <v-tabs v-model="selectedTab" background-color="white" color="deep-purple accent-4" left>
+        <v-tabs v-model="selectedTab" background-color="white" color="black accent-4" left>
           <v-tab>Jobs</v-tab>
           <v-tab>JobGroups</v-tab>
           <v-tab-item>
-            <v-card min-width="1100" max-width="1100" min-height="900" max-height="900">
-              <v-card-title>My Jobs</v-card-title>
+            <v-card min-width="1100" max-width="1100" min-height="900">
+              <v-list-item-content>
+                <v-row justify="center">
+                  <view-sub-header header="Filter"></view-sub-header>
+                </v-row>
+                <v-container class="mr-3 ml-3">
+                  <v-row>
+                    <v-text-field
+                        outlined
+                        dense
+                        class="mr-3 ml-3"
+                        hint="Filter by Job"
+                        v-model="jobFilter"
+                        label="Job">
+                    </v-text-field>
+                    <v-text-field
+                        outlined
+                        dense
+                        class="mr-3 ml-3"
+                        hint="Filter by Description"
+                        v-model="descriptionFilter"
+                        label="Description">
+                    </v-text-field>
+                    <v-text-field
+                        outlined
+                        dense
+                        class="mr-3 ml-3"
+                        hint="Filter by Host"
+                        v-model="hostFilter"
+                        label="Host">
+                    </v-text-field>
+                    <v-btn class="mr-3 ml-3">Filter</v-btn>
+                    <v-btn class="mr-6 ml-3">Reset</v-btn>
+                  </v-row>
+                </v-container>
+                <v-row justify="center">
+                  <view-sub-header header="Items"></view-sub-header>
+                </v-row>
+              </v-list-item-content>
               <v-simple-table fixed-header>
                 <template v-slot:default>
                   <thead>
@@ -59,7 +96,7 @@
             </v-card>
           </v-tab-item>
           <v-tab-item>
-            <v-card min-width="1100" max-width="1100" min-height="900" max-height="900">
+            <v-card min-width="1100" max-width="1100" min-height="900">
               <v-card-title>My Jobgroups</v-card-title>
               <v-simple-table fixed-header>
                 <template v-slot:default>
@@ -114,16 +151,21 @@ import JobbyApi from "@/services/jobbyApi";
 import ViewHeaders from "@/components/ViewHeader";
 import Paginator from "@/components/Paginator";
 import util from "@/services/util";
+import ViewSubHeader from "@/components/ViewSubHeader";
 
 export default {
   name: 'Home',
-  components: {ViewHeaders, Paginator},
+  components: {ViewSubHeader, ViewHeaders, Paginator},
   data() {
     return {
       jobs: [],
       jobgroups: [],
       selectedTab: 0,
 
+      // Filter
+      jobFilter: '',
+      descriptionFilter: '',
+      hostFilter: '',
       // Format
       textMaxLen: 30,
 
