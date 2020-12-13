@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card min-width="1100" max-width="1100" min-height="900" max-height="900">
+      <v-card min-width="1100" max-width="1100" min-height="1000">
         <v-card-title>Reports</v-card-title>
         <v-simple-table fixed-header>
           <template v-slot:default>

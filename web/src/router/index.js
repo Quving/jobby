@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import store from '../store/index'
 import Dashboard from "@/views/Dashboard";
-import Hosts from "@/views/Hosts";
-import Jobs from "@/views/JobAndGroups";
+import Hosts from "@/views/HostsAndGroups";
+import Jobs from "@/views/JobsAndGroups";
 import CrudHost from "@/views/CrudHost";
 import CrudJobGroup from "@/views/CrudJobGroup";
 import CrudHostGroup from "@/views/CrudHostGroup";

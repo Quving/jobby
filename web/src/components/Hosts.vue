@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card min-width="1100" max-width="1100" min-height="1000">
+  <v-card min-width="1100" max-width="1100" min-height="1000">
+    <v-container>
       <v-container>
         <v-row justify="center">
           <view-sub-header header="Filter"></view-sub-header>
@@ -15,25 +15,29 @@
         <template v-slot:default>
           <thead>
           <tr>
-            <th class="text-left" style="font-size: 16px">Name</th>
+            <th class="text-left" style="font-size: 16px">Host</th>
+            <th class="text-left" style="font-size: 16px">Hostgroup</th>
             <th class="text-left" style="font-size: 16px">Description</th>
+            <th class="text-left" style="font-size: 16px">OS</th>
             <th class="text-left" style="font-size: 16px">Created At</th>
             <th class="text-left" style="font-size: 16px">Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in jobgroups" :key="item.name">
+          <tr v-for="item in hosts" :key="item.name">
             <td>{{ item.name_formatted }}</td>
-            <td>{{ item.description_formmatted }}</td>
+            <td>{{ item.hostgroup_detailed.name }}</td>
+            <td>{{ item.description_formatted }}</td>
+            <td>{{ item.os_formatted }}</td>
             <td>{{ new Date(item.created_at).toLocaleString() }}</td>
             <td>
-              <v-btn icon color="green" @click="$router.push(`/jobgroup/${item.id}/read`)">
+              <v-btn icon color="green" @click="$router.push(`/host/${item.id}/read`)">
                 <v-icon>mdi-magnify</v-icon>
               </v-btn>
-              <v-btn icon color="orange" @click="$router.push(`/jobgroup/${item.id}/update`)">
+              <v-btn icon color="orange" @click="$router.push(`/host/${item.id}/update`)">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
-              <v-btn icon color="red" @click="$router.push(`/jobgroup/${item.id}/delete`)">
+              <v-btn icon color="red" @click="$router.push(`/host/${item.id}/delete`)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </td>
@@ -42,48 +46,41 @@
         </template>
       </v-simple-table>
       <v-card-actions class="card-actions">
-        <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
+        <v-btn color="success" @click="$router.push('/host/new/create')">Create Host</v-btn>
       </v-card-actions>
       <Paginator
           class="card-actions mb-10"
           @next-page="nextPage"
           @previous-page="previousPage"
-          :has-next="hasNextJobGroup"
-          :has-previous="hasPreviousJobGroup">
+          :has-next="hasNextHost"
+          :has-previous="hasPreviousHost">
       </Paginator>
-    </v-card>
-  </v-container>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
-import JobbyApi from '@/services/jobbyApi';
+
+import JobbyApi from "@/services/jobbyApi";
 import ViewSubHeader from "@/components/ViewSubHeader";
-import util from "@/services/util";
 import Paginator from "@/components/Paginator";
+import util from "@/services/util";
 
 export default {
   name: 'Home',
-  components: {Paginator, ViewSubHeader},
+  components: {ViewSubHeader, Paginator},
   data() {
     return {
-      jobgroups: [],
+      hosts: [],
       selectedTab: 0,
 
-// Filter
-      jobFilter: '',
-      descriptionFilter: '',
-      hostFilter: '',
-// Format
-      textMaxLen: 30,
+      maxTextLen: 30,
 
-// Paginator
-      currentPageJob: 1,
-      hasNextJob: false,
-      hasPreviousJob: false,
+      // Paginator
+      currentPageHost: 1,
+      hasNextHost: false,
+      hasPreviousHost: false,
       pageSize: 15,
-      currentPageJobGroup: 1,
-      hasNextJobGroup: false,
-      hasPreviousJobGroup: false,
     }
   },
   created() {
@@ -91,28 +88,33 @@ export default {
   },
   methods: {
     nextPage: function () {
-      if (this.selectedTab === 1) this.currentPageJobGroup += 1;
+      if (this.selectedTab === 0) this.currentPageHost += 1;
       this.fetchData();
     },
     previousPage: function () {
-      if (this.selectedTab === 1) this.currentPageJobGroup -= 1;
+      if (this.selectedTab === 0) this.currentPageHost -= 1;
       this.fetchData();
     },
     fetchData: function () {
-      this.hasNextJobGroup = false;
-      this.hasPreviousJobGroup = false;
+      this.hasNextHost = false;
+      this.hasPreviousHost = false;
 
-      const urlParams2 = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageJobGroup - 1)}`;
-      JobbyApi.listJobGroups(urlParams2).then((data) => {
-        this.jobgroups = util.formatObjectTexts(data.results, this.textMaxLen);
-        this.hasNextJobGroup = data.next != null;
-        this.hasPreviousJobGroup = data.previous != null;
-      })
+      const urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageHost - 1)}`;
+      JobbyApi.listHosts(urlParams).then((data) => {
+        this.hosts = util.formatObjectTexts(data.results, this.maxTextLen);
+        this.hasNextJob = data.next != null;
+        this.hasPreviousJob = data.previous != null;
+      });
     }
   },
 }
 </script>
 <style>
+.card-actions {
+  position: absolute;
+  bottom: 0;
+}
+
 th {
   font-weight: bold;
   text-decoration: underline;
