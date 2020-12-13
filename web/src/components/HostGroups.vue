@@ -1,6 +1,5 @@
 <template>
   <v-card min-width="1100" max-width="1100" min-height="1000">
-    <v-container>
       <v-container>
         <v-row justify="center">
           <view-sub-header header="Filter"></view-sub-header>
@@ -53,7 +52,6 @@
           :has-next="hasNextHostGroup"
           :has-previous="hasPreviousHostGroup">
       </Paginator>
-    </v-container>
   </v-card>
 </template>
 

@@ -1,58 +1,56 @@
 <template>
-  <v-container>
-    <v-card min-width="1100" max-width="1100" min-height="1000">
-      <v-container>
-        <v-row justify="center">
-          <view-sub-header header="Filter"></view-sub-header>
-        </v-row>
-      </v-container>
-      <v-container>
-        <v-row justify="center">
-          <view-sub-header header="Items"></view-sub-header>
-        </v-row>
-      </v-container>
-      <v-simple-table fixed-header>
-        <template v-slot:default>
-          <thead>
-          <tr>
-            <th class="text-left" style="font-size: 16px">Name</th>
-            <th class="text-left" style="font-size: 16px">Description</th>
-            <th class="text-left" style="font-size: 16px">Created At</th>
-            <th class="text-left" style="font-size: 16px">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="item in jobgroups" :key="item.name">
-            <td>{{ item.name_formatted }}</td>
-            <td>{{ item.description_formmatted }}</td>
-            <td>{{ new Date(item.created_at).toLocaleString() }}</td>
-            <td>
-              <v-btn icon color="green" @click="$router.push(`/jobgroup/${item.id}/read`)">
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-              <v-btn icon color="orange" @click="$router.push(`/jobgroup/${item.id}/update`)">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn>
-              <v-btn icon color="red" @click="$router.push(`/jobgroup/${item.id}/delete`)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
-      <v-card-actions class="card-actions">
-        <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
-      </v-card-actions>
-      <Paginator
-          class="card-actions mb-10"
-          @next-page="nextPage"
-          @previous-page="previousPage"
-          :has-next="hasNextJobGroup"
-          :has-previous="hasPreviousJobGroup">
-      </Paginator>
-    </v-card>
-  </v-container>
+  <v-card min-width="1100" max-width="1100" min-height="1000">
+    <v-container>
+      <v-row justify="center">
+        <view-sub-header header="Filter"></view-sub-header>
+      </v-row>
+    </v-container>
+    <v-container>
+      <v-row justify="center">
+        <view-sub-header header="Items"></view-sub-header>
+      </v-row>
+    </v-container>
+    <v-simple-table fixed-header>
+      <template v-slot:default>
+        <thead>
+        <tr>
+          <th class="text-left" style="font-size: 16px">Name</th>
+          <th class="text-left" style="font-size: 16px">Description</th>
+          <th class="text-left" style="font-size: 16px">Created At</th>
+          <th class="text-left" style="font-size: 16px">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in jobgroups" :key="item.name">
+          <td>{{ item.name_formatted }}</td>
+          <td>{{ item.description_formmatted }}</td>
+          <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+          <td>
+            <v-btn icon color="green" @click="$router.push(`/jobgroup/${item.id}/read`)">
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+            <v-btn icon color="orange" @click="$router.push(`/jobgroup/${item.id}/update`)">
+              <v-icon>mdi-lead-pencil</v-icon>
+            </v-btn>
+            <v-btn icon color="red" @click="$router.push(`/jobgroup/${item.id}/delete`)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </td>
+        </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+    <v-card-actions class="card-actions">
+      <v-btn color="success" @click="$router.push('/jobgroup/new/create')">Create JobGroup</v-btn>
+    </v-card-actions>
+    <Paginator
+        class="card-actions mb-10"
+        @next-page="nextPage"
+        @previous-page="previousPage"
+        :has-next="hasNextJobGroup"
+        :has-previous="hasPreviousJobGroup">
+    </Paginator>
+  </v-card>
 </template>
 
 <script>
