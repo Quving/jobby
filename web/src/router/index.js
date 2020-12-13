@@ -4,7 +4,7 @@ import Login from '../views/Login.vue'
 import store from '../store/index'
 import Dashboard from "@/views/Dashboard";
 import Hosts from "@/views/Hosts";
-import Jobs from "@/views/Jobs";
+import Jobs from "@/views/JobAndGroups";
 import CrudHost from "@/views/CrudHost";
 import CrudJobGroup from "@/views/CrudJobGroup";
 import CrudHostGroup from "@/views/CrudHostGroup";
