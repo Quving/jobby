@@ -56,13 +56,13 @@
               <td>{{ item.status }}</td>
               <td>{{ new Date(item.created_at).toLocaleString() }}</td>
               <td>
-                <v-btn icon color="green" @click="$router.push(`/report/${item.id}/read`)">
+                <v-btn small outlined icon color="green" @click="$router.push(`/report/${item.id}/read`)">
                   <v-icon>mdi-magnify</v-icon>
                 </v-btn>
-                <v-btn icon color="orange" @click="$router.push(`/report/${item.id}/update`)">
+                <v-btn small outlined icon color="orange" @click="$router.push(`/report/${item.id}/update`)">
                   <v-icon>mdi-lead-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="red" @click="$router.push(`/report/${item.id}/delete`)">
+                <v-btn small outlined icon color="red" @click="$router.push(`/report/${item.id}/delete`)">
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
               </td>
