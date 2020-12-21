@@ -8,7 +8,8 @@ class ReportFilter(filters.FilterSet):
     logContains = filters.CharFilter(field_name='log', lookup_expr='icontains')
     name = filters.CharFilter(field_name='name', lookup_expr='exact')
     status = filters.CharFilter(field_name='status', lookup_expr='exact')
+    jobId = filters.NumberFilter(field_name='job', lookup_expr='exact')
 
     class Meta:
         model = Report
-        fields = ['name', 'logContains', 'status', 'createdAt']
+        fields = ['name', 'logContains', 'status', 'createdAt', 'jobId']
