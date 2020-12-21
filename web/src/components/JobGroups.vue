@@ -14,9 +14,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in jobgroups" :key="item.name">
+        <tr v-for="item in jobGroups" :key="item.name">
           <td>{{ item.name_formatted }}</td>
-          <td>{{ item.description_formmatted }}</td>
+          <td>{{ item.description_formatted }}</td>
           <td>{{ new Date(item.created_at).toLocaleString() }}</td>
           <td>
             <v-btn small outlined icon color="green" @click="$router.push(`/jobgroup/${item.id}/read`)">
@@ -57,17 +57,18 @@ export default {
   components: {Paginator, ViewSubHeader},
   data() {
     return {
-      jobgroups: [],
+      jobGroups: [],
       selectedTab: 0,
 
-// Filter
+      // Filter
       jobFilter: '',
       descriptionFilter: '',
       hostFilter: '',
-// Format
-      textMaxLen: 30,
 
-// Paginator
+      // Format
+      textMaxLen: 35,
+
+      // Paginator
       currentPageJob: 1,
       hasNextJob: false,
       hasPreviousJob: false,
@@ -95,7 +96,8 @@ export default {
 
       const urlParams2 = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPageJobGroup - 1)}`;
       JobbyApi.listJobGroups(urlParams2).then((data) => {
-        this.jobgroups = util.formatObjectTexts(data.results, this.textMaxLen);
+        this.jobGroups = util.formatObjectTexts(data.results, this.textMaxLen);
+        console.log(this.jobGroups);
         this.hasNextJobGroup = data.next != null;
         this.hasPreviousJobGroup = data.previous != null;
       })
