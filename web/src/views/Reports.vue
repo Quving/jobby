@@ -107,13 +107,13 @@ export default {
 
       // Filter
       statusItems: [
-        'None',
+        'All',
         'success',
         'failure',
         'warning',
         'error',
       ],
-      statusFilter: "None",
+      statusFilter: "All",
       jobFilter: 0,
       jobItems: [],
       reports: [],
@@ -128,7 +128,7 @@ export default {
       this.fetchData(this.statusFilter, this.jobFilter);
     },
     applyReset: function () {
-      this.statusFilter = "None";
+      this.statusFilter = "All";
       this.jobFilter = 0;
     },
     previousPage: function () {
@@ -144,7 +144,7 @@ export default {
       this.hasPrevious = false;
       let urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPage - 1)}`;
 
-      if (statusFilter && statusFilter !== 'None') {
+      if (statusFilter && statusFilter !== 'All') {
         urlParams += `&status=${statusFilter}`;
       }
 
@@ -159,7 +159,7 @@ export default {
       })
       const urlParams2 = `?limit=1000`;
       JobbyApi.listJobs(urlParams2).then((data) => {
-        this.jobItems = [{name: "None", id: 0}];
+        this.jobItems = [{name: "All", id: 0}];
         this.jobItems = this.jobItems.concat(data.results);
         this.loading = false;
       })
