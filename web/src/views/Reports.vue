@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card :loading="loading" min-width="1200" max-width="1200" min-height="1150">
+      <v-card :loading="loading" min-width="1200" max-width="1200" min-height="1100">
         <v-row justify="center">
           <view-sub-header header="Filter"></view-sub-header>
         </v-row>

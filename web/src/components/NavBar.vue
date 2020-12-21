@@ -4,7 +4,7 @@
       <v-list nav>
         <v-list-item two-line class="px-0">
           <v-list-item-avatar>
-            <img alt="Text" :src="gravatarUrl">
+            <img :src="gravatarUrl">
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ username }}</v-list-item-title>
