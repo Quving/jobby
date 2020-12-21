@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <view-header header="Dashboard"></view-header>
-    <v-row>
-      <v-col>
+    <v-row justify="center">
+      <v-col cols="4">
         <v-card :loading="allStatsLoaded">
           <v-card-title>Job Reports</v-card-title>
           <v-simple-table fixed-header>
@@ -23,7 +23,7 @@
           </v-simple-table>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col cols="4">
         <v-card :loading="allEntityStatsLoaded">
           <v-card-title>My Entities</v-card-title>
           <v-simple-table fixed-header>
