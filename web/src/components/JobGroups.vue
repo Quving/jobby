@@ -1,15 +1,8 @@
 <template>
-  <v-card min-width="1100" max-width="1100" min-height="1000">
-    <v-container>
-      <v-row justify="center">
-        <view-sub-header header="Filter"></view-sub-header>
-      </v-row>
-    </v-container>
-    <v-container>
-      <v-row justify="center">
-        <view-sub-header header="Items"></view-sub-header>
-      </v-row>
-    </v-container>
+  <v-card min-width="1200" max-width="1200" min-height="1000">
+    <v-row justify="center">
+      <view-sub-header header="Items"></view-sub-header>
+    </v-row>
     <v-simple-table fixed-header>
       <template v-slot:default>
         <thead>

@@ -1,90 +1,55 @@
 <template>
-  <v-card min-width="1100" max-width="1100" min-height="1000">
-    <v-container>
-      <v-row justify="center">
-        <view-sub-header header="Filter"></view-sub-header>
-      </v-row>
-      <v-container class="mr-3 ml-3">
-        <v-row>
-          <v-text-field
-              outlined
-              dense
-              class="mr-3 ml-3"
-              hint="Filter by Job"
-              v-model="jobFilter"
-              label="Job">
-          </v-text-field>
-          <v-text-field
-              outlined
-              dense
-              class="mr-3 ml-3"
-              hint="Filter by Description"
-              v-model="descriptionFilter"
-              label="Description">
-          </v-text-field>
-          <v-text-field
-              outlined
-              dense
-              class="mr-3 ml-3"
-              hint="Filter by Host"
-              v-model="hostFilter"
-              label="Host">
-          </v-text-field>
-          <v-btn class="mr-3 ml-3">Filter</v-btn>
-          <v-btn class="mr-6 ml-3">Reset</v-btn>
-        </v-row>
-      </v-container>
-      <v-row justify="center">
-        <view-sub-header header="Items"></view-sub-header>
-      </v-row>
-      <v-simple-table fixed-header>
-        <template v-slot:default>
-          <thead>
-          <tr>
-            <th class="text-left" style="font-size: 16px">Job</th>
-            <th class="text-left" style="font-size: 16px">Job Group</th>
-            <th class="text-left" style="font-size: 16px">Description</th>
-            <th class="text-left" style="font-size: 16px">Host</th>
-            <th class="text-left" style="font-size: 16px">Created At</th>
-            <th class="text-left" style="font-size: 16px">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="item in jobs" :key="item.name">
-            <td>{{ item.name_formatted }}</td>
-            <td>{{ item.jobgroup_detailed.name }}</td>
-            <td>{{ item.description_formatted }}</td>
-            <td>{{ item.host_detailed.name }}</td>
-            <td>{{ new Date(item.created_at).toLocaleString() }}</td>
-            <td>
-              <v-btn icon color="green"
-                     @click="$router.push(`/job/${item.id}/read`)">
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-              <v-btn icon color="orange"
-                     @click="$router.push(`/job/${item.id}/update`)">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn>
-              <v-btn icon color="red"
-                     @click="$router.push(`/job/${item.id}/delete`)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
-      <v-card-actions class="card-actions">
-        <v-btn color="success" @click="$router.push('/job/new/create')">Add Job</v-btn>
-      </v-card-actions>
-      <Paginator
-          class="card-actions mb-10"
-          @next-page="nextPage"
-          @previous-page="previousPage"
-          :has-next="hasNextJob"
-          :has-previous="hasPreviousJob">
-      </Paginator>
-    </v-container>
+  <v-card min-width="1200" max-width="1200" min-height="1000">
+    <v-row justify="center">
+      <view-sub-header header="Items"></view-sub-header>
+    </v-row>
+    <v-simple-table fixed-header>
+      <template v-slot:default>
+        <thead>
+        <tr>
+          <th class="text-left" style="font-size: 16px">Job</th>
+          <th class="text-left" style="font-size: 16px">Job Group</th>
+          <th class="text-left" style="font-size: 16px">Description</th>
+          <th class="text-left" style="font-size: 16px">Host</th>
+          <th class="text-left" style="font-size: 16px">Created At</th>
+          <th class="text-left" style="font-size: 16px">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in jobs" :key="item.name">
+          <td>{{ item.name_formatted }}</td>
+          <td>{{ item.jobgroup_detailed.name }}</td>
+          <td>{{ item.description_formatted }}</td>
+          <td>{{ item.host_detailed.name }}</td>
+          <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+          <td>
+            <v-btn icon color="green"
+                   @click="$router.push(`/job/${item.id}/read`)">
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+            <v-btn icon color="orange"
+                   @click="$router.push(`/job/${item.id}/update`)">
+              <v-icon>mdi-lead-pencil</v-icon>
+            </v-btn>
+            <v-btn icon color="red"
+                   @click="$router.push(`/job/${item.id}/delete`)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </td>
+        </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+    <v-card-actions class="card-actions">
+      <v-btn color="success" @click="$router.push('/job/new/create')">Add Job</v-btn>
+    </v-card-actions>
+    <Paginator
+        class="card-actions mb-10"
+        @next-page="nextPage"
+        @previous-page="previousPage"
+        :has-next="hasNextJob"
+        :has-previous="hasPreviousJob">
+    </Paginator>
   </v-card>
 </template>
 <script>
