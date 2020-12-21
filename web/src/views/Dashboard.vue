@@ -3,7 +3,7 @@
     <view-header header="Dashboard"></view-header>
     <v-row>
       <v-col>
-        <v-card>
+        <v-card :loading="allStatsLoaded">
           <v-card-title>Job Reports</v-card-title>
           <v-simple-table fixed-header>
             <template v-slot:default>
@@ -24,7 +24,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card>
+        <v-card :loading="allEntityStatsLoaded">
           <v-card-title>My Entities</v-card-title>
           <v-simple-table fixed-header>
             <template v-slot:default>
@@ -61,6 +61,22 @@ export default {
   },
   data() {
     return {
+      // Status
+      allStatsLoaded: false,
+      successReportStatsLoaded: false,
+      failureReportsStatsLoaded: false,
+      warningReportStatsLoaded: false,
+      errorReportsStatsLoaded: false,
+      totalReportsStatsLoaded: false,
+
+      // Entity
+      allEntityStatsLoaded: false,
+      successEntityStatsLoaded: false,
+      entityTotalJobsStatsLoaded: false,
+      entitySTotalJobGroupsStatsLoaded: false,
+      entityTotalHostsStatsLoaded: false,
+      entityTotalHostGroupStatsLoaded: false,
+
       reportsSummary: [
         {
           id: 'reports_count_success',
@@ -121,35 +137,65 @@ export default {
         }
       })
     },
+    updateStatsLoadedStatus() {
+      this.allStatsLoaded = !(
+          this.successReportStatsLoaded &&
+          this.failureReportsStatsLoaded &&
+          this.errorReportsStatsLoaded &&
+          this.warningReportStatsLoaded);
+      this.allEntityStatsLoaded = !(
+          this.entityTotalJobsStatsLoaded &&
+          this.entityTotalJobGroupStatsLoaded &&
+          this.entityTotalHostsStatsLoaded &&
+          this.entityTotalHostGroupStatsLoaded);
+    },
     fetchReportStatistics() {
       jobbyApi.listReports('?status=success').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_success', 'amount', data.count)
+        this.successReportStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listReports('?status=failure').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_failure', 'amount', data.count)
+        this.failureReportsStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listReports('?status=warning').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_warning', 'amount', data.count)
+        this.warningReportStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listReports('?status=error').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_error', 'amount', data.count)
+        this.errorReportsStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listReports().then((data) => {
         this.updateListElementById(this.reportsSummary, 'total_reports', 'amount', data.count)
+        this.totalReportsStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
     },
     fetchEntityStatistics() {
       jobbyApi.listJobs().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_jobs', 'amount', data.count)
+        this.entityTotalJobsStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listJobGroups().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_jobgroups', 'amount', data.count)
+        this.entityTotalJobGroupStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listHosts().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_hosts', 'amount', data.count)
+        this.entityTotalHostsStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
       jobbyApi.listHostGroups().then((data) => {
         this.updateListElementById(this.entitySummary, 'total_hostgroups', 'amount', data.count)
+        this.entityTotalHostGroupStatsLoaded = true;
+        this.updateStatsLoadedStatus();
       });
     }
   }
