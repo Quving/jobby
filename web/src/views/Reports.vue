@@ -32,8 +32,8 @@
               </v-select>
             </v-col>
             <v-col>
-              <v-btn class="mr-3 ml-3" @click="applyFilter">Filter</v-btn>
-              <v-btn class="mr-6 ml-3">Reset</v-btn>
+              <v-btn color="success" :loading="loading" class="mr-3 ml-3" @click="applyFilter">Filter</v-btn>
+              <v-btn class="mr-6 ml-3" @click="applyReset">Reset</v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -108,9 +108,15 @@ export default {
       pageSize: 15,
 
       // Filter
-      statusItems: ['success', 'error', 'warning'],
-      statusFilter: "",
-      jobFilter: "",
+      statusItems: [
+        'None',
+        'success',
+        'failure',
+        'warning',
+        'error',
+      ],
+      statusFilter: "None",
+      jobFilter: 0,
       jobItems: [],
       reports: [],
     }
@@ -123,13 +129,15 @@ export default {
       this.currentPage += 1;
       this.fetchData(this.statusFilter, this.jobFilter);
     },
+    applyReset: function () {
+      this.statusFilter = "None";
+      this.jobFilter = 0;
+    },
     previousPage: function () {
       this.currentPage -= 1;
       this.fetchData(this.statusFilter, this.jobFilter);
     },
     applyFilter: function () {
-      console.log(`Status ${this.statusFilter}`);
-      console.log(`Job-Id ${this.jobFilter}`);
       this.fetchData(this.statusFilter, this.jobFilter);
     },
     fetchData: function (statusFilter, jobFilter) {
@@ -137,7 +145,8 @@ export default {
       this.hasNext = false;
       this.hasPrevious = false;
       let urlParams = `?limit=${this.pageSize}&offset=${this.pageSize * (this.currentPage - 1)}`;
-      if (statusFilter) {
+
+      if (statusFilter && statusFilter !== 'None') {
         urlParams += `&status=${statusFilter}`;
       }
 
@@ -152,7 +161,8 @@ export default {
       })
       const urlParams2 = `?limit=1000`;
       JobbyApi.listJobs(urlParams2).then((data) => {
-        this.jobItems = data.results;
+        this.jobItems = [{name: "None", id: 0}];
+        this.jobItems = this.jobItems.concat(data.results);
         this.loading = false;
       })
     }
