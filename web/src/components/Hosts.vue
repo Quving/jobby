@@ -1,5 +1,5 @@
 <template>
-  <v-card min-width="1200" max-width="1200" min-height="1000">
+  <v-card min-width="1200" max-width="1200" min-height="100%">
     <v-row justify="center">
       <view-sub-header header="Items"></view-sub-header>
     </v-row>
@@ -41,7 +41,6 @@
       <v-btn color="success" @click="$router.push('/host/new/create')">Create Host</v-btn>
     </v-card-actions>
     <Paginator
-        class="card-actions mb-10"
         @next-page="nextPage"
         @previous-page="previousPage"
         :has-next="hasNextHost"
