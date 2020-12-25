@@ -31,6 +31,11 @@ export default {
                     else
                         job[key + '_formatted'] = value
                 }
+
+                // Format date format. E.g. 25/12/2020, 01:00:06
+                if (key === 'created_at') {
+                    job[key] = new Date(value).toLocaleString();
+                }
             }
         })
         return objects;

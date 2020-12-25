@@ -18,7 +18,7 @@
         <tr v-for="item in hostgroups" :key="item.name">
           <td>{{ item.name_formatted }}</td>
           <td>{{ item.description_formatted }}</td>
-          <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+          <td>{{ item.created_at }}</td>
           <td>
             <v-btn small outlined icon color="green" @click="$router.push(`/hostgroup/${item.id}/read`)">
               <v-icon>mdi-magnify</v-icon>

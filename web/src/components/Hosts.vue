@@ -21,7 +21,7 @@
           <td>{{ item.hostgroup_detailed.name }}</td>
           <td>{{ item.description_formatted }}</td>
           <td>{{ item.os_formatted }}</td>
-          <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+          <td>{{ item.created_at }}</td>
           <td>
             <v-btn small outlined icon color="green" @click="$router.push(`/host/${item.id}/read`)">
               <v-icon>mdi-magnify</v-icon>

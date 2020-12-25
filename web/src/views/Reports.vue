@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card :loading="loading" min-width="1200" max-width="1200" min-height="100%">
+      <v-card :loading="loading" min-width="1200" max-width="1200" max-height="100%">
         <v-row justify="center">
           <view-sub-header header="Filter"></view-sub-header>
         </v-row>
@@ -64,7 +64,7 @@
             <tr v-for="item in reports" :key="item.id">
               <td>{{ item.job_detailed.name }}</td>
               <td>{{ item.status }}</td>
-              <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+              <td>{{ item.created_at }}</td>
               <td>
                 <v-btn small outlined icon color="green" @click="$router.push(`/report/${item.id}/read`)">
                   <v-icon>mdi-magnify</v-icon>

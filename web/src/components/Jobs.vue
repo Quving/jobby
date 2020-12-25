@@ -21,7 +21,7 @@
           <td>{{ item.jobgroup_detailed.name }}</td>
           <td>{{ item.description_formatted }}</td>
           <td>{{ item.host_detailed.name }}</td>
-          <td>{{ new Date(item.created_at).toLocaleString() }}</td>
+          <td>{{ item.created_at }}</td>
           <td>
             <v-btn small outlined icon color="green"
                    @click="$router.push(`/job/${item.id}/read`)">
@@ -66,14 +66,15 @@ export default {
       jobgroups: [],
       selectedTab: 0,
 
-// Filter
+      // Filter
       jobFilter: '',
       descriptionFilter: '',
       hostFilter: '',
-// Format
+
+      // Format
       textMaxLen: 30,
 
-// Paginator
+      // Paginator
       currentPageJob: 1,
       hasNextJob: false,
       hasPreviousJob: false,
