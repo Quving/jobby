@@ -207,7 +207,7 @@ export default {
         this.submitBtnLoading = false;
 
         setTimeout(() => {
-          this.$router.push("/hosts");
+          this.$router.push("/hosts/hosts");
         }, 1000);
       }, (error) => {
         console.log(error);
@@ -229,7 +229,7 @@ export default {
         this.submitBtnLoading = false;
 
         setTimeout(() => {
-          this.$router.push("/hosts");
+          this.$router.push("/hosts/hosts");
         }, 1000);
       }, (error) => {
         console.log(error);

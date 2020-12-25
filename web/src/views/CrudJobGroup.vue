@@ -154,7 +154,7 @@ export default {
         this.status = 'JobGroup updated.';
         this.submitBtnLoading = false;
         setTimeout(() => {
-          this.$router.push("/jobs");
+          this.$router.push("/jobs/jobgroups");
         }, 1000);
       }, (error) => {
         this.alert_type = 'error';
@@ -173,7 +173,7 @@ export default {
         this.status = 'JobGroup deleted. You will be redirected back in a few seconds.';
         this.submitBtnLoading = false;
         setTimeout(() => {
-          this.$router.push("/jobs");
+          this.$router.push("/jobs/jobsgroups");
         }, 1000);
       }, (error) => {
         console.log(error);

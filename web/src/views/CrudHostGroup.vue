@@ -154,7 +154,7 @@ export default {
         this.status = 'HostGroup updated.';
         this.submitBtnLoading = false;
         setTimeout(() => {
-          this.$router.push("/hosts");
+          this.$router.push("/hosts/hostgroups");
         }, 1000);
       }, (error) => {
         this.alert_type = 'error';
@@ -173,7 +173,7 @@ export default {
         this.status = 'HostGroup deleted. You will be redirected back in a few seconds.';
         this.submitBtnLoading = false;
         setTimeout(() => {
-          this.$router.push("/hosts");
+          this.$router.push("/hosts/hostgroups");
         }, 1000);
       }, (error) => {
         console.log(error);

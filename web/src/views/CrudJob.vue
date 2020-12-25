@@ -262,7 +262,7 @@ export default {
         this.status = 'Job updated.';
         this.submitBtnLoading = false;
         setTimeout(() => {
-          this.$router.push("/jobs");
+          this.$router.push("/jobs/jobs");
         }, 1000);
       }, (error) => {
         console.log(error);
@@ -284,7 +284,7 @@ export default {
         this.submitBtnLoading = false;
 
         setTimeout(() => {
-          this.$router.push("/jobs");
+          this.$router.push("/jobs/jobs");
         }, 1000);
       }, (error) => {
         console.log(error);
