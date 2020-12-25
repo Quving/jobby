@@ -11,6 +11,7 @@ class DjangoConfig:
     else:
         IS_DEBUG = False
 
+    USE_HTTPS = os.getenv(PROJECT_NAME + 'USE_HTTPS') == 'true'
     SECRET_KEY = os.getenv(PROJECT_NAME + '_SECRET_KEY', None)
     DB_NAME = os.getenv(PROJECT_NAME + "_DB_NAME", None)
     DB_USER = os.getenv(PROJECT_NAME + "_DB_USER", None)
