@@ -62,7 +62,6 @@ class Report(models.Model):
         ('success', 'Success'),
         ('error', 'Error'),
         ('failure', 'Failure'),
-        ('warning', 'Warning'),
         ('undefined', 'Undefined'),
     ]
     created_at = models.DateTimeField(auto_now_add=True)

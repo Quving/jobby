@@ -65,7 +65,6 @@ export default {
       allStatsLoaded: false,
       successReportStatsLoaded: false,
       failureReportsStatsLoaded: false,
-      warningReportStatsLoaded: false,
       errorReportsStatsLoaded: false,
       totalReportsStatsLoaded: false,
 
@@ -86,11 +85,6 @@ export default {
         {
           id: 'reports_count_failure',
           name: 'Failure',
-          amount: 0,
-        },
-        {
-          id: 'reports_count_warning',
-          name: 'Warning',
           amount: 0,
         },
         {
@@ -141,8 +135,7 @@ export default {
       this.allStatsLoaded = !(
           this.successReportStatsLoaded &&
           this.failureReportsStatsLoaded &&
-          this.errorReportsStatsLoaded &&
-          this.warningReportStatsLoaded);
+          this.errorReportsStatsLoaded);
       this.allEntityStatsLoaded = !(
           this.entityTotalJobsStatsLoaded &&
           this.entityTotalJobGroupStatsLoaded &&
@@ -158,11 +151,6 @@ export default {
       jobbyApi.listReports('?status=failure').then((data) => {
         this.updateListElementById(this.reportsSummary, 'reports_count_failure', 'amount', data.count)
         this.failureReportsStatsLoaded = true;
-        this.updateStatsLoadedStatus();
-      });
-      jobbyApi.listReports('?status=warning').then((data) => {
-        this.updateListElementById(this.reportsSummary, 'reports_count_warning', 'amount', data.count)
-        this.warningReportStatsLoaded = true;
         this.updateStatsLoadedStatus();
       });
       jobbyApi.listReports('?status=error').then((data) => {
