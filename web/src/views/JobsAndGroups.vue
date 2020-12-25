@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Jobs"></view-headers>
     <v-row justify="center">
-      <v-card>
+      <v-card min-width="1100" max-width="1100">
         <v-tabs v-model="selectedTab" background-color="white" color="black accent-4" left>
           <v-tab>Jobs</v-tab>
           <v-tab>JobGroups</v-tab>
