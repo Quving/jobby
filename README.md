@@ -146,19 +146,32 @@ services:
 ## Usage
 ### Entities
 - Job
+    - A job is a task or a job that is executed. "Backup server Foobarbaz" for instance.
 - JobGroup
+    - Jobgroup can be used to group up Jobs. For example: 'Backup', 'Pruning'
 - Host
+    - The host on which the job is executed.
 - HostGroup
+    - A grouping of hosts. For example, "Production Servers", "Testing Servers"
 - Report
+    - A report from a job. A report is created when the generated snippet is executed by a job.
 
-### Administration
+## Administration
 #### Create User
 The backend is written in Python (Django). In order to create an initial-admin user, we have to do following steps:
+
+
+![](https://imgur.com/9KcmSVg.gif)
+
 
 1. ``` docker-compose exec api-master bash```
 2. ``` python mange.py createsuperuser```
 3. Enter your credentials
 
+
+#### Admin View
+Use the built-in admin-view of powered by Django to manage your models.
+Visit http://localhost:4800/admin and enjoy!
 
 
 ## Backup & Restore
