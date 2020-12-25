@@ -28,7 +28,7 @@ export default {
   name: 'Home',
   components: {ViewHeaders, Hosts, HostGroups},
   data() {
-    var selectedTab = 0;
+    let selectedTab = 0;
     switch (this.$route.params.view) {
       case 'hosts':
         selectedTab = 0;

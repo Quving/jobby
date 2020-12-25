@@ -1,9 +1,8 @@
 <template>
-  <v-card min-width="1200" max-width="1200" min-height="100%">
+  <v-card min-width="1100" max-width="1100" min-height="100%">
     <v-row justify="center">
       <view-sub-header header="Items"></view-sub-header>
     </v-row>
-    <v-card-title>My Hostgroups</v-card-title>
     <v-simple-table fixed-header>
       <template v-slot:default>
         <thead>
