@@ -27,8 +27,19 @@ export default {
   name: 'Home',
   components: {ViewHeaders, JobGroups, Jobs},
   data() {
+    var selectedTab = 0;
+    switch (this.$route.params.view) {
+      case 'jobs':
+        selectedTab = 0;
+        break;
+      case 'jobsgroups':
+        selectedTab = 1;
+        break;
+      default:
+        selectedTab = 0;
+    }
     return {
-      selectedTab: 0,
+      selectedTab: selectedTab,
     }
   },
 }

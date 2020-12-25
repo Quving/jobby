@@ -61,9 +61,9 @@ export default {
       enableDrawer: this.$store.getters.isAuthenticated,
       navbarOptions: [
         {title: 'Dashboard', icon: 'mdi-view-dashboard', href: '/dashboard'},
-        {title: 'Reports', icon: 'mdi-mail', href: '/reports'},
-        {title: 'Jobs', icon: 'mdi-calendar-clock', href: '/jobs'},
-        {title: 'Hosts', icon: 'mdi-laptop', href: '/hosts'},
+        {title: 'Reports', icon: 'mdi-mail', href: '/reports/all'},
+        {title: 'Jobs', icon: 'mdi-calendar-clock', href: '/jobs/jobs'},
+        {title: 'Hosts', icon: 'mdi-laptop', href: '/hosts/hosts'},
         {title: 'About', icon: 'mdi-help-box', href: '/about'},
       ],
       username: "",

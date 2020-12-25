@@ -30,7 +30,7 @@ const routes = [
         }
     },
     {
-        path: '/jobs',
+        path: '/jobs/:view',
         name: 'Jobs',
         component: Jobs,
         beforeEnter(to, from, next) {
@@ -66,7 +66,7 @@ const routes = [
         }
     },
     {
-        path: '/reports',
+        path: '/reports/:status',
         name: 'Reports',
         component: Reports,
         beforeEnter(to, from, next) {
@@ -75,7 +75,7 @@ const routes = [
         }
     },
     {
-        path: '/hosts',
+        path: '/hosts/:view',
         name: 'Hosts',
         component: Hosts,
         beforeEnter(to, from, next) {

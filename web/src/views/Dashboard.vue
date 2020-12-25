@@ -16,14 +16,19 @@
               <tbody>
               <tr v-for="item in reportsSummary" :key="item.name">
                 <td>{{ item.name }}</td>
-                <td v-bind:style="{color : item.textColor}">{{ item.amount }}</td>
+                <td>
+                  <a v-bind:style="{color : item.textColor, 'font-weight': 'bold', 'font-size': '18px'}"
+                     @click="$router.push(item.href)">
+                    <u> {{ item.amount }} </u>
+                  </a>
+                </td>
               </tr>
               </tbody>
             </template>
           </v-simple-table>
         </v-card>
       </v-col>
-      <v-col cols="5">
+      <v-col cols=" 5">
         <v-card :loading="allEntityStatsLoaded">
           <v-card-title>My Entities</v-card-title>
           <v-simple-table fixed-header>
@@ -37,7 +42,12 @@
               <tbody>
               <tr v-for="item in entitySummary" :key="item.name">
                 <td>{{ item.name }}</td>
-                <td>{{ item.amount }}</td>
+                <td>
+                  <a style="color: gray; font-weight: bold; font-size: 18px"
+                     @click="$router.push(item.href)">
+                    <u> {{ item.amount }} </u>
+                  </a>
+                </td>
               </tr>
               </tbody>
             </template>
@@ -81,23 +91,27 @@ export default {
           id: 'reports_count_success',
           name: 'Successful',
           textColor: 'green',
+          href: 'reports/success',
           amount: 0,
         },
         {
           id: 'reports_count_failure',
           textColor: 'orange',
+          href: 'reports/failure',
           name: 'Failure',
           amount: 0,
         },
         {
           id: 'reports_count_error',
-          textColor: 'red',
+          href: 'reports/error',
+          textColor: 'darkred',
           name: 'Error',
           amount: 0,
         },
         {
           id: 'total_reports',
           textColor: 'black',
+          href: 'reports/all',
           name: 'Total Reports',
           amount: 0,
         },
@@ -106,21 +120,25 @@ export default {
         {
           id: 'total_jobs',
           name: 'Total Jobs',
+          href: 'jobs/jobs',
           amount: 0,
         },
         {
           id: 'total_jobgroups',
           name: 'Total Jobgroups',
+          href: 'jobs/jobgroups',
           amount: 0,
         },
         {
           id: 'total_hosts',
           name: 'Total Hosts',
+          href: 'hosts/hosts',
           amount: 0,
         },
         {
           id: 'total_hostgroups',
           name: 'Total Hostgroups',
+          href: 'hosts/hostgroups',
           amount: 0,
         },
       ]

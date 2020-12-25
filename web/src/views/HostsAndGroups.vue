@@ -28,8 +28,19 @@ export default {
   name: 'Home',
   components: {ViewHeaders, Hosts, HostGroups},
   data() {
+    var selectedTab = 0;
+    switch (this.$route.params.view) {
+      case 'hosts':
+        selectedTab = 0;
+        break;
+      case 'hostgroups':
+        selectedTab = 1;
+        break;
+      default:
+        selectedTab = 0;
+    }
     return {
-      selectedTab: 0,
+      selectedTab: selectedTab,
     }
   }
 }
