@@ -2,7 +2,7 @@
   <v-container>
     <view-headers header="Reports"></view-headers>
     <v-row justify="center">
-      <v-card :loading="loading" min-width="1200" max-width="1200" min-height="1100">
+      <v-card :loading="loading" min-width="1200" max-width="1200" min-height="100%">
         <v-row justify="center">
           <view-sub-header header="Filter"></view-sub-header>
         </v-row>
@@ -29,6 +29,16 @@
                   menu-props=""
                   v-model="jobFilter"
                   label="Job">
+              </v-select>
+            </v-col>
+            <v-col cols="2">
+              <v-select
+                  outlined
+                  dense
+                  :items="pageSizeFilter"
+                  hint="Set Pagesize"
+                  v-model="pageSize"
+                  label="Pagesize">
               </v-select>
             </v-col>
             <v-col>
@@ -71,11 +81,11 @@
           </template>
         </v-simple-table>
         <v-card-actions>
-          <Paginator class="card-actions"
-                     @next-page="nextPage"
-                     @previous-page="previousPage"
-                     :has-next="hasNext"
-                     :has-previous="hasPrevious">
+          <Paginator
+              @next-page="nextPage"
+              @previous-page="previousPage"
+              :has-next="hasNext"
+              :has-previous="hasPrevious">
           </Paginator>
         </v-card-actions>
       </v-card>
@@ -100,6 +110,7 @@ export default {
       maxTextLen: 30,
 
       // Paginator
+
       currentPage: 1,
       hasNext: false,
       hasPrevious: false,
@@ -113,6 +124,7 @@ export default {
         'warning',
         'error',
       ],
+      pageSizeFilter: [10, 15, 20, 25, 50, 100],
       statusFilter: "All",
       jobFilter: 0,
       jobItems: [],

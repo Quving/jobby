@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h3 class="text-center mb-3" style="color: gray">{{ header.toUpperCase() }}</h3>
+    <h3 class="text-center" style="color: gray">{{ header.toUpperCase() }}</h3>
     <v-divider></v-divider>
   </v-container>
 </template>
