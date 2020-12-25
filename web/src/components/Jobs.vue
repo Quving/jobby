@@ -23,15 +23,15 @@
           <td>{{ item.host_detailed.name }}</td>
           <td>{{ item.created_at }}</td>
           <td>
-            <v-btn small outlined icon color="green"
+            <v-btn small outlined color="green"
                    @click="$router.push(`/job/${item.id}/read`)">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
-            <v-btn small outlined icon color="orange"
+            <v-btn small outlined color="orange"
                    @click="$router.push(`/job/${item.id}/update`)">
               <v-icon>mdi-lead-pencil</v-icon>
             </v-btn>
-            <v-btn small outlined icon color="red"
+            <v-btn small outlined color="red"
                    @click="$router.push(`/job/${item.id}/delete`)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
@@ -72,7 +72,7 @@ export default {
       hostFilter: '',
 
       // Format
-      textMaxLen: 30,
+      textMaxLen: 25,
 
       // Paginator
       currentPageJob: 1,

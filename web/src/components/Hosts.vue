@@ -23,13 +23,13 @@
           <td>{{ item.os_formatted }}</td>
           <td>{{ item.created_at }}</td>
           <td>
-            <v-btn small outlined icon color="green" @click="$router.push(`/host/${item.id}/read`)">
+            <v-btn small outlined  color="green" @click="$router.push(`/host/${item.id}/read`)">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
-            <v-btn small outlined icon color="orange" @click="$router.push(`/host/${item.id}/update`)">
+            <v-btn small outlined  color="orange" @click="$router.push(`/host/${item.id}/update`)">
               <v-icon>mdi-lead-pencil</v-icon>
             </v-btn>
-            <v-btn small outlined icon color="red" @click="$router.push(`/host/${item.id}/delete`)">
+            <v-btn small outlined  color="red" @click="$router.push(`/host/${item.id}/delete`)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </td>
