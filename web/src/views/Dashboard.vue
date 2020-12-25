@@ -55,6 +55,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+        <ReportsChart></ReportsChart>
+    </v-row>
   </v-container>
 </template>
 
@@ -62,6 +65,8 @@
 
 import ViewHeader from "@/components/ViewHeader";
 import jobbyApi from "@/services/jobbyApi";
+import ReportsChart from "@/components/ReportsChart";
+
 
 export default {
   name: 'Home',
@@ -141,10 +146,11 @@ export default {
           href: 'hosts/hostgroups',
           amount: 0,
         },
-      ]
+
+      ],
     }
   },
-  components: {ViewHeader},
+  components: {ReportsChart, ViewHeader},
   methods: {
     updateListElementById(list, selectorValue, newKey, newValue) {
       list.forEach(element => {
