@@ -16,7 +16,7 @@
               <tbody>
               <tr v-for="item in reportsSummary" :key="item.name">
                 <td>{{ item.name }}</td>
-                <td>{{ item.amount }}</td>
+                <td v-bind:style="{color : item.textColor}">{{ item.amount }}</td>
               </tr>
               </tbody>
             </template>
@@ -80,20 +80,24 @@ export default {
         {
           id: 'reports_count_success',
           name: 'Successful',
+          textColor: 'green',
           amount: 0,
         },
         {
           id: 'reports_count_failure',
+          textColor: 'orange',
           name: 'Failure',
           amount: 0,
         },
         {
           id: 'reports_count_error',
+          textColor: 'red',
           name: 'Error',
           amount: 0,
         },
         {
           id: 'total_reports',
+          textColor: 'black',
           name: 'Total Reports',
           amount: 0,
         },
