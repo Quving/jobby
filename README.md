@@ -1,6 +1,9 @@
 # Jobby
 
 [![Build Status](https://drone.quving.com/api/badges/Quving/jobby/status.svg)](https://drone.quving.com/Quving/jobby)
+![](https://img.shields.io/github/languages/top/quving/jobby)
+![](https://img.shields.io/github/v/tag/quving/jobby)
+![](https://img.shields.io/github/issues/Quving/jobby)
 
 ## Too Long To Read
 Jobby is a central reporting hub for autonomous tasks and jobs that are executed on a regular schedule. For example, backup scripts that run every day send a report whether they did their job successfully, incorrectly or not at all. The latter information is obtained by the absence of the report.
