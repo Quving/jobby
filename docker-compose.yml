@@ -1,0 +1,74 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:11.5
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      TYPE: server
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  api-master:
+    image: quving/jobby:api-master
+    # build:
+    #   context: api
+    #   dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - postgres
+      - api-worker
+    ports:
+      - 4800:4800
+    environment:
+      TZ: ${TZ}
+      TYPE: master
+      JOBBY_SECRET_KEY: ${SECRET_KEY}
+      JOBBY_EMAIL_USER: ${EMAIL_USER}
+      JOBBY_EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      JOBBY_EMAIL_PORT: ${EMAIL_PORT}
+      JOBBY_EMAIL_HOST: ${EMAIL_HOST}
+      JOBBY_DEFAULT_EMAIL: ${DEFAULT_EMAIL}
+      JOBBY_DB_USER: ${DB_USER}
+      JOBBY_DB_PASS: ${DB_PASS}
+      JOBBY_DB_PORT: ${DB_PORT}
+      JOBBY_DB_HOST: ${DB_HOST}
+      JOBBY_DB_DB: ${DB_DB}
+      JOBBY_USE_HTTPS: ${USE_HTTPS}
+      JOBBY_API_WORKER_URL: http://api-worker:8800
+      DJANGO_MODE: development
+
+  api-worker:
+    image: quving/jobby:api-master
+    # build:
+    #   context: api
+    #   dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - postgres
+    ports:
+      - 8800:8800
+    environment:
+      TZ: ${TZ}
+      TYPE: worker
+      JOBBY_SECRET_KEY: ${SECRET_KEY}
+      JOBBY_EMAIL_USER: ${EMAIL_USER}
+      JOBBY_EMAIL_PORT: ${EMAIL_PORT}
+      JOBBY_EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      JOBBY_EMAIL_HOST: ${EMAIL_HOST}
+      JOBBY_DEFAULT_EMAIL: ${DEFAULT_EMAIL}
+      JOBBY_DB_USER: ${DB_USER}
+      JOBBY_DB_PASS: ${DB_PASS}
+      JOBBY_DB_PORT: ${DB_PORT}
+      JOBBY_DB_HOST: ${DB_HOST}
+      JOBBY_DB_DB: ${DB_DB}
+      JOBBY_API_WORKER_URL: http://api-worker:8800
+      DJANGO_MODE: development
+
+  web:
+    image: quving/jobby:web-master
+    ports:
+      - 8080:80
+    environment:
+      VUE_APP_JOBBY_API_HOST: ${JOBBY_API_HOST}
