@@ -18,7 +18,7 @@ Jobby is a self-host platform that can be considered as a report centre. The ide
 ![](https://i.imgur.com/wRBFSYF.png)
 
 ### Dashboard
-![](https://i.imgur.com/TWy9fvi.png)
+![](https://i.imgur.com/F9bu5q6.png)
 
 
 
