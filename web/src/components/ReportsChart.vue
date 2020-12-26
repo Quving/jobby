@@ -47,11 +47,34 @@ export default {
       title: "Reports History",
       labels: [],
       datasets: [],
+      datasetsMeta: [
+        {
+          label: 'Total Reports',
+          backgroundColor: 'lightgray',
+          status: 'all'
+        },
+        {
+          label: 'Success Reports',
+          backgroundColor: 'green',
+          status: 'success'
+        },
+        {
+          label: 'Failure Reports',
+          backgroundColor: 'orange',
+          status: 'failure'
+        },
+        {
+          label: 'Error Reports',
+          backgroundColor: 'red',
+          status: 'error'
+        }
+      ],
     }
   },
   mounted() {
     this.fetchData();
-  },
+  }
+  ,
   methods: {
     fetchData: async function () {
       this.isFetching = true;
@@ -60,20 +83,25 @@ export default {
           new Date()
       );
       this.labels = last30Days.map((value) => value.toISOString().split('T')[0]);
-      let dataPoints = []
-      for (let i = 0; i < this.labels.length; i++) {
-        const date = this.labels[i];
-        const urlParams = `?limit=100&createdAt=${date}`;
-        const data = await jobbyApi.listReports(urlParams);
-        dataPoints.push(data.count);
-      }
-      this.datasets = [
-        {
-          label: 'Data One',
-          backgroundColor: 'darkcyan',
-          data: dataPoints
+
+      for (let i = 0; i < this.datasetsMeta.length; i++) {
+        let dataPoints = []
+        let metadata = this.datasetsMeta[i];
+        for (let j = 0; j < this.labels.length; j++) {
+          let date = this.labels[j];
+          let urlParams = `?limit=1000&createdAt=${date}`;
+          if (metadata.status !== 'all')
+            urlParams += `&status=${metadata.status}`;
+          let data = await jobbyApi.listReports(urlParams);
+          dataPoints.push(data.count);
         }
-      ];
+        this.datasets.push(
+            {
+              label: metadata.label,
+              backgroundColor: metadata.backgroundColor,
+              data: dataPoints
+            });
+      }
       this.isFetching = false;
     }
   }
