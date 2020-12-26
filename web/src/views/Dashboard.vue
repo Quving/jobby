@@ -43,7 +43,7 @@
               <tr v-for="item in entitySummary" :key="item.name">
                 <td>{{ item.name }}</td>
                 <td>
-                  <a style="color: gray; font-weight: bold; font-size: 18px"
+                  <a style="color: black; font-weight: bold; font-size: 18px"
                      @click="$router.push(item.href)">
                     <u> {{ item.amount }} </u>
                   </a>
