@@ -5,6 +5,7 @@ from resources.models import Report
 
 class ReportFilter(filters.FilterSet):
     createdAt = filters.DateTimeFilter(field_name='created_at', lookup_expr='date')
+    createdAtSince = filters.DateTimeFilter(field_name='created_at', lookup_expr='gt')
     logContains = filters.CharFilter(field_name='log', lookup_expr='icontains')
     name = filters.CharFilter(field_name='name', lookup_expr='exact')
     status = filters.CharFilter(field_name='status', lookup_expr='exact')
@@ -12,4 +13,12 @@ class ReportFilter(filters.FilterSet):
 
     class Meta:
         model = Report
-        fields = ['name', 'logContains', 'status', 'createdAt', 'jobId']
+        fields = [
+            'createdAt',
+            'createdAtSince',
+            'jobId',
+            'name',
+            'logContains',
+            'status',
+        ]
+
