@@ -77,33 +77,48 @@ export default {
   ,
   methods: {
     fetchData: async function () {
+
       this.isFetching = true;
+
+      // Fetch all dataset for the last 30 days.
+      let dataset = [];
+      let dateFrom = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+      let nextUrl = "placeholder";
+
+      let urlParams = `?limit=100&createdAtSince=${dateFrom}`;
+      while (nextUrl) {
+        let data = await jobbyApi.listReports(urlParams);
+        dataset = dataset.concat(data.results);
+        if (!data.next) break;
+        urlParams = `?${data.next.split('?')[1]}`;
+      }
+
+      // Start sorting and counting dataset to date and status.
       let last30Days = util.getAllDatesBetweenDates(
           new Date(new Date().setDate(new Date().getDate() - 29)),
           new Date()
       );
       this.labels = last30Days.map((value) => value.toISOString().split('T')[0]);
-
       for (let i = 0; i < this.datasetsMeta.length; i++) {
-        let dataPoints = []
+        let datasubset = []
         let metadata = this.datasetsMeta[i];
         for (let j = 0; j < this.labels.length; j++) {
           let date = this.labels[j];
-          let urlParams = `?limit=1000&createdAt=${date}`;
-          if (metadata.status !== 'all')
-            urlParams += `&status=${metadata.status}`;
-          let data = await jobbyApi.listReports(urlParams);
-          dataPoints.push(data.count);
+          let count = (metadata.status === 'all') ?
+              dataset.filter(x => (x.created_at.startsWith(date))).length :
+              dataset.filter(x => (x.created_at.startsWith(date) && x.status === metadata.status)).length;
+          datasubset.push(count);
         }
+        // Update dataset to visualize.
         this.datasets.push(
             {
               label: metadata.label,
               backgroundColor: metadata.backgroundColor,
-              data: dataPoints
+              data: datasubset
             });
       }
       this.isFetching = false;
-    }
+    },
   }
 }
 </script>
