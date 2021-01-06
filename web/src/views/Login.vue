@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="ma-10" justify="center">
       <v-col cols="6">
-        <h1 class="mb-7">What is Jobby?</h1>
+        <h1 class="mb-7">What is Jobby???</h1>
         <p>
           Some people probably know the problem: You are a developer or a server administrator and you have several
           servers or applications that you have to maintain. Now one and the other application or server has jobs that
